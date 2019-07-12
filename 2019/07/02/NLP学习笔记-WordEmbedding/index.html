@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="https://zhuanlan.zhihu.com/p/53058456https://zhuanlan.zhihu.com/p/27830489http://yangminz.coding.me/blog/post/MinkolovRNNLM/MinkolovRNNLM_thesis.htmlhttps://blog.csdn.net/u011734144/article/details/78">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NLP学习笔记-Word Embedding">
+<meta property="og:url" content="http://lizzeng.com/2019/07/02/NLP学习笔记-WordEmbedding/index.html">
+<meta property="og:site_name" content="space">
+<meta property="og:description" content="https://zhuanlan.zhihu.com/p/53058456https://zhuanlan.zhihu.com/p/27830489http://yangminz.coding.me/blog/post/MinkolovRNNLM/MinkolovRNNLM_thesis.htmlhttps://blog.csdn.net/u011734144/article/details/78">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/02/ZGurv9.jpg">
+<meta property="og:updated_time" content="2019-07-06T09:04:32.225Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NLP学习笔记-Word Embedding">
+<meta name="twitter:description" content="https://zhuanlan.zhihu.com/p/53058456https://zhuanlan.zhihu.com/p/27830489http://yangminz.coding.me/blog/post/MinkolovRNNLM/MinkolovRNNLM_thesis.htmlhttps://blog.csdn.net/u011734144/article/details/78">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/07/02/ZGurv9.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lizzeng.com/2019/07/02/NLP学习笔记-WordEmbedding/">
+
+
+
+
+
+
+
+  <title>NLP学习笔记-Word Embedding | space</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">space</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-学习">
+          <a href="/book" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
+            
+            学习
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-照片">
+          <a href="/photo" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
+            
+            照片
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-音乐">
+          <a href="/music" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
+            
+            音乐
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/02/NLP学习笔记-WordEmbedding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="li zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="space">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NLP学习笔记-Word Embedding</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T12:38:16+08:00">
+                2019-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/02/NLP学习笔记-WordEmbedding/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/02/NLP学习笔记-WordEmbedding/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://zhuanlan.zhihu.com/p/53058456" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/53058456</a><br><a href="https://zhuanlan.zhihu.com/p/27830489" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27830489</a><br><a href="http://yangminz.coding.me/blog/post/MinkolovRNNLM/MinkolovRNNLM_thesis.html" target="_blank" rel="noopener">http://yangminz.coding.me/blog/post/MinkolovRNNLM/MinkolovRNNLM_thesis.html</a><br><a href="https://blog.csdn.net/u011734144/article/details/78668518" target="_blank" rel="noopener">https://blog.csdn.net/u011734144/article/details/78668518</a><br><a href="https://zhuanlan.zhihu.com/p/50285707" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/50285707</a><br><a href="https://zhuanlan.zhihu.com/p/26306795" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26306795</a></p>
+<p>矩阵分解<br><a href="http://www.52nlp.cn/category/推荐系统" target="_blank" rel="noopener">http://www.52nlp.cn/category/推荐系统</a></p>
+<p>SVD<br><a href="https://www.cnblogs.com/pinard/p/6251584.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/6251584.html</a></p>
+<p>spacy<br><a href="https://mp.weixin.qq.com/s/8XDXgIm-Zcb3dL-2h9eSjA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/8XDXgIm-Zcb3dL-2h9eSjA</a><br><a href="http://www.52nlp.cn/自然语言处理工具包spacy介绍" target="_blank" rel="noopener">http://www.52nlp.cn/自然语言处理工具包spacy介绍</a></p>
+<p>word embedding、word2vec、word2doc、CBOW、Skip-gram看得有些乱，csdn上大多都是copy的几个版本，没有看到清晰的概念梳理。<br>参考到一篇原创博文收获很大：<a href="http://www.scofield7419.xyz/2017/09/25/文本表示学习-词嵌入入门理解/" target="_blank" rel="noopener">http://www.scofield7419.xyz/2017/09/25/文本表示学习-词嵌入入门理解/</a> 。接下来再梳理一遍知识。<br>之前学到的向量化文本方法都是没有参考上下文意义的，词汇是孤立的，没有赋予相应的含义。那么如何根据语境向量化文本里的词汇？</p>
+<p><a href="https://www.jianshu.com/p/b779f8219f74" target="_blank" rel="noopener">https://www.jianshu.com/p/b779f8219f74</a><br>写得比较清晰</p>
+<h2 id><a href="#" class="headerlink" title="#"></a>#</h2><p>基本概念：这是自然语言处理中的名词，是将词汇映射到实数向量的方法总称。<br>内在思想：词汇的意思，要根据上下文进行理解。<br>直观理解：<br>在一段话中，每个单词是一个维度，而做了word embedding后，相当于降维。</p>
+<p>做word embedding的数学方法：</p>
+<p>基于聚类的分布表示</p>
+<p>基于神经网络的分布表示 神经网络 词嵌入（ word embedding）<br>基于矩阵的分布表示 词汇共生矩阵(word co-occurrence matrix)<br>随机模型<br>根据词汇的语境进行显示表达</p>
+<p>尽管这些不同的分布表示方法使用了不同的技术手段获取词表示，但由于这些方法均基于分布假说，它们的核心思想也都由两部分组成：一、选择一种方式描述上下文；二、选择一种模型刻画某个词（下文称“目标词”）与其上下文之间的关系。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>看得比较头疼，首先不清楚算法的历史发展，其次网上找的不同文章侧重点比较零散。这里我准备整合几篇写得很好的博文，从概念梳理到图文理解都整理起来。<br>word embedding、word2vec、word2doc、CBOW、Skip-gram是什么，他们是怎样的层级关系？</p>
+<h2 id="发展进程"><a href="#发展进程" class="headerlink" title="发展进程"></a>发展进程</h2><h3 id="词的独热表示one-hot-representation"><a href="#词的独热表示one-hot-representation" class="headerlink" title="词的独热表示one-hot representation"></a>词的独热表示one-hot representation</h3><p>NLP 中最直观，也是到目前为止最常用的词表示方法是 One-hot Representation，这种方法把每个词表示为一个很长的向量。这个向量的维度是词表大小，其中绝大多数元素为 0，只有一个维度的值为 1，这个维度就代表了当前的词。关于one-hot编码的资料很多，街货，这里简单举个栗子说明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">“话筒”表示为 [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 ...]  </span><br><span class="line">“麦克”表示为 [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 ...]</span><br></pre></td></tr></table></figure></p>
+<p>传统的独热表示（ one-hot representation）仅仅将词符号化，不包含任何语义信息。还存在以下问题：</p>
+<ul>
+<li>向量的维度会随着句子的词的数量类型增大而增大；</li>
+<li>任意两个词之间都是孤立的，根本无法表示出在语义层面上词语词之间的相关信息<br>但这些学到的向量化文本方法都是没有参考上下文意义的，词汇是孤立的，没有赋予相应的含义。那么如何根据语境向量化文本里的词汇？</li>
+</ul>
+<h3 id="词的分布式表示distributed-representation"><a href="#词的分布式表示distributed-representation" class="headerlink" title="词的分布式表示distributed representation"></a>词的分布式表示distributed representation</h3><p>如何将语义融入到词表示中？Harris 在 1954 年提出的分布假说（distributional hypothesis）为这一设想提供了理论基础：上下文相似的词，其语义也相似。Firth 在 1957 年对分布假说进行了进一步阐述和明确：词的语义由其上下文决定（ a word is characterized by thecompany it keeps）。</p>
+<p>想象给有一堆“词汇”，现在需要按照这些词汇的意义、属性，放置到星空里。比如蛋糕跟奶油、烤箱比较近，而蛋糕和齿轮就会离得比较远。<br>这个坐标空间里，每颗星星拥有各自的向量（坐标）。由此，计算两颗星星意义上的相似性，或依据向量做聚类等操作便轻松多了。<br>假设: 蛋糕(1.13, 2.26, 0.8)，烤箱(1.15, 3.25, 1.2)，齿轮(2.3, -4.5, -3)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vector_cake = np.array([1.13, 2.26, 0.8])</span><br><span class="line">vector_cream = np.array([1.15, 3.25, 1.2])</span><br><span class="line">vector_gear = np.array([2.3, -4.5, -3])</span><br><span class="line"></span><br><span class="line">def cos_distance(vector1, vector2):</span><br><span class="line">	res = np.dot(vector1,vector2)/(np.linalg.norm(vector1)*(np.linalg.norm(vector2)))</span><br><span class="line">	return res</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; cos_distance(vector_cake, vector_cream)</span><br><span class="line">0.9927352512545224</span><br><span class="line">&gt;&gt;&gt; cos_distance(vector_cake, vector_gear)</span><br><span class="line">-0.6401324469580063</span><br></pre></td></tr></table></figure></p>
+<h4 id="基于矩阵的分布表示"><a href="#基于矩阵的分布表示" class="headerlink" title="基于矩阵的分布表示"></a>基于矩阵的分布表示</h4><h4 id="基于聚类的分布表示"><a href="#基于聚类的分布表示" class="headerlink" title="基于聚类的分布表示"></a>基于聚类的分布表示</h4><h4 id="基于神经网络的分布表示-Words-Embedding"><a href="#基于神经网络的分布表示-Words-Embedding" class="headerlink" title="基于神经网络的分布表示(Words Embedding)"></a>基于神经网络的分布表示(Words Embedding)</h4><h3 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h3><p>究竟有哪些类型的神经网络语言模型呢？个人所知，大致有这么些个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a) Neural Network Language Model ，NNLM</span><br><span class="line">b) Log-Bilinear Language Model， LBL</span><br><span class="line">c) Recurrent Neural Network based Language Model，RNNLM</span><br><span class="line">d) Collobert 和 Weston 在2008 年提出的 C&amp;W 模型</span><br><span class="line">e) Mikolov 等人提出了 CBOW（ Continuous Bagof-Words）和 Skip-gram 模型</span><br></pre></td></tr></table></figure></p>
+<p>上面提到的5个神经网络语言模型，只是个在逻辑概念上的东西，那么具体我们得通过设计将其实现出来，而实现CBOW（ Continuous Bagof-Words）和 Skip-gram 语言模型的工具正是well-known word2vec！另外，C&amp;W 模型的实现工具是SENNA。</p>
+<h3 id="word2vec与CBOW、Skip-gram"><a href="#word2vec与CBOW、Skip-gram" class="headerlink" title="word2vec与CBOW、Skip-gram"></a>word2vec与CBOW、Skip-gram</h3><p>word2vec的详细实现，简而言之，就是一个三层的神经网络。<br>word2vec模型其实就是简单化的神经网络 </p>
+<p>输入是One-Hot Vector，Hidden Layer没有激活函数，也就是线性的单元。Output Layer维度跟Input Layer的维度一样，用的是Softmax回归。我们要获取的dense vector其实就是Hidden Layer的输出单元。有的地方定为Input Layer和Hidden Layer之间的权重，其实说的是一回事<br><a href="https://blog.csdn.net/u010159842/article/details/80532507" target="_blank" rel="noopener">https://blog.csdn.net/u010159842/article/details/80532507</a></p>
+<p>Word2vec其实是语言模型训练的一个副产品，传统的统计词向量模型使用单词在特定上下文中出现的概率表征这个句子是自然语言的概率:p(sentence) = p(word|context)。上下文context是指单词前面的特定的单词。N-gram模型又称为n元组模型, 所谓n元组是单词和它的上下文(即它前面的n-1个单词)组成的词组。<br>N-gram模型的另一个问题在于计算量过大, 计算一次条件概率就要扫描一遍语料库, 使得可以实际应用的深度(N值)一般为2或3。这个问题可以采用拟合的方法来解决即预测法。神经网络模型即计算部分概率值用于训练神经网络, 然后使用神经网络预测其它概率值。</p>
+<p>其实，Word2vec的训练过程可以看做是通过神经网络机器学习算法来训练N-gram 语言模型，并在训练过程中求出word所对应的vector的方法。根据语言模型的不同，又可分为“CBOW”和“Skip-gram”两种模型。而根据两种降低训练复杂度的方法又可分为“Hierarchical Softmax”和“Negative Sampling”。两种模式和两种方法进行组合，所以实际上是有四种实现。</p>
+<p>作者：mpk_no1 来源：CSDN 原文：<a href="https://blog.csdn.net/mpk_no1/article/details/72458003" target="_blank" rel="noopener">https://blog.csdn.net/mpk_no1/article/details/72458003</a> </p>
+<h4 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h4><p>进入softmax之前求平均，因为是多个1输入</p>
+<h4 id="skip-gram"><a href="#skip-gram" class="headerlink" title="skip-gram"></a>skip-gram</h4><p>skip-gram： 核心思想是根据中心词来预测周围的词。假设中心词是cat，窗口长度为2，则根据cat预测左边两个词和右边两个词。这时，cat作为神经网络的input，预测的词作为label。下图为一个例子：<br><a href="https://upload-images.jianshu.io/upload_images/1972331-ed56bc91fab3b3f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/886" target="_blank" rel="noopener">https://upload-images.jianshu.io/upload_images/1972331-ed56bc91fab3b3f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/886</a><br><img src="https://s2.ax1x.com/2019/07/02/ZGurv9.jpg" alt="Aa" title="描述"></p>
+<h4 id="计算中的优化"><a href="#计算中的优化" class="headerlink" title="计算中的优化"></a>计算中的优化</h4><p>词库数x向量维度 参数巨大，词库数作为分类数计算量也很大（比如10000个的多分类）<br>提出优化方法：</p>
+<ul>
+<li>hierarchical softmax 需要了解哈夫曼编码</li>
+<li>negative sample 小数据集5-20个负采样，大数据集2-5个负采样（不包括正样本）。选择标准：词频。公式：</li>
+</ul>
+<script type="math/tex; mode=display">P(\omega_i) = \frac{f(\omega_i)^{(3/4)}}{f(\sum_{j=0}^{n}\omega_j)^{(3/4)}}</script><p>其中，$ f(\omega_i) $指的是词频，词频越大，选择几率越大。<br><a href="https://blog.csdn.net/mpk_no1/article/details/72458003" target="_blank" rel="noopener">https://blog.csdn.net/mpk_no1/article/details/72458003</a><br><a href="https://blog.csdn.net/u010159842/article/details/80532507" target="_blank" rel="noopener">https://blog.csdn.net/u010159842/article/details/80532507</a><br><a href="https://www.jianshu.com/p/c4389873ba3b" target="_blank" rel="noopener">https://www.jianshu.com/p/c4389873ba3b</a><br><a href="https://blog.csdn.net/qq_16633405/article/details/80480300" target="_blank" rel="noopener">https://blog.csdn.net/qq_16633405/article/details/80480300</a><br><a href="https://www.cnblogs.com/guoyaohua/p/9240336.html" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/9240336.html</a><br><a href="https://www.jianshu.com/p/ce630c198762" target="_blank" rel="noopener">https://www.jianshu.com/p/ce630c198762</a></p>
+<h3 id="word2vec-中的数学原理详解（二）预备知识"><a href="#word2vec-中的数学原理详解（二）预备知识" class="headerlink" title="word2vec 中的数学原理详解（二）预备知识"></a>word2vec 中的数学原理详解（二）预备知识</h3><p><a href="https://blog.csdn.net/bitcarmanlee/article/details/82320853" target="_blank" rel="noopener">https://blog.csdn.net/bitcarmanlee/article/details/82320853</a> 小白都能看懂的softmax详解</p>
+<p>可是，如何依据上下文语境赋予词汇向量呢？这里便引申出了一个概念：Word Embedding —— 词嵌入，它的意思是将word映射到一个新的空间中，以多维连续实数向量进行表示，也叫“Word Represention” 或 “Word Embedding”。</p>
+<p>自从21世纪以来，人们逐渐从原始的词向量稀疏表示法过渡到现在的低维空间中的密集表示。用稀疏表示法在解决实际问题时经常会遇到维数灾难，并且语义信息无法表示，无法揭示word之间的潜在联系。而采用低维空间表示法，不但解决了维数灾难问题，并且挖掘了word之间的关联属性，从而提高了向量语义上的准确度。</p>
+<p>Word Embedding就是把独热编码而成的高维词向量输入到神经网络，在隐藏层变成一个只有低维词向量。该词向量的每个维度都有其意义（维度太多，人类无法解释），把上万维的词向量降维变成几十维的词向量的过程就叫做Word Embedding。<br>一般来讲word embedding和image embedding都是一个空间到另外一个空间的映射，但是他们其实有一些本质区别，image embedding往往是通过一些标签信息训练而来，比如ImageNet当中的几千个物体类别，可以理解为监督学习，而word embedding是通过没有标签信息的语料训练而成了，可以理解为非监督学习。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/02/NLP学习笔记-Radiohead和弦走向/" rel="next" title="NLP学习笔记-Radiohead和弦走向">
+                <i class="fa fa-chevron-left"></i> NLP学习笔记-Radiohead和弦走向
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/02/机器学习笔记-基础知识整理/" rel="prev" title="机器学习笔记-基础知识整理">
+                机器学习笔记-基础知识整理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg" alt="li zeng">
+            
+              <p class="site-author-name" itemprop="name">li zeng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lelelearning" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/meansz" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">2.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发展进程"><span class="nav-number">3.</span> <span class="nav-text">发展进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#词的独热表示one-hot-representation"><span class="nav-number">3.1.</span> <span class="nav-text">词的独热表示one-hot representation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词的分布式表示distributed-representation"><span class="nav-number">3.2.</span> <span class="nav-text">词的分布式表示distributed representation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于矩阵的分布表示"><span class="nav-number">3.2.1.</span> <span class="nav-text">基于矩阵的分布表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于聚类的分布表示"><span class="nav-number">3.2.2.</span> <span class="nav-text">基于聚类的分布表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于神经网络的分布表示-Words-Embedding"><span class="nav-number">3.2.3.</span> <span class="nav-text">基于神经网络的分布表示(Words Embedding)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">3.3.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#word2vec与CBOW、Skip-gram"><span class="nav-number">3.4.</span> <span class="nav-text">word2vec与CBOW、Skip-gram</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CBOW"><span class="nav-number">3.4.1.</span> <span class="nav-text">CBOW</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skip-gram"><span class="nav-number">3.4.2.</span> <span class="nav-text">skip-gram</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算中的优化"><span class="nav-number">3.4.3.</span> <span class="nav-text">计算中的优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#word2vec-中的数学原理详解（二）预备知识"><span class="nav-number">3.5.</span> <span class="nav-text">word2vec 中的数学原理详解（二）预备知识</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">li zeng</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://lizeng.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://lizzeng.com/2019/07/02/NLP学习笔记-WordEmbedding/';
+          this.page.identifier = '2019/07/02/NLP学习笔记-WordEmbedding/';
+          this.page.title = 'NLP学习笔记-Word Embedding';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lizeng.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -81,7 +81,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="space">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://lizzeng.com/index.html">
 <meta property="og:site_name" content="space">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -115,7 +115,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://lizzeng.com/">
 
 
 
@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/spaCy/">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/09/机器学习笔记-XGboost/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
@@ -270,7 +270,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/01/spaCy/" itemprop="url">NLP学习笔记 - 使用Gensim, jieba进行文本相似度计算</a></h1>
+                <a class="post-title-link" href="/2019/07/09/机器学习笔记-XGboost/" itemprop="url">机器学习笔记-XGboost</a></h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-01T17:08:01+08:00">
-                2019-07-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-09T17:30:28+08:00">
+                2019-07-09
               </time>
             
 
@@ -301,8 +301,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/01/spaCy/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/01/spaCy/" itemprop="commentCount"></span>
+                <a href="/2019/07/09/机器学习笔记-XGboost/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/09/机器学习笔记-XGboost/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -351,60 +351,29 @@
       
         
           
-            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28226046&auto=1&height=66"></iframe>
-
-<h2 id="理论知识"><a href="#理论知识" class="headerlink" title="理论知识"></a>理论知识</h2><p>相似度为数学概念。要对两篇中文文本进行似度计算，自然语言无法完成，需要把文本转化为向量。相似度计算有欧式距离、皮尔逊相关系数、余弦相似度等。</p>
-<h3 id="语料"><a href="#语料" class="headerlink" title="语料"></a>语料</h3><h3 id="文本向量化"><a href="#文本向量化" class="headerlink" title="文本向量化"></a>文本向量化</h3><p>向量化文本最简单的方法有<strong>词袋模型</strong>。可以把文本想象成一个袋子，袋子里的球便是词汇，这里不考虑先后顺序以及语义。例如下面两个句子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">John likes to watch movies. Mary likes too. </span><br><span class="line">John also likes to watch football games.</span><br></pre></td></tr></table></figure>
-
-<p>以这两个句子可以构建一个词典，key为文本中出现过的词，value为这个词的索引序号：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;“John”: 1, “likes”: 2,”to”: 3, “watch”: 4, “movies”: 5,”also”: 6, “football”: 7, “games”: 8,”Mary”: 9, “too”: 10&#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>两个句子用词袋模型分别表示成向量为：</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 1, 1, 1, 0, 0, 0, 1, 1] </span><br><span class="line">[1, 1, 1, 1, 0, 1, 1, 1, 0, 0]</span><br></pre></td></tr></table></figure>
-
-<p>相对于英文，中文由于涉及到分词，会更复杂一些。准确地分词是所有中文文本分析的基础，本文使用结巴分词，完全开源而且分词准确率相对有保障。</p>
-<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><ul>
-<li>TF-IDF</li>
-<li>LSI</li>
-<li>LDA</li>
-</ul>
-<h2 id="Python实现Demo"><a href="#Python实现Demo" class="headerlink" title="Python实现Demo"></a>Python实现Demo</h2><p>步骤:</p>
+            <p>基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。<br>对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_i} = \sum_{k=1}^kf_k(x_i) $<br>第1轮预测值： $ \hat{y_i}^{(1)} = f_1(x_i) \qquad\qquad\qquad\qquad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(0)} + f_1(x_i)$<br>第2轮预测值： $ \hat{y_i}^{(2)} = f_1(x_i) + f_2(x_i) \qquad\qquad\quad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(1)} + f_2(x_i)$<br>第t轮预测值：$ \ \ \ \hat{y_i}^{(t)} = f_1(x_i) + f_2(x_i) + … + f_{t-1}(x_i) +f_{t}(x_i) = \hat{y_i}^{(t-1)} + f_t(x_i)$</p>
+<h2 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h2><p>每一轮弱分类器生成的目的应该是，加入新的f后目标函数下降，即加入f后预测结果更接近实际值。则对于第t轮迭代有：<br>$ Object^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i})$<br>但这里存在两个问题:</p>
 <ul>
-<li><strong>文本预处理：Jieba进行中文分词、去停用词；</strong></li>
-<li><strong>向量化文本：词袋模型</strong></li>
-<li><strong>向量化文本：TF-IDF模型</strong></li>
-<li><strong>向量化文本：LSI模型</strong></li>
-<li><strong>进行相似度计算</strong></li>
+<li>叶子节点不能太多，于是引进对叶子结点个数的惩罚$\gamma T$；</li>
+<li>同时参数尽量稳定，引进$ \omega $的模的平方；</li>
+<li>由上述两点得到约束项：$ \Omega(f_t) = \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\omega_j^2 $ </li>
 </ul>
-<h3 id="文本预处理"><a href="#文本预处理" class="headerlink" title="文本预处理"></a><strong>文本预处理</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#中文分词使用了结巴分词（jieba）。词袋模型、TF-IDF、LSI模型实现使用的Gensim库。</span><br><span class="line">import jieba.posseg as pseg</span><br><span class="line">import codecs</span><br><span class="line">from gensim import corpora, models, similarities</span><br><span class="line"></span><br><span class="line">#停用词可以使用中科院、哈工大整理版本</span><br><span class="line">stop_words = &apos;stop_words.txt&apos;</span><br><span class="line">stopwords = codecs.open(stop_words,&apos;r&apos;,encoding=&apos;utf8&apos;).readlines()</span><br><span class="line">stopwords = [w.strip() for w in stopwords]</span><br><span class="line"></span><br><span class="line">#结巴分词后的停用词性 [标点符号、连词、助词、副词、介词、时语素、‘的’、数词、方位词、代词]</span><br><span class="line">stop_flag = [&apos;x&apos;, &apos;c&apos;, &apos;u&apos;,&apos;d&apos;, &apos;p&apos;, &apos;t&apos;, &apos;uj&apos;, &apos;m&apos;, &apos;f&apos;, &apos;r&apos;]</span><br><span class="line"></span><br><span class="line">#def一个tokenization函数，对传入的文章进行分词、去停用词处理。</span><br><span class="line">def tokenization(filename):</span><br><span class="line">    result = []</span><br><span class="line">    with open(filename, &apos;r&apos;) as f:</span><br><span class="line">        text = f.read()</span><br><span class="line">        words = pseg.cut(text)</span><br><span class="line">    for word, flag in words:</span><br><span class="line">        if flag not in stop_flag and word not in stopwords:</span><br><span class="line">            result.append(word)</span><br><span class="line">    return result</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#这里选取三篇文章，前两篇主题为高血压相关，第三篇主题是韩国明星，注意设置txt文件路径。</span><br><span class="line">filenames = [&apos;高血压的13件小事.txt&apos;, </span><br><span class="line">             &apos;高血压患者多喝脱脂牛奶.txt&apos;,</span><br><span class="line">             &apos;ios.txt&apos;</span><br><span class="line">            ]</span><br><span class="line"></span><br><span class="line">#读取三篇文章，作为corpus语料库</span><br><span class="line">corpus = []</span><br><span class="line">for each in filenames:</span><br><span class="line">    corpus.append(tokenization(each))</span><br><span class="line">print(len(corpus))</span><br></pre></td></tr></table></figure>
-
-<h3 id="建立词袋模型"><a href="#建立词袋模型" class="headerlink" title="建立词袋模型"></a><strong>建立词袋模型</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dictionary = corpora.Dictionary(corpus)</span><br><span class="line">print dictionary</span><br><span class="line"></span><br><span class="line">doc_vectors = [dictionary.doc2bow(text) for text in corpus]</span><br><span class="line">print len(doc_vectors)</span><br><span class="line">print doc_vectors</span><br></pre></td></tr></table></figure>
-
-<h3 id="建立TF-IDF模型"><a href="#建立TF-IDF模型" class="headerlink" title="建立TF-IDF模型"></a><strong>建立TF-IDF模型</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tfidf = models.TfidfModel(doc_vectors)</span><br><span class="line">tfidf_vectors = tfidf[doc_vectors]</span><br><span class="line">print(len(tfidf_vectors))</span><br><span class="line">print(len(tfidf_vectors[0]))</span><br></pre></td></tr></table></figure>
-
-<p>构建一个新文本，也是高血压主题，目的是利用刚刚的词袋模型字典，将新文本映射到字典的向量空间，以进行下一步的相似度计算。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">query = tokenization(&apos;关于降压药的五个问题.txt&apos;)</span><br><span class="line">query_bow = dictionary.doc2bow(query)</span><br><span class="line">print(len(query_bow))</span><br><span class="line">print(query_bow)</span><br></pre></td></tr></table></figure>
-
-<p>构建相似度矩阵，并进行新文本向量query_bow与该矩阵的相似度计算。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">index = similarities.MatrixSimilarity(tfidf_vectors)</span><br><span class="line">sims = index[query_bow]</span><br><span class="line">print(list(enumerate(sims)))</span><br><span class="line">[(0, 0.37067956), (1, 0.28022555), (2, 0.028878568)]</span><br></pre></td></tr></table></figure>
-
-<p>TF-IDF模型计算相似度，相对于前两篇高血压主题的文本，韩国明星主题文本与query的相似度很低，可见TF-IDF模型是有效的。但在语料较少的情况下，与同是高血压主题的文本相似度也不高。</p>
-<h3 id="构建LSI模型"><a href="#构建LSI模型" class="headerlink" title="构建LSI模型"></a><strong>构建LSI模型</strong></h3><p>于是我们再次构建构建LSI模型，将主题数目设置为2（理论上这两个主题应该分别为高血压和韩星）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lsi = models.LsiModel(tfidf_vectors, id2word=dictionary, num_topics=2)</span><br><span class="line">lsi.print_topics(2)</span><br><span class="line">[(0,</span><br><span class="line">  &apos;0.306*&quot;高血压&quot; + 0.293*&quot;血压&quot; + 0.177*&quot;作用&quot; + 0.162*&quot;患者&quot; + 0.151*&quot;血压计&quot; + 0.151*&quot;建议&quot; + 0.142*&quot;低&quot; + 0.126*&quot;导致&quot; + 0.126*&quot;睡眠&quot; + 0.126*&quot;压力&quot;&apos;),</span><br><span class="line"> (1,</span><br><span class="line">  &apos;0.600*&quot;韩国&quot; + 0.360*&quot;文化&quot; + 0.288*&quot;中国&quot; + 0.252*&quot;韩流&quot; + 0.216*&quot;文化产业&quot; + 0.156*&quot;市场&quot; + 0.156*&quot;金辰&quot; + 0.156*&quot;坤&quot; + 0.144*&quot;院长&quot; + 0.108*&quot;电影&quot;&apos;)]</span><br></pre></td></tr></table></figure>
-
-<p>将前三篇文本向量在训练好的LSI向量空间里映射获得新的文本向量，LSI中所有文本向量都是二维的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lsi_vector = lsi[tfidf_vectors]</span><br><span class="line">for vec in lsi_vector:</span><br><span class="line">    print(vec)</span><br><span class="line"></span><br><span class="line">[(0, 0.7592023578111887), (1, -0.010315357144806362)]</span><br><span class="line">[(0, 0.7587740355806875), (1, -0.0351427239349397)]</span><br><span class="line">[(0, 0.03452191528395507), (1, 0.9992733498030333)]</span><br></pre></td></tr></table></figure>
-
-<p>再获得query文本的LSI文本向量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">query = tokenization(&apos;关于降压药的五个问题.txt&apos;)</span><br><span class="line">query_bow = dictionary.doc2bow(query)</span><br><span class="line">print(query_bow)</span><br><span class="line">query_lsi = lsi[query_bow]</span><br><span class="line">print(query_lsi)</span><br><span class="line"></span><br><span class="line">[(0, 9.835032153227294), (1, 0.347993793006791)]</span><br></pre></td></tr></table></figure>
-
-<h3 id="进行相似度计算"><a href="#进行相似度计算" class="headerlink" title="进行相似度计算"></a><strong>进行相似度计算</strong></h3><p>将query的LSI向量分别与前三篇文本的LSI向量进行相似度计算</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index = similarities.MatrixSimilarity(lsi_vector)</span><br><span class="line">sims = index[query_lsi]</span><br><span class="line">print(list(enumerate(sims)))</span><br><span class="line"></span><br><span class="line">[(0, 0.99971396), (1, 0.99625134), (2, 0.060286518)]</span><br></pre></td></tr></table></figure>
-
-<p>可以看到LSI的效果很好，一个高血压主题的文本与前两个训练文本的相似性很高，而与韩星主题的第三篇训练文本相似度很低.</p>
-<p>参考整理：<br><a href="https://blog.csdn.net/github_39281554/article/details/73656266" target="_blank" rel="noopener">https://blog.csdn.net/github_39281554/article/details/73656266</a><br><a href="http://www.52nlp.cn/category/推荐系统" target="_blank" rel="noopener">http://www.52nlp.cn/category/推荐系统</a></p>
+<p>最后的带正则损失函数为：</p>
+<script type="math/tex; mode=display">Object(\theta)^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i}^{(t)}) + \sum_{i=1}^t\Omega(f_i)</script><ul>
+<li>为了方便后续使用泰勒公式，展开为$f(x+\Delta x)$的形式;</li>
+<li>同时由于$f_{t-1}$轮的$\Omega(f)$已经迭代完成，即为常数，所以这里的$\sum_{i=1}^t\Omega(f_i)$可以写为未知的$\Omega(f_t)$ + constant</li>
+</ul>
+<p>得到目标函数：</p>
+<script type="math/tex; mode=display">Object(\theta)^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i}^{(t-1)})+f_t(x_i) + \Omega(f_t) + constant</script><p>通过泰勒展开来近似目标函数：</p>
+<ul>
+<li>泰勒展开至二阶公式：$ f(x+\Delta x) \simeq f(x) + f’(x)\Delta x + \frac{1}{2}f’’(x)\Delta x^2$</li>
+<li>$l(y_i, \hat{y_i}^{(t-1)})$关于$\hat{y_i}^{(t-1)}$的一阶导数写为$g_i$，$l(y_i, \hat{y_i}^{(t-1)})$关于$\hat{y_i}^{(t-1)}$的二阶导数写为$h_i$；</li>
+</ul>
+<p>得到：</p>
+<script type="math/tex; mode=display">Object(\theta)^{(t)} \simeq \sum_{i=1}^n[g_1f_t(x_i)+\frac{1}{2}h_if_t^2(x_i)] + \Omega(f_t)</script><script type="math/tex; mode=display">Object(\theta)^{(t)} = \sum_{i=1}^n[g_if_t(x_i)+\frac{1}{2}h_if_t^2(x_i)] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\omega_j^2</script><h3 id="缩减与列抽样"><a href="#缩减与列抽样" class="headerlink" title="缩减与列抽样"></a>缩减与列抽样</h3><h3 id="并行化处理"><a href="#并行化处理" class="headerlink" title="并行化处理"></a>并行化处理</h3><p>训练之前，预先对每个特征内部进行了排序找出候选切割点，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。<br>在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行，即在不同的特征属性上采用多线程并行方式寻找最佳分割点。<br>特征列排序后以块的形式存储在内存中，在迭代中可以重复使用；虽然boosting算法迭代必须串行，但是在处理每个特征列时可以做到并行。</p>
+<h3 id="接口与参数"><a href="#接口与参数" class="headerlink" title="接口与参数"></a>接口与参数</h3><p>Xgboost参数</p>
+<h3 id="GBDT与XGBoost区别"><a href="#GBDT与XGBoost区别" class="headerlink" title="GBDT与XGBoost区别"></a>GBDT与XGBoost区别</h3><p>1 用到了一阶和二阶导数<br>2 定义了树的复杂度，即xgboost在代价函数里加入了正则项，用于控制模型的复杂度，正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和。代替了剪枝。<br>3 分裂结点处通过结构打分和分割损失动态生长。结构分数代替了回归树的误差平方和。<br>4 分裂结点特征分割点选取使用了近似算法-可并行的近似直方图算法。所以xgboost还提出了一种可并行的近似直方图算法，用于高效地生成候选的分割点。用于加速和减小内存消耗。<br>5 列抽样（column subsampling）[传统GBDT没有]，列抽样。XGBoost借鉴了随机森林的做法，支持列抽样，不仅防止过 拟合，还能减少计算；<br>6 支持并行化处理。xgboost的并行是在特征粒度上的，在训练之前，预先对特征进行了排序，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行，即在不同的特征属性上采用多线程并行方式寻找最佳分割点。虽然树与树之间是串行关系，但是同层级节点可并行。<br>7 传统GBDT以CART作为基分类器，xgboost还支持线性分类器，这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归（回归问题）。<br>8 shrinkage（缩减），相当于学习速率（XGBoost中的eta）。XGBoost在进行完一次迭代时，会将叶子节点的权值乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间。（GBDT也有学习速率）<br>9 对缺失值的处理。对于特征的值有缺失的样本，XGBoost还可以自动 学习出它的分裂方向；</p>
+<p>中文文档<br><a href="http://xgboost.apachecn.org/#/docs/13" target="_blank" rel="noopener">http://xgboost.apachecn.org/#/docs/13</a></p>
 
           
         
@@ -453,7 +422,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/28/My-New-Post/">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
@@ -472,7 +441,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/28/My-New-Post/" itemprop="url">My New Post</a></h1>
+                <a class="post-title-link" href="/2019/07/08/机器学习笔记-反向传播/" itemprop="url">机器学习笔记-反向传播</a></h1>
         
 
         <div class="post-meta">
@@ -484,8 +453,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-28T16:18:11+08:00">
-                2019-06-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-08T14:22:27+08:00">
+                2019-07-08
               </time>
             
 
@@ -495,28 +464,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/read/" itemprop="url" rel="index">
-                    <span itemprop="name">read</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -525,8 +472,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/06/28/My-New-Post/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/28/My-New-Post/" itemprop="commentCount"></span>
+                <a href="/2019/07/08/机器学习笔记-反向传播/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/08/机器学习笔记-反向传播/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -575,34 +522,9 @@
       
         
           
-            <p>待办：词云</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=18795434&auto=1&height=66"></iframe>
-
-
-
-
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><p><em>斜体</em><br><strong>粗体</strong><br><strong><em>加粗斜体</em></strong><br><del>删除线</del></p>
-<blockquote>
-<p>文字引用</p>
-</blockquote>
-<p><code>行内代码</code></p>
-<p>​<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">多行代码</span><br><span class="line">多行代码</span><br><span class="line">​</span><br></pre></td></tr></table></figure></p>
-<p>$$<br>数学公式<br>$$</p>
-<ol>
-<li>有序列表项</li>
-</ol>
-<ul>
-<li>无序列表项</li>
-</ul>
-<ul>
-<li>无序列表项</li>
-</ul>
-<ul>
-<li>无序列表项</li>
-</ul>
-<p>表头1|表头2<br>-|-|-<br>内容11|内容12<br>内容21|内容22</p>
-<p>方法一：<a href="链接地址" title="链接描述">链接文字</a><br>例如：<a href="https://www.example.com/" title="示例链接" target="_blank" rel="noopener">示例链接</a></p>
-<p>方法二：&lt;链接地址&gt;<br>例如：<a href="https://www.example.com/" target="_blank" rel="noopener">https://www.example.com/</a></p>
+            <p>July 6 - July 9</p>
+<p>目的：优化权重矩阵<br>but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。<br>误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。</p>
+<p>$ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}log(a^{(i)})-(1-y^{(i)})log(1-a^{(i)})) $</p>
 
           
         
@@ -651,7 +573,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/28/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/07/Python-datacleaning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
@@ -670,7 +592,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/28/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2019/07/07/Python-datacleaning/" itemprop="url">Python - Data Cleaning</a></h1>
         
 
         <div class="post-meta">
@@ -682,8 +604,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-28T15:10:05+08:00">
-                2019-06-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-07T20:41:31+08:00">
+                2019-07-07
               </time>
             
 
@@ -701,8 +623,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/06/28/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/28/hello-world/" itemprop="commentCount"></span>
+                <a href="/2019/07/07/Python-datacleaning/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/07/Python-datacleaning/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -751,19 +673,327 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+            <p>读取csv<br>pd.read_csv(‘<a href="http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.txt" target="_blank" rel="noopener">http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.txt</a>‘)<br>存csv<br>titanic.to_csv(‘/Users/Apple/Desktop/Coding/NeuralNetwork/titanic.csv’)</p>
+<h3 id="哑编码的实现方法"><a href="#哑编码的实现方法" class="headerlink" title="哑编码的实现方法"></a>哑编码的实现方法</h3><p>pandas和sklearn<br>pandas默认只处理字符串类别变量<br>sklearn默认只处理数值型类别变量(需要先LabelEncoder)<br><a href="https://www.cnblogs.com/geo-will/p/9626196.html" target="_blank" rel="noopener">https://www.cnblogs.com/geo-will/p/9626196.html</a><br><a href="https://leflacon.github.io/d6da51a9/" target="_blank" rel="noopener">https://leflacon.github.io/d6da51a9/</a></p>
+<p>pd.get_dummies(prefix=)<br>pandas的get_dummies()可以直接对变量进行one-hot编码，其中prefix是为one-hot编码后的变量进行命名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.get_dummies(data[&apos;Sex&apos;])</span><br></pre></td></tr></table></figure></p>
+<p>LabelEncoder和OneHotEncoder<br>我们也可以通过sklearn的模块实现对离散变量的one-hot编码，其中LabelEncoder是将离散变量替换为数字，<br>OneHotEncoder则实现对替换为数字的离散变量进行one-hot编码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">le_sex=LabelEncoder().fit(data[&apos;Sex&apos;]) </span><br><span class="line">Sex_label=le_sex.transform(data[&apos;Sex&apos;]) </span><br><span class="line">Sex_label= LabelEncoder().fit_transform(data[&apos;Sex&apos;]) #fit_transform等价于fit和transform两个函数结合</span><br><span class="line"></span><br><span class="line">ohe_sex = OneHotEncoder(sparse=False).fit(Sex_label.reshape(-1,1)) </span><br><span class="line">Sex_ohe = ohe_sex.transform(Sex_label.reshape(-1,1)) </span><br><span class="line">Sex_ohe_3 = OneHotEncoder(sparse=False).fit_transform(Sex_label.reshape((-1,1)))</span><br></pre></td></tr></table></figure></p>
+<p>sklearn.feature_extraction import DictVectorizer<br>pandas: get_dummies<br>如果一个文档的每个单词提取这样的上下文，所得到的矩阵将非常宽（许多个独热特征），大多数的零需要花费很多的内存和时间。 为了使得到的数据结构能够适应内存，DictVectorizer类默认使用scipy.sparse矩阵，而不是numpy.ndarray。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 定义一组字典列表，用来表示多个数据样本（每个字典代表一个数据样本）。</span><br><span class="line">measurements = [&#123;&apos;city&apos;: &apos;Dubai&apos;, &apos;temperature&apos;: 33.&#125;, &#123;&apos;city&apos;: &apos;London&apos;, &apos;temperature&apos;: 12.&#125;, &#123;&apos;city&apos;: &apos;San Fransisco&apos;, &apos;temperature&apos;: 18.&#125;]</span><br><span class="line"># 从sklearn.feature_extraction 导入 DictVectorizer</span><br><span class="line">from sklearn.feature_extraction import DictVectorizer</span><br><span class="line"># 初始化DictVectorizer特征抽取器</span><br><span class="line">vec = DictVectorizer()</span><br><span class="line"># 输出转化之后的特征矩阵。</span><br><span class="line">print(vec.fit_transform(measurements).toarray())</span><br><span class="line"># 输出各个维度的特征含义。</span><br><span class="line">print (vec.get_feature_names())</span><br></pre></td></tr></table></figure></p>
+<h3 id="异常值"><a href="#异常值" class="headerlink" title="异常值"></a>异常值</h3><p>如果数据服从正态分布，在3∂原则下，异常值为一组测定值中与平均值的偏差超过3倍标准差的值。如果数据服从正态分布，距离平均值3∂之外的值出现的概率为P(|x-u| &gt; 3∂) &lt;= 0.003，属于极个别的小概率事件。如果数据不服从正态分布，也可以用远离平均值的多少倍标准差来描述。</p>
+<h3 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h3>
+          
+        
+      
+    </div>
+    
+    
+    
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+    
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+    
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/04/机器学习笔记-NeuralNetwork/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="li zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="space">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/04/机器学习笔记-NeuralNetwork/" itemprop="url">机器学习笔记-Neural Network</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-04T22:41:31+08:00">
+                2019-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/04/机器学习笔记-NeuralNetwork/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/04/机器学习笔记-NeuralNetwork/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="激活函数-响应曲线："><a href="#激活函数-响应曲线：" class="headerlink" title="激活函数, 响应曲线："></a>激活函数, 响应曲线：</h3><h4 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h4><p>$ \delta $</p>
+<script type="math/tex; mode=display">g(z) = \frac{1}{1+e^{-z}}</script><script type="math/tex; mode=display">g'(z) = \frac{e^{-z}}{({1+e^{-z}})^2} = g(z)(1-g(z))</script><p>Z极大或极小时，g’(z)接近于0，即导到权重$\omega$的梯度接近于0，这时梯度更新慢，会出现梯度消失。<br>求导：<a href="https://www.jianshu.com/p/d4301dc529d9" target="_blank" rel="noopener">https://www.jianshu.com/p/d4301dc529d9</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#activation function </span><br><span class="line">def sigmoid(z, derivative=False):    </span><br><span class="line">	sigmoid = 1.0/(1.0+np.exp(-z))    </span><br><span class="line">	if (derivative==True):        </span><br><span class="line">		return sigmoid * (1-sigmoid)    </span><br><span class="line">	return sigmoid</span><br></pre></td></tr></table></figure></p>
+<h4 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h4><script type="math/tex; mode=display">g(z) = \frac{e^{-z}-e^{-z}}{e^{-z}+e^{-z}}</script><script type="math/tex; mode=display">g'(z) = \frac{4}{(e^{z}+e^{-z})^2} = 1-g(z)^2</script><p>tanh的均值为0</p>
+<h4 id="ReLu"><a href="#ReLu" class="headerlink" title="ReLu"></a>ReLu</h4><p>解决了梯度消失的问题<br>特性</p>
+<p>梯度消失的情况，就是当数值接近于正向∞，求导之后就更小的，约等于0，偏导为0<br>梯度爆炸，数值无限大</p>
+<p>对于梯度消失现象：激活函数<br>Sigmoid会发生梯度消失的情况，所以激活函数一般不用，收敛不了了。Tanh(x)，没解决梯度消失的问题。<br>ReLu Max(0,x)，比较好，代表Max门单元，解决了梯度消失的问题，而且起到了降维</p>
+<p>权重初始化，可以随机也可以一开始设置一定的图形分布，用高斯初始化</p>
+<h3 id="输出层有哪些"><a href="#输出层有哪些" class="headerlink" title="输出层有哪些"></a>输出层有哪些</h3><h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>把x通过网络前向传播，然后把误差反向传播以决定如何更新参数让网络进行学习<br><a href="https://www.jianshu.com/p/498f7bf488a2" target="_blank" rel="noopener">https://www.jianshu.com/p/498f7bf488a2</a></p>
+<h3 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h3><h3 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h3><p>解决了梯度消失与加速收敛(数据本身在0均值处)和internal covariate shift(内部神经元分布的改变) 数据分布不一致问题。<br>机器学习领域有个很重要的假设：IID独立同分布假设，就是假设训练数据和测试数据是满足相同分布的，这是通过训练数据获得的模型能够在测试集获得好的效果的一个基本保障。那BatchNorm的作用是什么呢？BatchNorm就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的。<br>统计机器学习中的一个经典假设是“源空间（source domain）和目标空间（target domain）的数据分布（distribution）是一致的”。如果不一致，那么就出现了新的机器学习问题，如，transfer learning/domain adaptation等。<br><a href="https://www.cnblogs.com/pigbreeder/p/8051442.html" target="_blank" rel="noopener">https://www.cnblogs.com/pigbreeder/p/8051442.html</a><br>训练vs测试，分布一样。 提出了Internal Covariate Shift。idea来自于图像处理的白化操作，对data分布变换到0均值、单位方差的正态分布。<br>BM对每个神经元做白化，使activation值的导数原理导数饱和区域，加速训练收敛。变换后某个神经元的激活x形成了均值为0，方差为1的正态分布，目的是把值往后续要进行的非线性变换的线性区拉动，增大导数值，增强反向传播信息流动性，加快训练收敛速度。<br>但这样会导致网络表达能力下降，所以加入scale shift操作。</p>
+<p>BN（Batch Normalization）层的作用<br>加速收敛<br>控制过拟合，可以少用或不用Dropout和正则<br>降低网络对初始化权重敏感<br>允许使用较大的学习率<br>在每一层输入的时候，加个BN预处理操作。BN应作用在非线性映射前，即对x=Wu+b做规范化。在BN中，是通过将activation规范为均值和方差一致的手段使得原本会减小的activation的scale变大。可以说是一种更有效的local response normalization方法<br>PS：<br>Batch Norm会忽略图像像素（或者特征）之间的绝对差异（因为均值归零，方差归一），而只考虑相对差异，所以在不需要绝对差异的任务中（比如分类），有锦上添花的效果。而对于图像超分辨率这种需要利用绝对差异的任务，Batch Norm只会添乱。</p>
+<h3 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h3><p>看coursera的machine learning，讲到神经网络时，对于异或问题的引入还有点懵。这下看到了学术上的来源。</p>
+<p>　　两层神经网络是本文的重点，因为正是在这时候，神经网络开始了大范围的推广与使用。</p>
+<p>　　Minsky说过单层神经网络无法解决异或问题。但是当增加一个计算层以后，两层神经网络不仅可以解决异或问题，而且具有非常好的非线性分类效果。不过两层神经网络的计算是一个问题，没有一个较好的解法。</p>
+<p>　　1986年，Rumelhar和Hinton等人提出了反向传播（Backpropagation，BP）算法，解决了两层神经网络所需要的复杂计算量问题，从而带动了业界使用两层神经网络研究的热潮。目前，大量的教授神经网络的教材，都是重点介绍两层（带一个隐藏层）神经网络的内容。 </p>
+<p>　　这时候的Hinton还很年轻，30年以后，正是他重新定义了神经网络，带来了神经网络复苏的又一春。</p>
+<h3 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h3><p><a href="https://blog.csdn.net/cluster1893/article/details/80983987#第二周-神经网络基础" target="_blank" rel="noopener">https://blog.csdn.net/cluster1893/article/details/80983987#第二周-神经网络基础</a><br>如果不对参数w进行随机初始化，比如全部设置为0，那么，可以证明，所有隐藏层单元都在计算相同的函数，呈对称状态，没有意义。<br>所以需要对w随机初始化。 </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="li zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="space">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/" itemprop="url">NLP学习笔记-word2vec哈利波特文本分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-04T10:50:21+08:00">
+                2019-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>做了个粗糙的demo，把哈利波特与魔法石当作语料丢进gensim训练了一下。</p>
+<p><a href="https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9" target="_blank" rel="noopener">https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9</a><br><a href="https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07" target="_blank" rel="noopener">https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07</a></p>
+<p><a href="http://tm.durusau.net/?p=47422" target="_blank" rel="noopener">http://tm.durusau.net/?p=47422</a> Harry Potter (Neo4j GraphGist)</p>
 
           
         
@@ -802,6 +1032,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -847,7 +1081,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -947,6 +1181,14 @@
 
 
 
+
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
 
         
 
@@ -1105,6 +1347,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

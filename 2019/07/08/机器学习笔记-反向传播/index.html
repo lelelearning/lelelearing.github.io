@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="space">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+<meta name="description" content="July 6 - July 9 目的：优化权重矩阵but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习笔记-反向传播">
+<meta property="og:url" content="http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/index.html">
 <meta property="og:site_name" content="space">
+<meta property="og:description" content="July 6 - July 9 目的：优化权重矩阵but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}l">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-09T04:55:17.042Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="space">
+<meta name="twitter:title" content="机器学习笔记-反向传播">
+<meta name="twitter:description" content="July 6 - July 9 目的：优化权重矩阵but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}l">
 
 
 
@@ -115,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/page/3/">
+  <link rel="canonical" href="http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/">
 
 
 
@@ -123,7 +127,7 @@
 
 
 
-  <title>Archive | space</title>
+  <title>机器学习笔记-反向传播 | space</title>
   
 
 
@@ -142,7 +146,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,76 +240,176 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 3 posts in total. Keep on posting.
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="li zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="space">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/06/28/hello-world/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">机器学习笔记-反向传播</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-28T15:10:05+08:00" content="2019-06-28">
-          06-28
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-08T14:22:27+08:00">
+                2019-07-08
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/08/机器学习笔记-反向传播/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/08/机器学习笔记-反向传播/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>July 6 - July 9</p>
+<p>目的：优化权重矩阵<br>but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。<br>误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。</p>
+<p>$ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}log(a^{(i)})-(1-y^{(i)})log(1-a^{(i)})) $</p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/Python-datacleaning/" rel="next" title="Python - Data Cleaning">
+                <i class="fa fa-chevron-left"></i> Python - Data Cleaning
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/09/机器学习笔记-XGboost/" rel="prev" title="机器学习笔记-XGboost">
+                机器学习笔记-XGboost <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -313,6 +417,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -351,7 +469,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -452,6 +570,14 @@
 
 
 
+
+  <script src="https://unpkg.com/mermaid@/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
         
 
 
@@ -548,6 +674,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -565,6 +695,18 @@
       <script id="dsq-count-scr" src="https://lizeng.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/';
+          this.page.identifier = '2019/07/08/机器学习笔记-反向传播/';
+          this.page.title = '机器学习笔记-反向传播';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lizeng.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
@@ -609,6 +751,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
