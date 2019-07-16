@@ -362,7 +362,7 @@
       
         
           
-            <p>最近在把evernotes上的以前的笔记搬到新域名存档记录。<br>之前记录得太零散，也不方便打公式，搬过来准备重新查资料加入自己的理解复习一下。</p>
+            <p>最近在把evernotes上的以前的笔记搬到新域名存档记录。<br>之前记录得太零散，也不方便打公式，搬过来准备重新查资料整理一下。</p>
 <h2 id="Xgboost工具"><a href="#Xgboost工具" class="headerlink" title="Xgboost工具"></a>Xgboost工具</h2><p>基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。<br>对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_i} = \sum_{k=1}^kf_k(x_i) $<br>第1轮预测值： $ \hat{y_i}^{(1)} = f_1(x_i) \qquad\qquad\qquad\qquad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(0)} + f_1(x_i)$<br>第2轮预测值： $ \hat{y_i}^{(2)} = f_1(x_i) + f_2(x_i) \qquad\qquad\quad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(1)} + f_2(x_i)$<br>第t轮预测值：$ \ \ \ \hat{y_i}^{(t)} = f_1(x_i) + f_2(x_i) + … + f_{t-1}(x_i) +f_{t}(x_i) = \hat{y_i}^{(t-1)} + f_t(x_i)$</p>
 <h2 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h2><p>每一轮弱分类器生成的目的应该是，加入新的f后目标函数下降，即加入f后预测结果更接近实际值。则对于第t轮迭代有：<br>$ Object^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i})$<br>但这里存在两个问题:</p>
 <ul>
