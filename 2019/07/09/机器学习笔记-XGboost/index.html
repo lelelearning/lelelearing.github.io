@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_i} = \sum_{k=1}^kf_k(x_i) $第1轮预测值： $ \hat{y_i}^{(1)} = f_1(x_i) \qquad\qquad\qquad\q">
+<meta name="description" content="最近准备把evernotes上的以前的笔记整理一下放到新域名这存档，之前记录得太零散，也不方便打公式，搬过来后准备重新查资料加入自己的理解复习一下。 Xgboost工具基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习笔记-XGboost">
 <meta property="og:url" content="http://lizzeng.com/2019/07/09/机器学习笔记-XGboost/index.html">
 <meta property="og:site_name" content="space">
-<meta property="og:description" content="基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_i} = \sum_{k=1}^kf_k(x_i) $第1轮预测值： $ \hat{y_i}^{(1)} = f_1(x_i) \qquad\qquad\qquad\q">
+<meta property="og:description" content="最近准备把evernotes上的以前的笔记整理一下放到新域名这存档，之前记录得太零散，也不方便打公式，搬过来后准备重新查资料加入自己的理解复习一下。 Xgboost工具基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-11T05:02:37.805Z">
+<meta property="og:updated_time" content="2019-07-16T04:43:08.956Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记-XGboost">
-<meta name="twitter:description" content="基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_i} = \sum_{k=1}^kf_k(x_i) $第1轮预测值： $ \hat{y_i}^{(1)} = f_1(x_i) \qquad\qquad\qquad\q">
+<meta name="twitter:description" content="最近准备把evernotes上的以前的笔记整理一下放到新域名这存档，之前记录得太零散，也不方便打公式，搬过来后准备重新查资料加入自己的理解复习一下。 Xgboost工具基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_">
 
 
 
@@ -350,7 +350,8 @@
       
 
       
-        <p>基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。<br>对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_i} = \sum_{k=1}^kf_k(x_i) $<br>第1轮预测值： $ \hat{y_i}^{(1)} = f_1(x_i) \qquad\qquad\qquad\qquad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(0)} + f_1(x_i)$<br>第2轮预测值： $ \hat{y_i}^{(2)} = f_1(x_i) + f_2(x_i) \qquad\qquad\quad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(1)} + f_2(x_i)$<br>第t轮预测值：$ \ \ \ \hat{y_i}^{(t)} = f_1(x_i) + f_2(x_i) + … + f_{t-1}(x_i) +f_{t}(x_i) = \hat{y_i}^{(t-1)} + f_t(x_i)$</p>
+        <p>最近准备把evernotes上的以前的笔记整理一下放到新域名这存档，之前记录得太零散，也不方便打公式，搬过来后准备重新查资料加入自己的理解复习一下。</p>
+<h2 id="Xgboost工具"><a href="#Xgboost工具" class="headerlink" title="Xgboost工具"></a>Xgboost工具</h2><p>基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。<br>对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_i} = \sum_{k=1}^kf_k(x_i) $<br>第1轮预测值： $ \hat{y_i}^{(1)} = f_1(x_i) \qquad\qquad\qquad\qquad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(0)} + f_1(x_i)$<br>第2轮预测值： $ \hat{y_i}^{(2)} = f_1(x_i) + f_2(x_i) \qquad\qquad\quad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(1)} + f_2(x_i)$<br>第t轮预测值：$ \ \ \ \hat{y_i}^{(t)} = f_1(x_i) + f_2(x_i) + … + f_{t-1}(x_i) +f_{t}(x_i) = \hat{y_i}^{(t-1)} + f_t(x_i)$</p>
 <h2 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h2><p>每一轮弱分类器生成的目的应该是，加入新的f后目标函数下降，即加入f后预测结果更接近实际值。则对于第t轮迭代有：<br>$ Object^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i})$<br>但这里存在两个问题:</p>
 <ul>
 <li>叶子节点不能太多，于是引进对叶子结点个数的惩罚$\gamma T$；</li>
@@ -363,7 +364,7 @@
 <li>同时由于$f_{t-1}$轮的$\Omega(f)$已经迭代完成，即为常数，所以这里的$\sum_{i=1}^t\Omega(f_i)$可以写为未知的$\Omega(f_t)$ + constant</li>
 </ul>
 <p>得到目标函数：</p>
-<script type="math/tex; mode=display">Object(\theta)^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i}^{(t-1)})+f_t(x_i) + \Omega(f_t) + constant</script><p>通过泰勒展开来近似目标函数：</p>
+<script type="math/tex; mode=display">Object(\theta)^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i}^{(t-1)}+y_t)+f_t(x_i) + \Omega(f_t) + constant</script><p>通过泰勒展开来近似目标函数：</p>
 <ul>
 <li>泰勒展开至二阶公式：$ f(x+\Delta x) \simeq f(x) + f’(x)\Delta x + \frac{1}{2}f’’(x)\Delta x^2$</li>
 <li>$l(y_i, \hat{y_i}^{(t-1)})$关于$\hat{y_i}^{(t-1)}$的一阶导数写为$g_i$，$l(y_i, \hat{y_i}^{(t-1)})$关于$\hat{y_i}^{(t-1)}$的二阶导数写为$h_i$；</li>
@@ -372,7 +373,7 @@
 <script type="math/tex; mode=display">Object(\theta)^{(t)} \simeq \sum_{i=1}^n[g_1f_t(x_i)+\frac{1}{2}h_if_t^2(x_i)] + \Omega(f_t)</script><script type="math/tex; mode=display">Object(\theta)^{(t)} = \sum_{i=1}^n[g_if_t(x_i)+\frac{1}{2}h_if_t^2(x_i)] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\omega_j^2</script><h3 id="缩减与列抽样"><a href="#缩减与列抽样" class="headerlink" title="缩减与列抽样"></a>缩减与列抽样</h3><h3 id="并行化处理"><a href="#并行化处理" class="headerlink" title="并行化处理"></a>并行化处理</h3><p>训练之前，预先对每个特征内部进行了排序找出候选切割点，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。<br>在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行，即在不同的特征属性上采用多线程并行方式寻找最佳分割点。<br>特征列排序后以块的形式存储在内存中，在迭代中可以重复使用；虽然boosting算法迭代必须串行，但是在处理每个特征列时可以做到并行。</p>
 <h3 id="接口与参数"><a href="#接口与参数" class="headerlink" title="接口与参数"></a>接口与参数</h3><p>Xgboost参数</p>
 <h3 id="GBDT与XGBoost区别"><a href="#GBDT与XGBoost区别" class="headerlink" title="GBDT与XGBoost区别"></a>GBDT与XGBoost区别</h3><p>1 用到了一阶和二阶导数<br>2 定义了树的复杂度，即xgboost在代价函数里加入了正则项，用于控制模型的复杂度，正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和。代替了剪枝。<br>3 分裂结点处通过结构打分和分割损失动态生长。结构分数代替了回归树的误差平方和。<br>4 分裂结点特征分割点选取使用了近似算法-可并行的近似直方图算法。所以xgboost还提出了一种可并行的近似直方图算法，用于高效地生成候选的分割点。用于加速和减小内存消耗。<br>5 列抽样（column subsampling）[传统GBDT没有]，列抽样。XGBoost借鉴了随机森林的做法，支持列抽样，不仅防止过 拟合，还能减少计算；<br>6 支持并行化处理。xgboost的并行是在特征粒度上的，在训练之前，预先对特征进行了排序，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行，即在不同的特征属性上采用多线程并行方式寻找最佳分割点。虽然树与树之间是串行关系，但是同层级节点可并行。<br>7 传统GBDT以CART作为基分类器，xgboost还支持线性分类器，这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归（回归问题）。<br>8 shrinkage（缩减），相当于学习速率（XGBoost中的eta）。XGBoost在进行完一次迭代时，会将叶子节点的权值乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间。（GBDT也有学习速率）<br>9 对缺失值的处理。对于特征的值有缺失的样本，XGBoost还可以自动 学习出它的分裂方向；</p>
-<p>中文文档<br><a href="http://xgboost.apachecn.org/#/docs/13" target="_blank" rel="noopener">http://xgboost.apachecn.org/#/docs/13</a></p>
+<p>中文文档<br><a href="http://xgboost.apachecn.org/#/docs/13" target="_blank" rel="noopener">http://xgboost.apachecn.org/#/docs/13</a><br><a href="https://cloud.tencent.com/developer/article/1357336" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1357336</a><br>gbdt xgboost区别</p>
 
       
     </div>
@@ -494,7 +495,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -565,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标函数"><span class="nav-number">1.</span> <span class="nav-text">目标函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缩减与列抽样"><span class="nav-number">1.1.</span> <span class="nav-text">缩减与列抽样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行化处理"><span class="nav-number">1.2.</span> <span class="nav-text">并行化处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口与参数"><span class="nav-number">1.3.</span> <span class="nav-text">接口与参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GBDT与XGBoost区别"><span class="nav-number">1.4.</span> <span class="nav-text">GBDT与XGBoost区别</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Xgboost工具"><span class="nav-number">1.</span> <span class="nav-text">Xgboost工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标函数"><span class="nav-number">2.</span> <span class="nav-text">目标函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缩减与列抽样"><span class="nav-number">2.1.</span> <span class="nav-text">缩减与列抽样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行化处理"><span class="nav-number">2.2.</span> <span class="nav-text">并行化处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口与参数"><span class="nav-number">2.3.</span> <span class="nav-text">接口与参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GBDT与XGBoost区别"><span class="nav-number">2.4.</span> <span class="nav-text">GBDT与XGBoost区别</span></a></li></ol></li></ol></div>
             
 
           </div>

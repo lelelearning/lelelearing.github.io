@@ -238,7 +238,8 @@
             
   <section id="posts" class="posts-expand">
     
-      
+        
+            
 
   
 
@@ -351,7 +352,8 @@
       
         
           
-            <p>基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。<br>对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_i} = \sum_{k=1}^kf_k(x_i) $<br>第1轮预测值： $ \hat{y_i}^{(1)} = f_1(x_i) \qquad\qquad\qquad\qquad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(0)} + f_1(x_i)$<br>第2轮预测值： $ \hat{y_i}^{(2)} = f_1(x_i) + f_2(x_i) \qquad\qquad\quad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(1)} + f_2(x_i)$<br>第t轮预测值：$ \ \ \ \hat{y_i}^{(t)} = f_1(x_i) + f_2(x_i) + … + f_{t-1}(x_i) +f_{t}(x_i) = \hat{y_i}^{(t-1)} + f_t(x_i)$</p>
+            <p>最近准备把evernotes上的以前的笔记整理一下放到新域名这存档，之前记录得太零散，也不方便打公式，搬过来后准备重新查资料加入自己的理解复习一下。</p>
+<h2 id="Xgboost工具"><a href="#Xgboost工具" class="headerlink" title="Xgboost工具"></a>Xgboost工具</h2><p>基于GBDT的集成思想，由多个弱分类器（多棵树）组合，是一种迭代的决策树算法，每一轮的树都在拟合上一轮和目标值之前的残差，每棵树预测的值累加在一起作为最终的预测值。<br>对于第k颗树的预测值$ \hat{y_i} $有：$ \hat{y_i} = \sum_{k=1}^kf_k(x_i) $<br>第1轮预测值： $ \hat{y_i}^{(1)} = f_1(x_i) \qquad\qquad\qquad\qquad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(0)} + f_1(x_i)$<br>第2轮预测值： $ \hat{y_i}^{(2)} = f_1(x_i) + f_2(x_i) \qquad\qquad\quad\qquad\ \ \ \ \ \ \ = \hat{y_i}^{(1)} + f_2(x_i)$<br>第t轮预测值：$ \ \ \ \hat{y_i}^{(t)} = f_1(x_i) + f_2(x_i) + … + f_{t-1}(x_i) +f_{t}(x_i) = \hat{y_i}^{(t-1)} + f_t(x_i)$</p>
 <h2 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h2><p>每一轮弱分类器生成的目的应该是，加入新的f后目标函数下降，即加入f后预测结果更接近实际值。则对于第t轮迭代有：<br>$ Object^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i})$<br>但这里存在两个问题:</p>
 <ul>
 <li>叶子节点不能太多，于是引进对叶子结点个数的惩罚$\gamma T$；</li>
@@ -364,7 +366,7 @@
 <li>同时由于$f_{t-1}$轮的$\Omega(f)$已经迭代完成，即为常数，所以这里的$\sum_{i=1}^t\Omega(f_i)$可以写为未知的$\Omega(f_t)$ + constant</li>
 </ul>
 <p>得到目标函数：</p>
-<script type="math/tex; mode=display">Object(\theta)^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i}^{(t-1)})+f_t(x_i) + \Omega(f_t) + constant</script><p>通过泰勒展开来近似目标函数：</p>
+<script type="math/tex; mode=display">Object(\theta)^{(t)} = \sum_{i=1}^nl(y_i, \hat{y_i}^{(t-1)}+y_t)+f_t(x_i) + \Omega(f_t) + constant</script><p>通过泰勒展开来近似目标函数：</p>
 <ul>
 <li>泰勒展开至二阶公式：$ f(x+\Delta x) \simeq f(x) + f’(x)\Delta x + \frac{1}{2}f’’(x)\Delta x^2$</li>
 <li>$l(y_i, \hat{y_i}^{(t-1)})$关于$\hat{y_i}^{(t-1)}$的一阶导数写为$g_i$，$l(y_i, \hat{y_i}^{(t-1)})$关于$\hat{y_i}^{(t-1)}$的二阶导数写为$h_i$；</li>
@@ -373,7 +375,7 @@
 <script type="math/tex; mode=display">Object(\theta)^{(t)} \simeq \sum_{i=1}^n[g_1f_t(x_i)+\frac{1}{2}h_if_t^2(x_i)] + \Omega(f_t)</script><script type="math/tex; mode=display">Object(\theta)^{(t)} = \sum_{i=1}^n[g_if_t(x_i)+\frac{1}{2}h_if_t^2(x_i)] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\omega_j^2</script><h3 id="缩减与列抽样"><a href="#缩减与列抽样" class="headerlink" title="缩减与列抽样"></a>缩减与列抽样</h3><h3 id="并行化处理"><a href="#并行化处理" class="headerlink" title="并行化处理"></a>并行化处理</h3><p>训练之前，预先对每个特征内部进行了排序找出候选切割点，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。<br>在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行，即在不同的特征属性上采用多线程并行方式寻找最佳分割点。<br>特征列排序后以块的形式存储在内存中，在迭代中可以重复使用；虽然boosting算法迭代必须串行，但是在处理每个特征列时可以做到并行。</p>
 <h3 id="接口与参数"><a href="#接口与参数" class="headerlink" title="接口与参数"></a>接口与参数</h3><p>Xgboost参数</p>
 <h3 id="GBDT与XGBoost区别"><a href="#GBDT与XGBoost区别" class="headerlink" title="GBDT与XGBoost区别"></a>GBDT与XGBoost区别</h3><p>1 用到了一阶和二阶导数<br>2 定义了树的复杂度，即xgboost在代价函数里加入了正则项，用于控制模型的复杂度，正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和。代替了剪枝。<br>3 分裂结点处通过结构打分和分割损失动态生长。结构分数代替了回归树的误差平方和。<br>4 分裂结点特征分割点选取使用了近似算法-可并行的近似直方图算法。所以xgboost还提出了一种可并行的近似直方图算法，用于高效地生成候选的分割点。用于加速和减小内存消耗。<br>5 列抽样（column subsampling）[传统GBDT没有]，列抽样。XGBoost借鉴了随机森林的做法，支持列抽样，不仅防止过 拟合，还能减少计算；<br>6 支持并行化处理。xgboost的并行是在特征粒度上的，在训练之前，预先对特征进行了排序，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行，即在不同的特征属性上采用多线程并行方式寻找最佳分割点。虽然树与树之间是串行关系，但是同层级节点可并行。<br>7 传统GBDT以CART作为基分类器，xgboost还支持线性分类器，这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归（回归问题）。<br>8 shrinkage（缩减），相当于学习速率（XGBoost中的eta）。XGBoost在进行完一次迭代时，会将叶子节点的权值乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间。（GBDT也有学习速率）<br>9 对缺失值的处理。对于特征的值有缺失的样本，XGBoost还可以自动 学习出它的分裂方向；</p>
-<p>中文文档<br><a href="http://xgboost.apachecn.org/#/docs/13" target="_blank" rel="noopener">http://xgboost.apachecn.org/#/docs/13</a></p>
+<p>中文文档<br><a href="http://xgboost.apachecn.org/#/docs/13" target="_blank" rel="noopener">http://xgboost.apachecn.org/#/docs/13</a><br><a href="https://cloud.tencent.com/developer/article/1357336" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1357336</a><br>gbdt xgboost区别</p>
 
           
         
@@ -408,8 +410,10 @@
   </article>
 
 
+        
     
-      
+        
+            
 
   
 
@@ -522,8 +526,7 @@
       
         
           
-            <p>July 6 - July 9</p>
-<p>目的：优化权重矩阵<br>but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。<br>误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。</p>
+            <p>目的：优化权重矩阵<br>反向传播的目的：更新参数w。因此要先算出dJ/dw。<br>but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。<br>误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。</p>
 <p>$ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}log(a^{(i)})-(1-y^{(i)})log(1-a^{(i)})) $</p>
 
           
@@ -559,8 +562,10 @@
   </article>
 
 
+        
     
-      
+        
+            
 
   
 
@@ -713,172 +718,10 @@
   </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/04/机器学习笔记-NeuralNetwork/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="li zeng">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="space">
-    </span>
-
-    
-      <header class="post-header">
-
         
+    
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/04/机器学习笔记-NeuralNetwork/" itemprop="url">机器学习笔记-Neural Network</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-04T22:41:31+08:00">
-                2019-07-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/07/04/机器学习笔记-NeuralNetwork/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/04/机器学习笔记-NeuralNetwork/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="激活函数-响应曲线："><a href="#激活函数-响应曲线：" class="headerlink" title="激活函数, 响应曲线："></a>激活函数, 响应曲线：</h3><h4 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h4><p>$ \delta $</p>
-<script type="math/tex; mode=display">g(z) = \frac{1}{1+e^{-z}}</script><script type="math/tex; mode=display">g'(z) = \frac{e^{-z}}{({1+e^{-z}})^2} = g(z)(1-g(z))</script><p>Z极大或极小时，g’(z)接近于0，即导到权重$\omega$的梯度接近于0，这时梯度更新慢，会出现梯度消失。<br>求导：<a href="https://www.jianshu.com/p/d4301dc529d9" target="_blank" rel="noopener">https://www.jianshu.com/p/d4301dc529d9</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#activation function </span><br><span class="line">def sigmoid(z, derivative=False):    </span><br><span class="line">	sigmoid = 1.0/(1.0+np.exp(-z))    </span><br><span class="line">	if (derivative==True):        </span><br><span class="line">		return sigmoid * (1-sigmoid)    </span><br><span class="line">	return sigmoid</span><br></pre></td></tr></table></figure></p>
-<h4 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h4><script type="math/tex; mode=display">g(z) = \frac{e^{-z}-e^{-z}}{e^{-z}+e^{-z}}</script><script type="math/tex; mode=display">g'(z) = \frac{4}{(e^{z}+e^{-z})^2} = 1-g(z)^2</script><p>tanh的均值为0</p>
-<h4 id="ReLu"><a href="#ReLu" class="headerlink" title="ReLu"></a>ReLu</h4><p>解决了梯度消失的问题<br>特性</p>
-<p>梯度消失的情况，就是当数值接近于正向∞，求导之后就更小的，约等于0，偏导为0<br>梯度爆炸，数值无限大</p>
-<p>对于梯度消失现象：激活函数<br>Sigmoid会发生梯度消失的情况，所以激活函数一般不用，收敛不了了。Tanh(x)，没解决梯度消失的问题。<br>ReLu Max(0,x)，比较好，代表Max门单元，解决了梯度消失的问题，而且起到了降维</p>
-<p>权重初始化，可以随机也可以一开始设置一定的图形分布，用高斯初始化</p>
-<h3 id="输出层有哪些"><a href="#输出层有哪些" class="headerlink" title="输出层有哪些"></a>输出层有哪些</h3><h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>把x通过网络前向传播，然后把误差反向传播以决定如何更新参数让网络进行学习<br><a href="https://www.jianshu.com/p/498f7bf488a2" target="_blank" rel="noopener">https://www.jianshu.com/p/498f7bf488a2</a></p>
-<h3 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h3><h3 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h3><p>解决了梯度消失与加速收敛(数据本身在0均值处)和internal covariate shift(内部神经元分布的改变) 数据分布不一致问题。<br>机器学习领域有个很重要的假设：IID独立同分布假设，就是假设训练数据和测试数据是满足相同分布的，这是通过训练数据获得的模型能够在测试集获得好的效果的一个基本保障。那BatchNorm的作用是什么呢？BatchNorm就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的。<br>统计机器学习中的一个经典假设是“源空间（source domain）和目标空间（target domain）的数据分布（distribution）是一致的”。如果不一致，那么就出现了新的机器学习问题，如，transfer learning/domain adaptation等。<br><a href="https://www.cnblogs.com/pigbreeder/p/8051442.html" target="_blank" rel="noopener">https://www.cnblogs.com/pigbreeder/p/8051442.html</a><br>训练vs测试，分布一样。 提出了Internal Covariate Shift。idea来自于图像处理的白化操作，对data分布变换到0均值、单位方差的正态分布。<br>BM对每个神经元做白化，使activation值的导数原理导数饱和区域，加速训练收敛。变换后某个神经元的激活x形成了均值为0，方差为1的正态分布，目的是把值往后续要进行的非线性变换的线性区拉动，增大导数值，增强反向传播信息流动性，加快训练收敛速度。<br>但这样会导致网络表达能力下降，所以加入scale shift操作。</p>
-<p>BN（Batch Normalization）层的作用<br>加速收敛<br>控制过拟合，可以少用或不用Dropout和正则<br>降低网络对初始化权重敏感<br>允许使用较大的学习率<br>在每一层输入的时候，加个BN预处理操作。BN应作用在非线性映射前，即对x=Wu+b做规范化。在BN中，是通过将activation规范为均值和方差一致的手段使得原本会减小的activation的scale变大。可以说是一种更有效的local response normalization方法<br>PS：<br>Batch Norm会忽略图像像素（或者特征）之间的绝对差异（因为均值归零，方差归一），而只考虑相对差异，所以在不需要绝对差异的任务中（比如分类），有锦上添花的效果。而对于图像超分辨率这种需要利用绝对差异的任务，Batch Norm只会添乱。</p>
-<h3 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h3><p>看coursera的machine learning，讲到神经网络时，对于异或问题的引入还有点懵。这下看到了学术上的来源。</p>
-<p>　　两层神经网络是本文的重点，因为正是在这时候，神经网络开始了大范围的推广与使用。</p>
-<p>　　Minsky说过单层神经网络无法解决异或问题。但是当增加一个计算层以后，两层神经网络不仅可以解决异或问题，而且具有非常好的非线性分类效果。不过两层神经网络的计算是一个问题，没有一个较好的解法。</p>
-<p>　　1986年，Rumelhar和Hinton等人提出了反向传播（Backpropagation，BP）算法，解决了两层神经网络所需要的复杂计算量问题，从而带动了业界使用两层神经网络研究的热潮。目前，大量的教授神经网络的教材，都是重点介绍两层（带一个隐藏层）神经网络的内容。 </p>
-<p>　　这时候的Hinton还很年轻，30年以后，正是他重新定义了神经网络，带来了神经网络复苏的又一春。</p>
-<h3 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h3><p><a href="https://blog.csdn.net/cluster1893/article/details/80983987#第二周-神经网络基础" target="_blank" rel="noopener">https://blog.csdn.net/cluster1893/article/details/80983987#第二周-神经网络基础</a><br>如果不对参数w进行随机初始化，比如全部设置为0，那么，可以证明，所有隐藏层单元都在计算相同的函数，呈对称状态，没有意义。<br>所以需要对w随机初始化。 </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -910,7 +753,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/" itemprop="url">NLP学习笔记-word2vec哈利波特文本分析</a></h1>
+                <a class="post-title-link" href="/2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/" itemprop="url">NLP学习笔记-word2vec哈利波特</a></h1>
         
 
         <div class="post-meta">
@@ -991,9 +834,130 @@
       
         
           
-            <p>做了个粗糙的demo，把哈利波特与魔法石当作语料丢进gensim训练了一下。</p>
-<p><a href="https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9" target="_blank" rel="noopener">https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9</a><br><a href="https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07" target="_blank" rel="noopener">https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07</a></p>
-<p><a href="http://tm.durusau.net/?p=47422" target="_blank" rel="noopener">http://tm.durusau.net/?p=47422</a> Harry Potter (Neo4j GraphGist)</p>
+            <p>很好奇把哈利波特与魔法石做语料库训练会是什么效果，找了《哈利波特与魔法石》丢进gensim训练了一下。btw今天才发现Jupyter可以直接导出成md格式的文件放到hexo上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> gensim</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入自定义词典 </span></span><br><span class="line"><span class="comment">#jieba.load_userdict("dict_all.txt")</span></span><br></pre></td></tr></table></figure>
+<p>第一次训练出来的非常不准，因为没有自定义词典。第二次随便打了几个主要的名词提前定义好以免被分词。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jieba.suggest_freq(<span class="string">'哈利波特'</span>, <span class="literal">True</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">'霍格沃茨'</span>, <span class="literal">True</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">'伏地魔'</span>, <span class="literal">True</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">'神秘人'</span>, <span class="literal">True</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">'邓布利多'</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure></p>
+<pre><code>Building prefix dict from the default dictionary ...
+Dumping model to file cache /var/folders/2b/6j0n0fbs66d8yddy84_s8my00000gn/T/jieba.cache
+Loading model cost 1.260 seconds.
+Prefix dict has been built succesfully.
+
+1
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">"harry_potter.txt"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> file:</span><br><span class="line">    doc = file.read()</span><br><span class="line">    doc_cut = jieba.cut(doc)</span><br><span class="line">    res = <span class="string">" "</span>.join(doc_cut)</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">"./cutcut.txt"</span>, <span class="string">'w'</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> wr:</span><br><span class="line">        wr.write(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">logging.basicConfig(format=<span class="string">'%(asctime)s : %(levelname)s : %(message)s'</span>, level=logging.INFO)</span><br><span class="line"></span><br><span class="line">sentences = word2vec.LineSentence(<span class="string">'./cutcut.txt'</span>)</span><br><span class="line">model = word2vec.Word2Vec(sentences, min_count=<span class="number">1</span>, iter=<span class="number">20</span>)</span><br><span class="line">model.save(<span class="string">"harry.model"</span>)</span><br></pre></td></tr></table></figure>
+<p>模型训练保存后可以直接调用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = gensim.models.Word2Vec.load(<span class="string">'/Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model'</span>)</span><br></pre></td></tr></table></figure></p>
+<pre><code>2019-07-16 12:04:59,593 : INFO : loading Word2Vec object from /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model
+/usr/local/lib/python3.7/site-packages/smart_open/smart_open_lib.py:398: UserWarning: This function is deprecated, use smart_open.open instead. See the migration notes for details: https://github.com/RaRe-Technologies/smart_open/blob/master/README.rst#migrating-to-the-new-open-function
+  &#39;See the migration notes for details: %s&#39; % _MIGRATION_NOTES_URL
+2019-07-16 12:05:00,197 : INFO : loading wv recursively from /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model.wv.* with mmap=None
+2019-07-16 12:05:00,198 : INFO : setting ignored attribute vectors_norm to None
+2019-07-16 12:05:00,199 : INFO : loading vocabulary recursively from /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model.vocabulary.* with mmap=None
+2019-07-16 12:05:00,200 : INFO : loading trainables recursively from /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model.trainables.* with mmap=None
+2019-07-16 12:05:00,202 : INFO : setting ignored attribute cum_table to None
+2019-07-16 12:05:00,206 : INFO : loaded /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.wv.most_similar_cosmul([<span class="string">'哈利'</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>2019-07-16 12:05:18,954 : INFO : precomputing L2-norms of word weight vectors
+
+
+[(&#39;他&#39;, 0.8602819442749023),
+ (&#39;自己&#39;, 0.7545604705810547),
+ (&#39;卢平&#39;, 0.7521289587020874),
+ (&#39;哈里&#39;, 0.7519404888153076),
+ (&#39;柯林&#39;, 0.7434094548225403),
+ (&#39;达力&#39;, 0.7420863509178162),
+ (&#39;斯内普&#39;, 0.7409030199050903),
+ (&#39;妙丽&#39;, 0.7405491471290588),
+ (&#39;荣恩&#39;, 0.7371218800544739),
+ (&#39;马尔福&#39;, 0.7298769950866699)]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.most_similar(<span class="string">"伏地魔"</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+
+[(&#39;神秘人&#39;, 0.7090122103691101),
+ (&#39;邓布利多&#39;, 0.6773073077201843),
+ (&#39;斯内普&#39;, 0.6683100461959839),
+ (&#39;小天狼星&#39;, 0.64884352684021),
+ (&#39;西里斯&#39;, 0.614011287689209),
+ (&#39;福尔&#39;, 0.604447603225708),
+ (&#39;他&#39;, 0.602016806602478),
+ (&#39;马尔福&#39;, 0.5879827737808228),
+ (&#39;别人&#39;, 0.5822662115097046),
+ (&#39;死亡&#39;, 0.5740424394607544)]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Series(model.most_similar(<span class="string">u'神秘人'</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+
+0     (伏地魔, 0.7090122103691101)
+1      (凶手, 0.6259762644767761)
+2      (死亡, 0.6117366552352905)
+3     (西里斯, 0.6114296913146973)
+4      (死圣, 0.5953347086906433)
+5      (别人, 0.5798361301422119)
+6      (将来, 0.5739343762397766)
+7     (阿瑞娜, 0.5732246041297913)
+8    (小天狼星, 0.5701403617858887)
+9      (敌人, 0.5690374374389648)
+dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.most_similar(positive=[<span class="string">'哈利'</span>, <span class="string">'赫敏'</span>], negative=[<span class="string">'老师'</span>], topn=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+[(&#39;荣恩&#39;, 0.561772882938385)]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.similarity(<span class="string">'哈利'</span>, <span class="string">'学生'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `similarity` (Method will be removed in 4.0.0, use self.wv.similarity() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+0.06678656
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Series(model.most_similar(<span class="string">u'巧克力'</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+0     (蛋糕, 0.822434663772583)
+1    (青蛙, 0.8146822452545166)
+2      (糖, 0.807898998260498)
+3    (奶油, 0.8068962693214417)
+4     (蛙, 0.7784561514854431)
+5    (馅饼, 0.7730252742767334)
+6    (啤酒, 0.7552222013473511)
+7    (黄油, 0.7340014576911926)
+8    (一盘, 0.7326947450637817)
+9     (一大, 0.732148289680481)
+dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Series(model.most_similar(<span class="string">u'黄油'</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+0     (啤酒, 0.8908703327178955)
+1     (奶油, 0.8439896702766418)
+2     (一盘, 0.7905278205871582)
+3      (南瓜, 0.782441258430481)
+4      (蛙, 0.7705074548721313)
+5     (一大, 0.7673135995864868)
+6      (三杯, 0.765322208404541)
+7    (白兰地, 0.7425451278686523)
+8      (蛋糕, 0.742247462272644)
+9    (巧克力, 0.7340013980865479)
+dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Series(model.most_similar(<span class="string">u'魁地奇'</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+0     (地奇, 0.7593209743499756)
+1     (举行, 0.7251222133636475)
+2    (快迪斯, 0.7201806306838989)
+3     (球队, 0.7135891914367676)
+4     (比赛, 0.7050434947013855)
+5    (第一场, 0.7039733529090881)
+6    (冠军杯, 0.6903494596481323)
+7      (魁, 0.6898428201675415)
+8     (魁地, 0.6820865273475647)
+9     (赢得, 0.6760300993919373)
+dtype: object
+</code></pre><p>“舶来词汇”因为没有全面定义好词典，输出的相似词并不是很准确。但巧克力跟黄油这类词还是很准确的，已经让人想到开学宴会和霍格莫德村了！</p>
+<p><a href="https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9" target="_blank" rel="noopener">https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9</a><br><a href="https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07" target="_blank" rel="noopener">https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07</a><br><a href="http://tm.durusau.net/?p=47422" target="_blank" rel="noopener">http://tm.durusau.net/?p=47422</a> Harry Potter(Neo4j GraphGist)</p>
 
           
         
@@ -1028,8 +992,179 @@
   </article>
 
 
+        
+    
+        
+            
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/02/机器学习笔记-基础知识整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="li zeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="space">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/02/机器学习笔记-基础知识整理/" itemprop="url">机器学习笔记-基础知识整理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T15:19:24+08:00">
+                2019-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/02/机器学习笔记-基础知识整理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/02/机器学习笔记-基础知识整理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有用的博客 <a href="https://www.jianshu.com/u/511ba5d71aef" target="_blank" rel="noopener">https://www.jianshu.com/u/511ba5d71aef</a><br>广告+w2v <a href="http://itindex.net/detail/50749-深度学习-word2vec-笔记" target="_blank" rel="noopener">http://itindex.net/detail/50749-深度学习-word2vec-笔记</a><br>数学基础 <a href="https://www.cnblogs.com/guoyaohua/p/9905760.html" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/9905760.html</a></p>
+<h2 id="算法知识"><a href="#算法知识" class="headerlink" title="算法知识"></a>算法知识</h2><h3 id="树模型"><a href="#树模型" class="headerlink" title="树模型"></a>树模型</h3><h4 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h4><h4 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h4><h5 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h5><h5 id="LightGBM"><a href="#LightGBM" class="headerlink" title="LightGBM"></a>LightGBM</h5><h3 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h3><h3 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h3><h4 id="PCA主成分分析"><a href="#PCA主成分分析" class="headerlink" title="PCA主成分分析"></a>PCA主成分分析</h4><p><a href="https://www.cnblogs.com/pinard/p/6239403.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/6239403.html</a></p>
+<h4 id="SVD奇异值分解"><a href="#SVD奇异值分解" class="headerlink" title="SVD奇异值分解"></a>SVD奇异值分解</h4><p>矩阵分解<br><a href="http://www.52nlp.cn/category/推荐系统" target="_blank" rel="noopener">http://www.52nlp.cn/category/推荐系统</a><br>SVD<br><a href="https://www.cnblogs.com/pinard/p/6251584.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/6251584.html</a><br><a href="https://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html" target="_blank" rel="noopener">https://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html</a><br>应用：<a href="https://www.jianshu.com/p/4e2b20333d38" target="_blank" rel="noopener">https://www.jianshu.com/p/4e2b20333d38</a></p>
+<h3 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h3><h3 id="文本分析"><a href="#文本分析" class="headerlink" title="文本分析"></a>文本分析</h3><h4 id="Word-of-Basg"><a href="#Word-of-Basg" class="headerlink" title="Word of Basg"></a>Word of Basg</h4><h4 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a>TF-IDF</h4><p><a href="https://www.jianshu.com/p/f3b92124cd2b" target="_blank" rel="noopener">https://www.jianshu.com/p/f3b92124cd2b</a></p>
+<h4 id="LSI"><a href="#LSI" class="headerlink" title="LSI"></a>LSI</h4><p>LSA(LSI)使用SVD来对单词-文档矩阵进行分解<br>数据集中行代表用户user，列代表物品item，其中的值代表用户对物品的打分。基于SVD的优势在于：用户的评分数据是稀疏矩阵，可以用SVD将原始数据映射到低维空间中，然后计算物品item之间的相似度，可以节省计算资源。<br><a href="https://www.jianshu.com/p/4e2b20333d38" target="_blank" rel="noopener">https://www.jianshu.com/p/4e2b20333d38</a></p>
+<h4 id="LDA"><a href="#LDA" class="headerlink" title="LDA"></a>LDA</h4><h4 id="Word2vec"><a href="#Word2vec" class="headerlink" title="Word2vec"></a>Word2vec</h4><h2 id="评估标准"><a href="#评估标准" class="headerlink" title="评估标准"></a>评估标准</h2><h3 id="ROC"><a href="#ROC" class="headerlink" title="ROC"></a>ROC</h3><h3 id="KS"><a href="#KS" class="headerlink" title="KS"></a>KS</h3><h3 id="GINI"><a href="#GINI" class="headerlink" title="GINI"></a>GINI</h3><h3 id="Lift"><a href="#Lift" class="headerlink" title="Lift"></a>Lift</h3><h2 id="假设性检验"><a href="#假设性检验" class="headerlink" title="假设性检验"></a>假设性检验</h2><p>LR<br>损失函数有哪些<br>binary_crossentropy 更适合处理概率问题，它可测量概率分布之间的“差距”</p>
+<p>交叉熵损失函数<br><a href="https://www.jianshu.com/p/756baa220882" target="_blank" rel="noopener">https://www.jianshu.com/p/756baa220882</a><br>为什么在分类的时候不选用MSE而是交叉熵作为损失函数？<br><a href="https://blog.csdn.net/weixin_37567451/article/details/80895309" target="_blank" rel="noopener">https://blog.csdn.net/weixin_37567451/article/details/80895309</a><br>相对MSE而言，曲线整体呈单调性，loss越大，梯度越大。便于梯度下降反向传播，利于优化。所以一般针对分类问题采用交叉熵作为loss函数。</p>
+<p>梯度下降优化函数有哪些</p>
+<p>XGB、lightGBM原理 参数 区别 lightGBM的并行处理是什么意思<br>xgboost:<br><a href="https://zhuanlan.zhihu.com/p/38297689" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/38297689</a> 很详细的过程<br>xgboost工具支持并行。boosting不是一种串行的结构吗?怎么并行的？注意xgboost的并行不是tree粒度的并行，xgboost也是一次迭代完才能进行下一次迭代的（第t次迭代的代价函数里包含了前面t-1次迭代的预测值）。xgboost的并行是在特征粒度上的。我们知道，决策树的学习最耗时的一个步骤就是对特征的值进行排序（因为要确定最佳分割点），xgboost在训练之前，预先对数据进行了排序，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。这个block结构也使得并行成为了可能，在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行。</p>
+<p>bagging boosting区别<br>k-means原理、参数，准备一个聚类<br>正则化<br>model emsembling方法<br>逻辑回归 </p>
+<p>LR：<br>假设y服从伯努利分布，伯努利分布又属于指数分布族 <a href="https://www.jianshu.com/p/a8d6b40da0cf" target="_blank" rel="noopener">https://www.jianshu.com/p/a8d6b40da0cf</a><br>假设1：数据服从伯努利分布<br>假设2：假设模型的输出值是样本为正例的概率。softmax建模使用的是多项式分布，而logistic是基于伯努利分布</p>
+<p>最大似然 最大熵 <a href="https://www.jianshu.com/p/e7c13002440d" target="_blank" rel="noopener">https://www.jianshu.com/p/e7c13002440d</a></p>
+<p>决策树:预剪枝 后剪枝<br>决策树与其他模型的损失函数、复杂度的比较<br>决策树与神经网络的区别与优缺点对比</p>
+<p>神经网络<br>BP原理 <a href="https://www.jianshu.com/p/90ae5ab88faa" target="_blank" rel="noopener">https://www.jianshu.com/p/90ae5ab88faa</a></p>
+<p>归一化 标准化 <a href="https://www.jianshu.com/p/4c3081d40ca6" target="_blank" rel="noopener">https://www.jianshu.com/p/4c3081d40ca6</a><br>特征筛选方式<br>如何判断一个模型中的变量太多<br>python遇到大数据量时如何处理空间问题<br>过拟合如何处理<br>样本不均衡处理<br>样本量很少情况下如何建模<br>数据标准化方法<br>数据清洗、填充</p>
+<p>模型评估指标 roc、gini、ks、lift，accuracy、precision、recall、F1、sensitivity、specificity，TPR、FPR<br>one-hot、dummy variable</p>
+<p>统计检验 t检验如何用<br>业务问题解题思路<br><a href="https://www.jianshu.com/p/51c205d7b07b" target="_blank" rel="noopener">https://www.jianshu.com/p/51c205d7b07b</a><br><a href="https://blog.csdn.net/u013382288/article/details/80470316" target="_blank" rel="noopener">https://blog.csdn.net/u013382288/article/details/80470316</a></p>
+<p>并行、并发、多线程、多进程、协程 <a href="https://www.jianshu.com/p/b3b3f481044e" target="_blank" rel="noopener">https://www.jianshu.com/p/b3b3f481044e</a></p>
+<p>知识深度、广度、工具</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+        
     
   </section>
+
 
   
   <nav class="pagination">
@@ -1081,7 +1216,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="做了个粗糙的demo，把哈利波特与魔法石当作语料丢进gensim训练了一下。 https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830">
+<meta name="description" content="很好奇把哈利波特与魔法石做语料库训练会是什么效果，找了《哈利波特与魔法石》丢进gensim训练了一下。btw今天才发现Jupyter可以直接导出成md格式的文件放到hexo上。 1234import jiebaimport loggingimport gensimimport pandas as pd 12#导入自定义词典 #jieba.load_userdict(&quot;dict_all.txt&quot;)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NLP学习笔记-word2vec哈利波特文本分析">
+<meta property="og:title" content="NLP学习笔记-word2vec哈利波特">
 <meta property="og:url" content="http://lizzeng.com/2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/index.html">
 <meta property="og:site_name" content="space">
-<meta property="og:description" content="做了个粗糙的demo，把哈利波特与魔法石当作语料丢进gensim训练了一下。 https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830">
+<meta property="og:description" content="很好奇把哈利波特与魔法石做语料库训练会是什么效果，找了《哈利波特与魔法石》丢进gensim训练了一下。btw今天才发现Jupyter可以直接导出成md格式的文件放到hexo上。 1234import jiebaimport loggingimport gensimimport pandas as pd 12#导入自定义词典 #jieba.load_userdict(&quot;dict_all.txt&quot;)">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-05T08:44:46.852Z">
+<meta property="og:updated_time" content="2019-07-16T04:22:41.096Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NLP学习笔记-word2vec哈利波特文本分析">
-<meta name="twitter:description" content="做了个粗糙的demo，把哈利波特与魔法石当作语料丢进gensim训练了一下。 https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830">
+<meta name="twitter:title" content="NLP学习笔记-word2vec哈利波特">
+<meta name="twitter:description" content="很好奇把哈利波特与魔法石做语料库训练会是什么效果，找了《哈利波特与魔法石》丢进gensim训练了一下。btw今天才发现Jupyter可以直接导出成md格式的文件放到hexo上。 1234import jiebaimport loggingimport gensimimport pandas as pd 12#导入自定义词典 #jieba.load_userdict(&quot;dict_all.txt&quot;)">
 
 
 
@@ -127,7 +127,7 @@
 
 
 
-  <title>NLP学习笔记-word2vec哈利波特文本分析 | space</title>
+  <title>NLP学习笔记-word2vec哈利波特 | space</title>
   
 
 
@@ -271,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">NLP学习笔记-word2vec哈利波特文本分析</h1>
+          <h1 class="post-title" itemprop="name headline">NLP学习笔记-word2vec哈利波特</h1>
         
 
         <div class="post-meta">
@@ -350,9 +350,130 @@
       
 
       
-        <p>做了个粗糙的demo，把哈利波特与魔法石当作语料丢进gensim训练了一下。</p>
-<p><a href="https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9" target="_blank" rel="noopener">https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9</a><br><a href="https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07" target="_blank" rel="noopener">https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07</a></p>
-<p><a href="http://tm.durusau.net/?p=47422" target="_blank" rel="noopener">http://tm.durusau.net/?p=47422</a> Harry Potter (Neo4j GraphGist)</p>
+        <p>很好奇把哈利波特与魔法石做语料库训练会是什么效果，找了《哈利波特与魔法石》丢进gensim训练了一下。btw今天才发现Jupyter可以直接导出成md格式的文件放到hexo上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> gensim</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入自定义词典 </span></span><br><span class="line"><span class="comment">#jieba.load_userdict("dict_all.txt")</span></span><br></pre></td></tr></table></figure>
+<p>第一次训练出来的非常不准，因为没有自定义词典。第二次随便打了几个主要的名词提前定义好以免被分词。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jieba.suggest_freq(<span class="string">'哈利波特'</span>, <span class="literal">True</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">'霍格沃茨'</span>, <span class="literal">True</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">'伏地魔'</span>, <span class="literal">True</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">'神秘人'</span>, <span class="literal">True</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">'邓布利多'</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure></p>
+<pre><code>Building prefix dict from the default dictionary ...
+Dumping model to file cache /var/folders/2b/6j0n0fbs66d8yddy84_s8my00000gn/T/jieba.cache
+Loading model cost 1.260 seconds.
+Prefix dict has been built succesfully.
+
+1
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">"harry_potter.txt"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> file:</span><br><span class="line">    doc = file.read()</span><br><span class="line">    doc_cut = jieba.cut(doc)</span><br><span class="line">    res = <span class="string">" "</span>.join(doc_cut)</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">"./cutcut.txt"</span>, <span class="string">'w'</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> wr:</span><br><span class="line">        wr.write(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">logging.basicConfig(format=<span class="string">'%(asctime)s : %(levelname)s : %(message)s'</span>, level=logging.INFO)</span><br><span class="line"></span><br><span class="line">sentences = word2vec.LineSentence(<span class="string">'./cutcut.txt'</span>)</span><br><span class="line">model = word2vec.Word2Vec(sentences, min_count=<span class="number">1</span>, iter=<span class="number">20</span>)</span><br><span class="line">model.save(<span class="string">"harry.model"</span>)</span><br></pre></td></tr></table></figure>
+<p>模型训练保存后可以直接调用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = gensim.models.Word2Vec.load(<span class="string">'/Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model'</span>)</span><br></pre></td></tr></table></figure></p>
+<pre><code>2019-07-16 12:04:59,593 : INFO : loading Word2Vec object from /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model
+/usr/local/lib/python3.7/site-packages/smart_open/smart_open_lib.py:398: UserWarning: This function is deprecated, use smart_open.open instead. See the migration notes for details: https://github.com/RaRe-Technologies/smart_open/blob/master/README.rst#migrating-to-the-new-open-function
+  &#39;See the migration notes for details: %s&#39; % _MIGRATION_NOTES_URL
+2019-07-16 12:05:00,197 : INFO : loading wv recursively from /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model.wv.* with mmap=None
+2019-07-16 12:05:00,198 : INFO : setting ignored attribute vectors_norm to None
+2019-07-16 12:05:00,199 : INFO : loading vocabulary recursively from /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model.vocabulary.* with mmap=None
+2019-07-16 12:05:00,200 : INFO : loading trainables recursively from /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model.trainables.* with mmap=None
+2019-07-16 12:05:00,202 : INFO : setting ignored attribute cum_table to None
+2019-07-16 12:05:00,206 : INFO : loaded /Users/Apple/Desktop/Coding/NLP/gensim_w2v_hp/harry.model
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.wv.most_similar_cosmul([<span class="string">'哈利'</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>2019-07-16 12:05:18,954 : INFO : precomputing L2-norms of word weight vectors
+
+
+[(&#39;他&#39;, 0.8602819442749023),
+ (&#39;自己&#39;, 0.7545604705810547),
+ (&#39;卢平&#39;, 0.7521289587020874),
+ (&#39;哈里&#39;, 0.7519404888153076),
+ (&#39;柯林&#39;, 0.7434094548225403),
+ (&#39;达力&#39;, 0.7420863509178162),
+ (&#39;斯内普&#39;, 0.7409030199050903),
+ (&#39;妙丽&#39;, 0.7405491471290588),
+ (&#39;荣恩&#39;, 0.7371218800544739),
+ (&#39;马尔福&#39;, 0.7298769950866699)]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.most_similar(<span class="string">"伏地魔"</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+
+[(&#39;神秘人&#39;, 0.7090122103691101),
+ (&#39;邓布利多&#39;, 0.6773073077201843),
+ (&#39;斯内普&#39;, 0.6683100461959839),
+ (&#39;小天狼星&#39;, 0.64884352684021),
+ (&#39;西里斯&#39;, 0.614011287689209),
+ (&#39;福尔&#39;, 0.604447603225708),
+ (&#39;他&#39;, 0.602016806602478),
+ (&#39;马尔福&#39;, 0.5879827737808228),
+ (&#39;别人&#39;, 0.5822662115097046),
+ (&#39;死亡&#39;, 0.5740424394607544)]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Series(model.most_similar(<span class="string">u'神秘人'</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+
+0     (伏地魔, 0.7090122103691101)
+1      (凶手, 0.6259762644767761)
+2      (死亡, 0.6117366552352905)
+3     (西里斯, 0.6114296913146973)
+4      (死圣, 0.5953347086906433)
+5      (别人, 0.5798361301422119)
+6      (将来, 0.5739343762397766)
+7     (阿瑞娜, 0.5732246041297913)
+8    (小天狼星, 0.5701403617858887)
+9      (敌人, 0.5690374374389648)
+dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.most_similar(positive=[<span class="string">'哈利'</span>, <span class="string">'赫敏'</span>], negative=[<span class="string">'老师'</span>], topn=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+[(&#39;荣恩&#39;, 0.561772882938385)]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.similarity(<span class="string">'哈利'</span>, <span class="string">'学生'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `similarity` (Method will be removed in 4.0.0, use self.wv.similarity() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+0.06678656
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Series(model.most_similar(<span class="string">u'巧克力'</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+0     (蛋糕, 0.822434663772583)
+1    (青蛙, 0.8146822452545166)
+2      (糖, 0.807898998260498)
+3    (奶油, 0.8068962693214417)
+4     (蛙, 0.7784561514854431)
+5    (馅饼, 0.7730252742767334)
+6    (啤酒, 0.7552222013473511)
+7    (黄油, 0.7340014576911926)
+8    (一盘, 0.7326947450637817)
+9     (一大, 0.732148289680481)
+dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Series(model.most_similar(<span class="string">u'黄油'</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+0     (啤酒, 0.8908703327178955)
+1     (奶油, 0.8439896702766418)
+2     (一盘, 0.7905278205871582)
+3      (南瓜, 0.782441258430481)
+4      (蛙, 0.7705074548721313)
+5     (一大, 0.7673135995864868)
+6      (三杯, 0.765322208404541)
+7    (白兰地, 0.7425451278686523)
+8      (蛋糕, 0.742247462272644)
+9    (巧克力, 0.7340013980865479)
+dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Series(model.most_similar(<span class="string">u'魁地奇'</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>/usr/local/lib/python3.7/site-packages/ipykernel_launcher.py:1: DeprecationWarning: Call to deprecated `most_similar` (Method will be removed in 4.0.0, use self.wv.most_similar() instead).
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+0     (地奇, 0.7593209743499756)
+1     (举行, 0.7251222133636475)
+2    (快迪斯, 0.7201806306838989)
+3     (球队, 0.7135891914367676)
+4     (比赛, 0.7050434947013855)
+5    (第一场, 0.7039733529090881)
+6    (冠军杯, 0.6903494596481323)
+7      (魁, 0.6898428201675415)
+8     (魁地, 0.6820865273475647)
+9     (赢得, 0.6760300993919373)
+dtype: object
+</code></pre><p>“舶来词汇”因为没有全面定义好词典，输出的相似词并不是很准确。但巧克力跟黄油这类词还是很准确的，已经让人想到开学宴会和霍格莫德村了！</p>
+<p><a href="https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9" target="_blank" rel="noopener">https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9</a><br><a href="https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07" target="_blank" rel="noopener">https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07</a><br><a href="http://tm.durusau.net/?p=47422" target="_blank" rel="noopener">http://tm.durusau.net/?p=47422</a> Harry Potter(Neo4j GraphGist)</p>
 
       
     </div>
@@ -387,8 +508,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/04/机器学习笔记-NeuralNetwork/" rel="prev" title="机器学习笔记-Neural Network">
-                机器学习笔记-Neural Network <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/07/Python-datacleaning/" rel="prev" title="Python - Data Cleaning">
+                Python - Data Cleaning <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -469,7 +590,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -700,7 +821,7 @@
         var disqus_config = function () {
           this.page.url = 'http://lizzeng.com/2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/';
           this.page.identifier = '2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/';
-          this.page.title = 'NLP学习笔记-word2vec哈利波特文本分析';
+          this.page.title = 'NLP学习笔记-word2vec哈利波特';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lizeng.disqus.com/embed.js';

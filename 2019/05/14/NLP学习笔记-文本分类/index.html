@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="激活函数, 响应曲线：sigmoid$ \delta $ g(z) = \frac{1}{1+e^{-z}}g&apos;(z) = \frac{e^{-z}}{({1+e^{-z}})^2} = g(z)(1-g(z))Z极大或极小时，g’(z)接近于0，即导到权重$\omega$的梯度接近于0，这时梯度更新慢，会出现梯度消失。求导：https://www.jianshu.com/p/d4301dc529">
+<meta name="description" content="Question:  Word Embedding，采用什么方式进行Embedding(one-hot or word2vec or glove)效果较好。  CNN的输入NK 中的N怎么定义，即输入的句子的序列的长度怎么定义，因为对于不同的句子，包含的词的数量是不一样的。而CNN的输入是需要固定的矩阵NK。  对于不在词汇表中的词如何Embedding？  文本的预处理Jieba中文分词 文本数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习笔记-Neural Network">
-<meta property="og:url" content="http://lizzeng.com/2019/07/04/机器学习笔记-NeuralNetwork/index.html">
+<meta property="og:title" content="NLP学习笔记-CNN文本分类">
+<meta property="og:url" content="http://lizzeng.com/2019/05/14/NLP学习笔记-文本分类/index.html">
 <meta property="og:site_name" content="space">
-<meta property="og:description" content="激活函数, 响应曲线：sigmoid$ \delta $ g(z) = \frac{1}{1+e^{-z}}g&apos;(z) = \frac{e^{-z}}{({1+e^{-z}})^2} = g(z)(1-g(z))Z极大或极小时，g’(z)接近于0，即导到权重$\omega$的梯度接近于0，这时梯度更新慢，会出现梯度消失。求导：https://www.jianshu.com/p/d4301dc529">
+<meta property="og:description" content="Question:  Word Embedding，采用什么方式进行Embedding(one-hot or word2vec or glove)效果较好。  CNN的输入NK 中的N怎么定义，即输入的句子的序列的长度怎么定义，因为对于不同的句子，包含的词的数量是不一样的。而CNN的输入是需要固定的矩阵NK。  对于不在词汇表中的词如何Embedding？  文本的预处理Jieba中文分词 文本数">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-07T08:55:52.786Z">
+<meta property="og:updated_time" content="2019-07-16T03:09:37.205Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习笔记-Neural Network">
-<meta name="twitter:description" content="激活函数, 响应曲线：sigmoid$ \delta $ g(z) = \frac{1}{1+e^{-z}}g&apos;(z) = \frac{e^{-z}}{({1+e^{-z}})^2} = g(z)(1-g(z))Z极大或极小时，g’(z)接近于0，即导到权重$\omega$的梯度接近于0，这时梯度更新慢，会出现梯度消失。求导：https://www.jianshu.com/p/d4301dc529">
+<meta name="twitter:title" content="NLP学习笔记-CNN文本分类">
+<meta name="twitter:description" content="Question:  Word Embedding，采用什么方式进行Embedding(one-hot or word2vec or glove)效果较好。  CNN的输入NK 中的N怎么定义，即输入的句子的序列的长度怎么定义，因为对于不同的句子，包含的词的数量是不一样的。而CNN的输入是需要固定的矩阵NK。  对于不在词汇表中的词如何Embedding？  文本的预处理Jieba中文分词 文本数">
 
 
 
@@ -119,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="http://lizzeng.com/2019/07/04/机器学习笔记-NeuralNetwork/">
+  <link rel="canonical" href="http://lizzeng.com/2019/05/14/NLP学习笔记-文本分类/">
 
 
 
@@ -127,7 +127,7 @@
 
 
 
-  <title>机器学习笔记-Neural Network | space</title>
+  <title>NLP学习笔记-CNN文本分类 | space</title>
   
 
 
@@ -254,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/04/机器学习笔记-NeuralNetwork/">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/05/14/NLP学习笔记-文本分类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
@@ -271,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">机器学习笔记-Neural Network</h1>
+          <h1 class="post-title" itemprop="name headline">NLP学习笔记-CNN文本分类</h1>
         
 
         <div class="post-meta">
@@ -283,8 +283,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-04T22:41:31+08:00">
-                2019-07-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-14T16:05:27+08:00">
+                2019-05-14
               </time>
             
 
@@ -302,8 +302,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/04/机器学习笔记-NeuralNetwork/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/04/机器学习笔记-NeuralNetwork/" itemprop="commentCount"></span>
+                <a href="/2019/05/14/NLP学习笔记-文本分类/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/05/14/NLP学习笔记-文本分类/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -350,22 +350,31 @@
       
 
       
-        <h3 id="激活函数-响应曲线："><a href="#激活函数-响应曲线：" class="headerlink" title="激活函数, 响应曲线："></a>激活函数, 响应曲线：</h3><h4 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h4><p>$ \delta $</p>
-<script type="math/tex; mode=display">g(z) = \frac{1}{1+e^{-z}}</script><script type="math/tex; mode=display">g'(z) = \frac{e^{-z}}{({1+e^{-z}})^2} = g(z)(1-g(z))</script><p>Z极大或极小时，g’(z)接近于0，即导到权重$\omega$的梯度接近于0，这时梯度更新慢，会出现梯度消失。<br>求导：<a href="https://www.jianshu.com/p/d4301dc529d9" target="_blank" rel="noopener">https://www.jianshu.com/p/d4301dc529d9</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#activation function </span><br><span class="line">def sigmoid(z, derivative=False):    </span><br><span class="line">	sigmoid = 1.0/(1.0+np.exp(-z))    </span><br><span class="line">	if (derivative==True):        </span><br><span class="line">		return sigmoid * (1-sigmoid)    </span><br><span class="line">	return sigmoid</span><br></pre></td></tr></table></figure></p>
-<h4 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h4><script type="math/tex; mode=display">g(z) = \frac{e^{-z}-e^{-z}}{e^{-z}+e^{-z}}</script><script type="math/tex; mode=display">g'(z) = \frac{4}{(e^{z}+e^{-z})^2} = 1-g(z)^2</script><p>tanh的均值为0</p>
-<h4 id="ReLu"><a href="#ReLu" class="headerlink" title="ReLu"></a>ReLu</h4><p>解决了梯度消失的问题<br>特性</p>
-<p>梯度消失的情况，就是当数值接近于正向∞，求导之后就更小的，约等于0，偏导为0<br>梯度爆炸，数值无限大</p>
-<p>对于梯度消失现象：激活函数<br>Sigmoid会发生梯度消失的情况，所以激活函数一般不用，收敛不了了。Tanh(x)，没解决梯度消失的问题。<br>ReLu Max(0,x)，比较好，代表Max门单元，解决了梯度消失的问题，而且起到了降维</p>
-<p>权重初始化，可以随机也可以一开始设置一定的图形分布，用高斯初始化</p>
-<h3 id="输出层有哪些"><a href="#输出层有哪些" class="headerlink" title="输出层有哪些"></a>输出层有哪些</h3><h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>把x通过网络前向传播，然后把误差反向传播以决定如何更新参数让网络进行学习<br><a href="https://www.jianshu.com/p/498f7bf488a2" target="_blank" rel="noopener">https://www.jianshu.com/p/498f7bf488a2</a></p>
-<h3 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h3><h3 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h3><p>解决了梯度消失与加速收敛(数据本身在0均值处)和internal covariate shift(内部神经元分布的改变) 数据分布不一致问题。<br>机器学习领域有个很重要的假设：IID独立同分布假设，就是假设训练数据和测试数据是满足相同分布的，这是通过训练数据获得的模型能够在测试集获得好的效果的一个基本保障。那BatchNorm的作用是什么呢？BatchNorm就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的。<br>统计机器学习中的一个经典假设是“源空间（source domain）和目标空间（target domain）的数据分布（distribution）是一致的”。如果不一致，那么就出现了新的机器学习问题，如，transfer learning/domain adaptation等。<br><a href="https://www.cnblogs.com/pigbreeder/p/8051442.html" target="_blank" rel="noopener">https://www.cnblogs.com/pigbreeder/p/8051442.html</a><br>训练vs测试，分布一样。 提出了Internal Covariate Shift。idea来自于图像处理的白化操作，对data分布变换到0均值、单位方差的正态分布。<br>BM对每个神经元做白化，使activation值的导数原理导数饱和区域，加速训练收敛。变换后某个神经元的激活x形成了均值为0，方差为1的正态分布，目的是把值往后续要进行的非线性变换的线性区拉动，增大导数值，增强反向传播信息流动性，加快训练收敛速度。<br>但这样会导致网络表达能力下降，所以加入scale shift操作。</p>
-<p>BN（Batch Normalization）层的作用<br>加速收敛<br>控制过拟合，可以少用或不用Dropout和正则<br>降低网络对初始化权重敏感<br>允许使用较大的学习率<br>在每一层输入的时候，加个BN预处理操作。BN应作用在非线性映射前，即对x=Wu+b做规范化。在BN中，是通过将activation规范为均值和方差一致的手段使得原本会减小的activation的scale变大。可以说是一种更有效的local response normalization方法<br>PS：<br>Batch Norm会忽略图像像素（或者特征）之间的绝对差异（因为均值归零，方差归一），而只考虑相对差异，所以在不需要绝对差异的任务中（比如分类），有锦上添花的效果。而对于图像超分辨率这种需要利用绝对差异的任务，Batch Norm只会添乱。</p>
-<h3 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h3><p>看coursera的machine learning，讲到神经网络时，对于异或问题的引入还有点懵。这下看到了学术上的来源。</p>
-<p>　　两层神经网络是本文的重点，因为正是在这时候，神经网络开始了大范围的推广与使用。</p>
-<p>　　Minsky说过单层神经网络无法解决异或问题。但是当增加一个计算层以后，两层神经网络不仅可以解决异或问题，而且具有非常好的非线性分类效果。不过两层神经网络的计算是一个问题，没有一个较好的解法。</p>
-<p>　　1986年，Rumelhar和Hinton等人提出了反向传播（Backpropagation，BP）算法，解决了两层神经网络所需要的复杂计算量问题，从而带动了业界使用两层神经网络研究的热潮。目前，大量的教授神经网络的教材，都是重点介绍两层（带一个隐藏层）神经网络的内容。 </p>
-<p>　　这时候的Hinton还很年轻，30年以后，正是他重新定义了神经网络，带来了神经网络复苏的又一春。</p>
-<h3 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h3><p><a href="https://blog.csdn.net/cluster1893/article/details/80983987#第二周-神经网络基础" target="_blank" rel="noopener">https://blog.csdn.net/cluster1893/article/details/80983987#第二周-神经网络基础</a><br>如果不对参数w进行随机初始化，比如全部设置为0，那么，可以证明，所有隐藏层单元都在计算相同的函数，呈对称状态，没有意义。<br>所以需要对w随机初始化。 </p>
+        <p>Question:</p>
+<ul>
+<li>Word Embedding，采用什么方式进行Embedding(one-hot or word2vec or glove)效果较好。 </li>
+<li>CNN的输入N<em>K 中的N怎么定义，即输入的句子的序列的长度怎么定义，因为对于不同的句子，包含的词的数量是不一样的。而CNN的输入是需要固定的矩阵N</em>K。 </li>
+<li>对于不在词汇表中的词如何Embedding？</li>
+</ul>
+<h2 id="文本的预处理"><a href="#文本的预处理" class="headerlink" title="文本的预处理"></a>文本的预处理</h2><p>Jieba中文分词</p>
+<h2 id="文本数值化"><a href="#文本数值化" class="headerlink" title="文本数值化"></a>文本数值化</h2><p>将词汇信息映射到一个数值化的语义空间中，这个语义空间我们可以称之为词向量空间（词向量模型）<br>文本的数值化方式有很多种，例如：TF-IDF、BOW、One-Hot、分布式的表示方式（word2vec、Glove）等<br>word2ve工具是无监督的学习模型，可以在一个语料集上（不需要标记，主要思想是“具有相似邻近词分布的中心词之之间具有一定的语义相似度”），实现词汇信息到语义空间的映射，最终获得一个词向量模型（每个词汇对应一个指定维度的数组）。</p>
+<p>深度学习模型以词向量序列的形式读取序列化的单词,而不是以文本的形式。</p>
+<h2 id="Text-CNN模型结构"><a href="#Text-CNN模型结构" class="headerlink" title="Text-CNN模型结构"></a>Text-CNN模型结构</h2><p>整个模型由四部分构成：输入层+第一层卷积层+池化层+全连接+softmax层</p>
+<p>TextCNN论文中的网络结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#Hyperparameters and Training</span><br><span class="line">For all datasets we use: rectified linear units; </span><br><span class="line">filter windows (h) of 3, 4, 5 with 100 feature maps each;</span><br><span class="line">dropout rate (p) of 0.5, l2 constraint (s) of 3;</span><br><span class="line">mini-batch size of 50. These values were chosen via a grid search on the SST-2 dev set.</span><br></pre></td></tr></table></figure></p>
+<p>1.输入层（词嵌入层）：<br>Text-CNN模型的输入层需要输入一个定长的文本序列，我们需要通过分析语料集样本的长度指定一个输入序列的长度L，比L短的样本序列需要填充，比L长的序列需要截取。最终输入层输入的是文本序列中各个词汇对应的词向量。</p>
+<p>文章中模型输入的数据格式格式进行了四种尝试，然后进行对比，有以下四种：<br>CNN-rand：所有的 word vector 都是随机初始化的，同时当做训练过程中优化的参数，设计好embedding_size这个Hyperparameter 后, 对不同单词的向量作随机初始化, 后续BP的时候作调整；<br>CNN-static: 所有的word vector直接使用Word2Vec, FastText或者GloVe得到的结果直接用，并且是固定不变的，训练过程中不再调整词向量.<br>CNN-non-static: 所有的word vector直接使用工具得到的结果，这些word vector也当做是可优化的参数，在训练过程中被Fine tuned。即拿word2vec训练好的词向量初始化, 训练过程中再对它们微调.<br>multiple channel：类比于图像中的RGB通道, 这里也可以用 static 与 non-static 搭两个通道来搞，用CNN-static和CNN-non-static 的混合版本，即两种类型的输入；</p>
+<p>2.卷积层：<br>在NLP领域一般卷积核只进行一维的滑动，即卷积核的宽度与词向量的维度等宽，卷积核只进行一维的滑动。<br>在Text-CNN模型中一般使用多个不同尺寸的卷积核。卷积核的高度，即窗口值，可以理解为N-gram模型中的N，即利用的局部词序的长度，窗口值也是一个超参数，需要在任务中尝试，一般选取2-8之间的值。</p>
+<p>3.池化层：<br>在Text-CNN模型的池化层中使用了Max-pool（最大值池化），即减少了模型 的参数，又保证了在不定长的卷基层的输出上获得一个定长的全连接层的输入。<br>卷积层与池化层在分类模型的核心作用就是特征提取的功能，从输入的定长文本序列中，利用局部词序信息，提取初级的特征，并组合初级的特征为高级特征，通过卷积与池化操作，省去了传统机器学习中的特征工程的步骤。</p>
+<p>4.全连接层：<br>全连接层的作用就是分类器，原始的Text-CNN模型使用了只有一层隐藏层的全连接网络，相当于把卷积与池化层提取的特征输入到一个LR分类器中进行分类。</p>
+<ul>
+<li>但TextCNN的一个明显缺点就是，卷积、池化操作丢失了文本序列中的词汇的顺序、位置信息，比较难以捕获文本序列中的否定、反义等语义信息。</li>
+</ul>
+<h2 id="参数与超参数"><a href="#参数与超参数" class="headerlink" title="参数与超参数"></a>参数与超参数</h2><p>分类模型中的主要参数：词向量的维度、卷积核的个数、卷积核的窗口值、L2的参数、DropOut的参数、学习率等。</p>
+<p>sequence_length<br>Q: 对于CNN, 输入与输出都是固定的，可每个句子长短不一, 怎么处理?<br>A: 需要做定长处理, 比如定为n, 超过的截断, 不足的补0. 注意补充的0对后面的结果没有影响，因为后面的max-pooling只会输出最大值，补零的项会被过滤掉.<br>num_classes：多分类, 分为几类.<br>vocabulary_size：语料库的词典大小, 记为|D|.<br>embedding_size：将词向量的维度, 由原始的 |D| 降维到 embedding_size.<br>filter_size_arr：多个不同size的filter.</p>
+<h2 id="模型的效果评估与调优"><a href="#模型的效果评估与调优" class="headerlink" title="模型的效果评估与调优"></a>模型的效果评估与调优</h2><p>针对分类问题，一般可以使用准确率、召回率、F1值、混淆矩阵等指标，在文本多标签分类中一般还会考虑标签的位置加权等问题。</p>
+<h2 id="文本分类常遇问题"><a href="#文本分类常遇问题" class="headerlink" title="文本分类常遇问题"></a>文本分类常遇问题</h2><h3 id="数据集类别不均衡"><a href="#数据集类别不均衡" class="headerlink" title="数据集类别不均衡"></a>数据集类别不均衡</h3><h3 id="文本分类模型的泛化能力"><a href="#文本分类模型的泛化能力" class="headerlink" title="文本分类模型的泛化能力"></a>文本分类模型的泛化能力</h3><p>对于一个未知的样本数据，分类模型只能给出分类标签中的一个，无法解决不属于分类标签体系的样本。我们无法预知未来的数据会是什么样的，也不能保证未来的所有分类情况在训练集中都已经出现过。</p>
+<h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><p>数据上：交叉验证<br>模型上：使用DropOut、BatchNorm、正则项、Early Stop</p>
+<p><a href="https://arxiv.org/pdf/1408.5882.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1408.5882.pdf</a><br><a href="https://cloud.tencent.com/developer/article/1335257" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1335257</a><br><a href="https://cloud.tencent.com/developer/article/1005817" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1005817</a></p>
 
       
     </div>
@@ -390,18 +399,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/" rel="next" title="NLP学习笔记-word2vec哈利波特文本分析">
-                <i class="fa fa-chevron-left"></i> NLP学习笔记-word2vec哈利波特文本分析
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/07/Python-datacleaning/" rel="prev" title="Python - Data Cleaning">
-                Python - Data Cleaning <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/04/机器学习笔记-NeuralNetwork/" rel="prev" title="机器学习笔记-Neural Network">
+                机器学习笔记-Neural Network <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -491,7 +496,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -562,7 +567,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#激活函数-响应曲线："><span class="nav-number">1.</span> <span class="nav-text">激活函数, 响应曲线：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sigmoid"><span class="nav-number">1.1.</span> <span class="nav-text">sigmoid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tanh"><span class="nav-number">1.2.</span> <span class="nav-text">tanh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ReLu"><span class="nav-number">1.3.</span> <span class="nav-text">ReLu</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出层有哪些"><span class="nav-number">2.</span> <span class="nav-text">输出层有哪些</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向传播"><span class="nav-number">3.</span> <span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前向传播"><span class="nav-number">4.</span> <span class="nav-text">前向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">5.</span> <span class="nav-text">Batch Normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dropout"><span class="nav-number">6.</span> <span class="nav-text">Dropout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机初始化"><span class="nav-number">7.</span> <span class="nav-text">随机初始化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本的预处理"><span class="nav-number">1.</span> <span class="nav-text">文本的预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本数值化"><span class="nav-number">2.</span> <span class="nav-text">文本数值化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Text-CNN模型结构"><span class="nav-number">3.</span> <span class="nav-text">Text-CNN模型结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数与超参数"><span class="nav-number">4.</span> <span class="nav-text">参数与超参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型的效果评估与调优"><span class="nav-number">5.</span> <span class="nav-text">模型的效果评估与调优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本分类常遇问题"><span class="nav-number">6.</span> <span class="nav-text">文本分类常遇问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集类别不均衡"><span class="nav-number">6.1.</span> <span class="nav-text">数据集类别不均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本分类模型的泛化能力"><span class="nav-number">6.2.</span> <span class="nav-text">文本分类模型的泛化能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过拟合"><span class="nav-number">6.3.</span> <span class="nav-text">过拟合</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -736,9 +741,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lizzeng.com/2019/07/04/机器学习笔记-NeuralNetwork/';
-          this.page.identifier = '2019/07/04/机器学习笔记-NeuralNetwork/';
-          this.page.title = '机器学习笔记-Neural Network';
+          this.page.url = 'http://lizzeng.com/2019/05/14/NLP学习笔记-文本分类/';
+          this.page.identifier = '2019/05/14/NLP学习笔记-文本分类/';
+          this.page.title = 'NLP学习笔记-CNN文本分类';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lizeng.disqus.com/embed.js';
@@ -789,26 +794,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

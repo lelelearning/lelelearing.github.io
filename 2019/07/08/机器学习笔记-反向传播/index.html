@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="July 6 - July 9 目的：优化权重矩阵but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}l">
+<meta name="description" content="目的：优化权重矩阵反向传播的目的：更新参数w。因此要先算出dJ/dw。but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习笔记-反向传播">
 <meta property="og:url" content="http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/index.html">
 <meta property="og:site_name" content="space">
-<meta property="og:description" content="July 6 - July 9 目的：优化权重矩阵but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}l">
+<meta property="og:description" content="目的：优化权重矩阵反向传播的目的：更新参数w。因此要先算出dJ/dw。but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-09T04:55:17.042Z">
+<meta property="og:updated_time" content="2019-07-16T03:10:38.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记-反向传播">
-<meta name="twitter:description" content="July 6 - July 9 目的：优化权重矩阵but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}l">
+<meta name="twitter:description" content="目的：优化权重矩阵反向传播的目的：更新参数w。因此要先算出dJ/dw。but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m">
 
 
 
@@ -350,8 +350,7 @@
       
 
       
-        <p>July 6 - July 9</p>
-<p>目的：优化权重矩阵<br>but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。<br>误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。</p>
+        <p>目的：优化权重矩阵<br>反向传播的目的：更新参数w。因此要先算出dJ/dw。<br>but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。<br>误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。</p>
 <p>$ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}log(a^{(i)})-(1-y^{(i)})log(1-a^{(i)})) $</p>
 
       
@@ -469,7 +468,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
