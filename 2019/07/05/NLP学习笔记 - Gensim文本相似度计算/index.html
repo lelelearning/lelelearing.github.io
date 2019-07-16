@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="理论知识语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素。此">
+<meta name="description" content="理论知识语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素">
 <meta name="keywords" content="NLP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NLP学习笔记 - 使用Gensim, jieba进行文本相似度计算">
 <meta property="og:url" content="http://lizzeng.com/2019/07/05/NLP学习笔记 - Gensim文本相似度计算/index.html">
-<meta property="og:site_name" content="space">
-<meta property="og:description" content="理论知识语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素。此">
+<meta property="og:site_name" content="Recording">
+<meta property="og:description" content="理论知识语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-16T05:24:02.310Z">
+<meta property="og:updated_time" content="2019-07-16T09:15:54.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NLP学习笔记 - 使用Gensim, jieba进行文本相似度计算">
-<meta name="twitter:description" content="理论知识语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素。此">
+<meta name="twitter:description" content="理论知识语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>NLP学习笔记 - 使用Gensim, jieba进行文本相似度计算 | space</title>
+  <title>NLP学习笔记 - 使用Gensim, jieba进行文本相似度计算 | Recording</title>
   
 
 
@@ -158,7 +158,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">space</span>
+        <span class="site-title">Recording</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -270,11 +270,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/07/16/ZHjs5q.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="space">
+      <meta itemprop="name" content="Recording">
     </span>
 
     
@@ -361,7 +361,9 @@
       
 
       
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28226046&auto=1&height=66"></iframe>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4143638&auto=1&height=66"></iframe>
+
+
 
 <h2 id="理论知识"><a href="#理论知识" class="headerlink" title="理论知识"></a>理论知识</h2><p>语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。<br>向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。<br>稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素。此时，向量中的每一个元素是一个(key, value)的元组<br>模型（Model）：是一个抽象的术语。定义了两个向量空间的变换（即从文本的一种向量表达变换为另一种向量表达）。<br>相似度为数学概念。要对两篇中文文本进行似度计算，自然语言无法完成，需要把文本转化为向量。相似度计算有欧式距离、皮尔逊相关系数、余弦相似度等。</p>
 <h3 id="语料预处理"><a href="#语料预处理" class="headerlink" title="语料预处理"></a>语料预处理</h3><p>由于Gensim使用python语言开发的，为了减少安装中的繁琐，直接使用anaconda工具进行集中安装，<br>输入：pip3 install gensim<br>训练语料的预处理指的是将文档中原始的字符文本转换成Gensim模型所能理解的稀疏向量的过程。<br>通常，我们要处理的原生语料是一堆文档的集合，每一篇文档又是一些原生字符的集合。在交给Gensim的模型训练之前，我们需要将这些原生字符解析成Gensim能处理的稀疏向量的格式。由于语言和应用的多样性，我们需要先对原始的文本进行分词、去除停用词等操作，得到每一篇文档的特征列表。</p>
@@ -514,7 +516,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg" alt="li zeng">
+              <img class="site-author-image" itemprop="image" src="https://s2.ax1x.com/2019/07/16/ZHjs5q.jpg" alt="li zeng">
             
               <p class="site-author-name" itemprop="name">li zeng</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -639,6 +641,20 @@
 
 
 
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
 
 
 

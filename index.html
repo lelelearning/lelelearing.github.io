@@ -80,12 +80,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="space">
+<meta property="og:title" content="Recording">
 <meta property="og:url" content="http://lizzeng.com/index.html">
-<meta property="og:site_name" content="space">
+<meta property="og:site_name" content="Recording">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="space">
+<meta name="twitter:title" content="Recording">
 
 
 
@@ -123,7 +123,7 @@
 
 
 
-  <title>space</title>
+  <title>Recording</title>
   
 
 
@@ -154,7 +154,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">space</span>
+        <span class="site-title">Recording</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -267,11 +267,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/07/16/ZHjs5q.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="space">
+      <meta itemprop="name" content="Recording">
     </span>
 
     
@@ -441,11 +441,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/07/16/ZHjs5q.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="space">
+      <meta itemprop="name" content="Recording">
     </span>
 
     
@@ -536,7 +536,9 @@
       
         
           
-            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28226046&auto=1&height=66"></iframe>
+            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4143638&auto=1&height=66"></iframe>
+
+
 
 <h2 id="理论知识"><a href="#理论知识" class="headerlink" title="理论知识"></a>理论知识</h2><p>语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。<br>向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。<br>稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素。此时，向量中的每一个元素是一个(key, value)的元组<br>模型（Model）：是一个抽象的术语。定义了两个向量空间的变换（即从文本的一种向量表达变换为另一种向量表达）。<br>相似度为数学概念。要对两篇中文文本进行似度计算，自然语言无法完成，需要把文本转化为向量。相似度计算有欧式距离、皮尔逊相关系数、余弦相似度等。</p>
 <h3 id="语料预处理"><a href="#语料预处理" class="headerlink" title="语料预处理"></a>语料预处理</h3><p>由于Gensim使用python语言开发的，为了减少安装中的繁琐，直接使用anaconda工具进行集中安装，<br>输入：pip3 install gensim<br>训练语料的预处理指的是将文档中原始的字符文本转换成Gensim模型所能理解的稀疏向量的过程。<br>通常，我们要处理的原生语料是一堆文档的集合，每一篇文档又是一些原生字符的集合。在交给Gensim的模型训练之前，我们需要将这些原生字符解析成Gensim能处理的稀疏向量的格式。由于语言和应用的多样性，我们需要先对原始的文本进行分词、去除停用词等操作，得到每一篇文档的特征列表。</p>
@@ -626,11 +628,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
+      <meta itemprop="image" content="https://s2.ax1x.com/2019/07/16/ZHjs5q.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="space">
+      <meta itemprop="name" content="Recording">
     </span>
 
     
@@ -843,367 +845,10 @@ dtype: object
 8     (魁地, 0.6820865273475647)
 9     (赢得, 0.6760300993919373)
 dtype: object
-</code></pre><p>“舶来词汇”因为没有全面定义好词典，输出的相似词并不是很准确。但巧克力跟黄油这类词还是很准确的，已经让人想到开学宴会和霍格莫德村了！</p>
+</code></pre><p>“舶来词汇”因为没有全面定义好词典，输出的相似词并不是很准确。但巧克力跟黄油这类词还是很准确的，已经让人想到开学宴会和霍格莫德村了.</p>
 <p><a href="https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9" target="_blank" rel="noopener">https://medium.com/zareen-farooqui/word2vec-on-harry-potter-e3748ab27e9</a><br><a href="https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07" target="_blank" rel="noopener">https://heartbeat.fritz.ai/weekly-digest-for-data-science-and-ai-python-and-r-volume-6-830ed997cf07</a><br><a href="http://tm.durusau.net/?p=47422" target="_blank" rel="noopener">http://tm.durusau.net/?p=47422</a> Harry Potter(Neo4j GraphGist)</p>
-<p>我的网易云电台</p>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="450" src="//music.163.com/outchain/player?type=4&id=350116131&auto=1&height=430"></iframe>
 
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-        
-    
-        
-            
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/02/NLP学习笔记-文本分类/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="li zeng">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="space">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/NLP学习笔记-文本分类/" itemprop="url">NLP学习笔记-CNN文本分类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T16:05:27+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/07/02/NLP学习笔记-文本分类/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/02/NLP学习笔记-文本分类/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Question:</p>
-<ul>
-<li>Word Embedding，采用什么方式进行Embedding(one-hot or word2vec or glove)效果较好。 </li>
-<li>CNN的输入N<em>K 中的N怎么定义，即输入的句子的序列的长度怎么定义，因为对于不同的句子，包含的词的数量是不一样的。而CNN的输入是需要固定的矩阵N</em>K。 </li>
-<li>对于不在词汇表中的词如何Embedding？</li>
-</ul>
-<h2 id="文本的预处理"><a href="#文本的预处理" class="headerlink" title="文本的预处理"></a>文本的预处理</h2><p>Jieba中文分词</p>
-<h2 id="文本数值化"><a href="#文本数值化" class="headerlink" title="文本数值化"></a>文本数值化</h2><p>将词汇信息映射到一个数值化的语义空间中，这个语义空间我们可以称之为词向量空间（词向量模型）<br>文本的数值化方式有很多种，例如：TF-IDF、BOW、One-Hot、分布式的表示方式（word2vec、Glove）等<br>word2ve工具是无监督的学习模型，可以在一个语料集上（不需要标记，主要思想是“具有相似邻近词分布的中心词之之间具有一定的语义相似度”），实现词汇信息到语义空间的映射，最终获得一个词向量模型（每个词汇对应一个指定维度的数组）。</p>
-<p>深度学习模型以词向量序列的形式读取序列化的单词,而不是以文本的形式。</p>
-<h2 id="Text-CNN模型结构"><a href="#Text-CNN模型结构" class="headerlink" title="Text-CNN模型结构"></a>Text-CNN模型结构</h2><p>整个模型由四部分构成：输入层+第一层卷积层+池化层+全连接+softmax层</p>
-<p>TextCNN论文中的网络结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#Hyperparameters and Training</span><br><span class="line">For all datasets we use: rectified linear units; </span><br><span class="line">filter windows (h) of 3, 4, 5 with 100 feature maps each;</span><br><span class="line">dropout rate (p) of 0.5, l2 constraint (s) of 3;</span><br><span class="line">mini-batch size of 50. These values were chosen via a grid search on the SST-2 dev set.</span><br></pre></td></tr></table></figure></p>
-<p>1.输入层（词嵌入层）：<br>Text-CNN模型的输入层需要输入一个定长的文本序列，我们需要通过分析语料集样本的长度指定一个输入序列的长度L，比L短的样本序列需要填充，比L长的序列需要截取。最终输入层输入的是文本序列中各个词汇对应的词向量。</p>
-<p>文章中模型输入的数据格式格式进行了四种尝试，然后进行对比，有以下四种：<br>CNN-rand：所有的 word vector 都是随机初始化的，同时当做训练过程中优化的参数，设计好embedding_size这个Hyperparameter 后, 对不同单词的向量作随机初始化, 后续BP的时候作调整；<br>CNN-static: 所有的word vector直接使用Word2Vec, FastText或者GloVe得到的结果直接用，并且是固定不变的，训练过程中不再调整词向量.<br>CNN-non-static: 所有的word vector直接使用工具得到的结果，这些word vector也当做是可优化的参数，在训练过程中被Fine tuned。即拿word2vec训练好的词向量初始化, 训练过程中再对它们微调.<br>multiple channel：类比于图像中的RGB通道, 这里也可以用 static 与 non-static 搭两个通道来搞，用CNN-static和CNN-non-static 的混合版本，即两种类型的输入；</p>
-<p>2.卷积层：<br>在NLP领域一般卷积核只进行一维的滑动，即卷积核的宽度与词向量的维度等宽，卷积核只进行一维的滑动。<br>在Text-CNN模型中一般使用多个不同尺寸的卷积核。卷积核的高度，即窗口值，可以理解为N-gram模型中的N，即利用的局部词序的长度，窗口值也是一个超参数，需要在任务中尝试，一般选取2-8之间的值。</p>
-<p>3.池化层：<br>在Text-CNN模型的池化层中使用了Max-pool（最大值池化），即减少了模型 的参数，又保证了在不定长的卷基层的输出上获得一个定长的全连接层的输入。<br>卷积层与池化层在分类模型的核心作用就是特征提取的功能，从输入的定长文本序列中，利用局部词序信息，提取初级的特征，并组合初级的特征为高级特征，通过卷积与池化操作，省去了传统机器学习中的特征工程的步骤。</p>
-<p>4.全连接层：<br>全连接层的作用就是分类器，原始的Text-CNN模型使用了只有一层隐藏层的全连接网络，相当于把卷积与池化层提取的特征输入到一个LR分类器中进行分类。</p>
-<ul>
-<li>但TextCNN的一个明显缺点就是，卷积、池化操作丢失了文本序列中的词汇的顺序、位置信息，比较难以捕获文本序列中的否定、反义等语义信息。</li>
-</ul>
-<h2 id="参数与超参数"><a href="#参数与超参数" class="headerlink" title="参数与超参数"></a>参数与超参数</h2><p>分类模型中的主要参数：词向量的维度、卷积核的个数、卷积核的窗口值、L2的参数、DropOut的参数、学习率等。</p>
-<p>sequence_length<br>Q: 对于CNN, 输入与输出都是固定的，可每个句子长短不一, 怎么处理?<br>A: 需要做定长处理, 比如定为n, 超过的截断, 不足的补0. 注意补充的0对后面的结果没有影响，因为后面的max-pooling只会输出最大值，补零的项会被过滤掉.<br>num_classes：多分类, 分为几类.<br>vocabulary_size：语料库的词典大小, 记为|D|.<br>embedding_size：将词向量的维度, 由原始的 |D| 降维到 embedding_size.<br>filter_size_arr：多个不同size的filter.</p>
-<h2 id="模型的效果评估与调优"><a href="#模型的效果评估与调优" class="headerlink" title="模型的效果评估与调优"></a>模型的效果评估与调优</h2><p>针对分类问题，一般可以使用准确率、召回率、F1值、混淆矩阵等指标，在文本多标签分类中一般还会考虑标签的位置加权等问题。</p>
-<h2 id="文本分类常遇问题"><a href="#文本分类常遇问题" class="headerlink" title="文本分类常遇问题"></a>文本分类常遇问题</h2><h3 id="数据集类别不均衡"><a href="#数据集类别不均衡" class="headerlink" title="数据集类别不均衡"></a>数据集类别不均衡</h3><h3 id="文本分类模型的泛化能力"><a href="#文本分类模型的泛化能力" class="headerlink" title="文本分类模型的泛化能力"></a>文本分类模型的泛化能力</h3><p>对于一个未知的样本数据，分类模型只能给出分类标签中的一个，无法解决不属于分类标签体系的样本。我们无法预知未来的数据会是什么样的，也不能保证未来的所有分类情况在训练集中都已经出现过。</p>
-<h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><p>数据上：交叉验证<br>模型上：使用DropOut、BatchNorm、正则项、Early Stop</p>
-<p><a href="https://arxiv.org/pdf/1408.5882.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1408.5882.pdf</a><br><a href="https://cloud.tencent.com/developer/article/1335257" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1335257</a><br><a href="https://cloud.tencent.com/developer/article/1005817" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1005817</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-        
-    
-        
-            
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/02/NLP学习笔记-WordEmbedding/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="li zeng">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="space">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/NLP学习笔记-WordEmbedding/" itemprop="url">NLP学习笔记-Word Embedding</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T12:38:16+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/07/02/NLP学习笔记-WordEmbedding/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/02/NLP学习笔记-WordEmbedding/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>看得比较头疼，首先不清楚算法的历史发展，其次网上找的不同文章侧重点比较零散。csdn上大多都是copy的几个版本，没有看到清晰的概念发展历史梳理。<br>word embedding、word2vec、word2doc、CBOW、Skip-gram是什么，他们是怎样的层级关系？参考到一篇原创博文收获很大：<a href="http://www.scofield7419.xyz/2017/09/25/文本表示学习-词嵌入入门理解/" target="_blank" rel="noopener">http://www.scofield7419.xyz/2017/09/25/文本表示学习-词嵌入入门理解/</a> </p>
-<h3 id="词的独热表示one-hot-representation"><a href="#词的独热表示one-hot-representation" class="headerlink" title="词的独热表示one-hot representation"></a>词的独热表示one-hot representation</h3><p>NLP 中最直观，也是到目前为止最常用的词表示方法是 One-hot Representation，这种方法把每个词表示为一个很长的向量。这个向量的维度是词表大小，其中绝大多数元素为 0，只有一个维度的值为 1，这个维度就代表了当前的词。关于one-hot编码的资料很多，街货，这里简单举个栗子说明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">“话筒”表示为 [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 ...]  </span><br><span class="line">“麦克”表示为 [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 ...]</span><br></pre></td></tr></table></figure></p>
-<p>传统的独热表示（ one-hot representation）仅仅将词符号化，不包含任何语义信息。还存在以下问题：</p>
-<ul>
-<li>向量的维度会随着句子的词的数量类型增大而增大；</li>
-<li>任意两个词之间都是孤立的，根本无法表示出在语义层面上词语词之间的相关信息；</li>
-<li>one-hot表示的词向量是两两正交的，无法计算相似度；</li>
-</ul>
-<p>之前学到的向量化文本方法都是没有参考上下文意义的，词汇是孤立的，没有赋予相应的含义。可是，如何依据上下文语境赋予词汇向量呢？这里便引申出了一个概念：Word Embedding —— 词嵌入，它的意思是将word映射到一个新的空间中，以多维连续实数向量进行表示，也叫“Word Represention” 或 “Word Embedding”。</p>
-<h3 id="词的分布式表示distributed-representation"><a href="#词的分布式表示distributed-representation" class="headerlink" title="词的分布式表示distributed representation"></a>词的分布式表示distributed representation</h3><p>如何将语义融入到词表示中？Harris 在 1954 年提出的分布假说（distributional hypothesis）为这一设想提供了理论基础：上下文相似的词，其语义也相似。Firth 在 1957 年对分布假说进行了进一步阐述和明确：词的语义由其上下文决定（ a word is characterized by thecompany it keeps）。</p>
-<p>想象给有一堆“词汇”，现在需要按照这些词汇的意义、属性，放置到星空里。比如蛋糕跟奶油、烤箱比较近，而蛋糕和齿轮就会离得比较远。<br>这个坐标空间里，每颗星星拥有各自的向量（坐标）。由此，计算两颗星星意义上的相似性，或依据向量做聚类等操作便轻松多了。<br>假设: 蛋糕(1.13, 2.26, 0.8)，烤箱(1.15, 3.25, 1.2)，齿轮(2.3, -4.5, -3)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vector_cake = np.array([1.13, 2.26, 0.8])</span><br><span class="line">vector_cream = np.array([1.15, 3.25, 1.2])</span><br><span class="line">vector_gear = np.array([2.3, -4.5, -3])</span><br><span class="line"></span><br><span class="line">def cos_distance(vector1, vector2):</span><br><span class="line">	res = np.dot(vector1,vector2)/(np.linalg.norm(vector1)*(np.linalg.norm(vector2)))</span><br><span class="line">	return res</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; cos_distance(vector_cake, vector_cream)</span><br><span class="line">0.9927352512545224</span><br><span class="line">&gt;&gt;&gt; cos_distance(vector_cake, vector_gear)</span><br><span class="line">-0.6401324469580063</span><br></pre></td></tr></table></figure></p>
-<h2 id="Words-Embedding"><a href="#Words-Embedding" class="headerlink" title="Words Embedding"></a>Words Embedding</h2><p>自21世纪以来，人们逐渐从原始的词向量稀疏表示法过渡到现在的低维空间中的密集表示。用稀疏表示法在解决实际问题时经常会遇到维数灾难，并且语义信息无法表示，无法揭示word之间的潜在联系。而采用低维空间表示法，不但解决了维数灾难问题，并且挖掘了word之间的关联属性，从而提高了向量语义上的准确度。</p>
-<p>Word Embedding就是把独热编码而成的高维词向量输入到神经网络，在隐藏层变成一个只有低维词向量。该词向量的每个维度都有其意义（维度太多，人类无法解释），把上万维的词向量降维变成几十维的词向量的过程就叫做Word Embedding。<br>一般来讲word embedding和image embedding都是一个空间到另外一个空间的映射，但是他们其实有一些本质区别，image embedding往往是通过一些标签信息训练而来，比如ImageNet当中的几千个物体类别，可以理解为监督学习，而word embedding是通过没有标签信息的语料训练而成了，可以理解为非监督学习。</p>
-<p>基本概念：这是自然语言处理中的名词，是将词汇映射到实数向量的方法总称。<br>内在思想：词汇的意思，要根据上下文进行理解。<br>直观理解：在一段话中，每个单词是一个维度，而做了word embedding后，相当于降维。</p>
-<p>做word embedding的数学方法：<br>基于聚类的分布表示<br>基于神经网络的分布表示 神经网络 词嵌入（ word embedding）<br>基于矩阵的分布表示 词汇共生矩阵(word co-occurrence matrix)<br>随机模型<br>根据词汇的语境进行显示表达<br>尽管这些不同的分布表示方法使用了不同的技术手段获取词表示，但由于这些方法均基于分布假说，它们的核心思想也都由两部分组成：一、选择一种方式描述上下文；二、选择一种模型刻画某个词（下文称“目标词”）与其上下文之间的关系。</p>
-<h2 id="词的分布式表示"><a href="#词的分布式表示" class="headerlink" title="词的分布式表示"></a>词的分布式表示</h2><h4 id="基于矩阵的分布表示"><a href="#基于矩阵的分布表示" class="headerlink" title="基于矩阵的分布表示"></a>基于矩阵的分布表示</h4><p>基于矩阵的分布表示通常又称为分布语义模型，在这种表示下，矩阵中的一行，就成为了对应词的表示，这种表示描述了该词的上下文的分布。由于分布假说认为上下文相似的词，其语义也相似，因此在这种表示下，两个词的语义相似度可以直接转化为两个向量的空间距离。<br>常见到的Global Vector 模型（ GloVe模型）是一种对“词-词”矩阵进行分解从而得到词表示的方法，属于基于矩阵的分布表示。</p>
-<h4 id="基于聚类的分布表示"><a href="#基于聚类的分布表示" class="headerlink" title="基于聚类的分布表示"></a>基于聚类的分布表示</h4><p>pass</p>
-<h4 id="基于神经网络的分布表示-Words-Embedding"><a href="#基于神经网络的分布表示-Words-Embedding" class="headerlink" title="基于神经网络的分布表示(Words Embedding)"></a>基于神经网络的分布表示(Words Embedding)</h4><p>基于神经网络的分布表示一般称为词向量、词嵌入（ word embedding）或分布式表示（ distributed representation）。这正是我们的主角today。<br>神经网络词向量表示技术通过神经网络技术对上下文，以及上下文与目标词之间的关系进行建模。由于神经网络较为灵活，这类方法的最大优势在于可以表示复杂的上下文。在前面基于矩阵的分布表示方法中，最常用的上下文是词。如果使用包含词序信息的 n-gram 作为上下文，当 n 增加时， n-gram 的总数会呈指数级增长，此时会遇到维数灾难问题。而神经网络在表示 n-gram 时，可以通过一些组合方式对 n 个词进行组合，参数个数仅以线性速度增长。有了这一优势，神经网络模型可以对更复杂的上下文进行建模，在词向量中包含更丰富的语义信息。</p>
-<p>神经网络语言模型的类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a) Neural Network Language Model ，NNLM</span><br><span class="line">b) Log-Bilinear Language Model， LBL</span><br><span class="line">c) Recurrent Neural Network based Language Model，RNNLM</span><br><span class="line">d) Collobert 和 Weston 在2008 年提出的 C&amp;W 模型</span><br><span class="line">e) Mikolov 等人提出了 CBOW（ Continuous Bagof-Words）和 Skip-gram 模型</span><br></pre></td></tr></table></figure></p>
-<p>上面提到的5个神经网络语言模型，只是逻辑概念上的东西，具体得通过设计将其实现出来，而实现CBOW（ Continuous Bagof-Words）和 Skip-gram 语言模型的工具正是well-known word2vec！另外，C&amp;W 模型的实现工具是SENNA。</p>
-<h3 id="word2vec与CBOW、Skip-gram"><a href="#word2vec与CBOW、Skip-gram" class="headerlink" title="word2vec与CBOW、Skip-gram"></a>word2vec与CBOW、Skip-gram</h3><p>word2vec的详细实现，简而言之，就是一个三层的神经网络。<br>输入是One-Hot Vector，Hidden Layer没有激活函数，也就是线性的单元。Output Layer维度跟Input Layer的维度一样，用的是Softmax回归。要获取的dense vector其实就是Hidden Layer的输出单元。<a href="https://blog.csdn.net/u010159842/article/details/80532507" target="_blank" rel="noopener">https://blog.csdn.net/u010159842/article/details/80532507</a><br>Word2vec其实是语言模型训练的一个副产品，传统的统计词向量模型使用单词在特定上下文中出现的概率表征这个句子是自然语言的概率:p(sentence) = p(word|context)。上下文context是指单词前面的特定的单词。N-gram模型又称为n元组模型, 所谓n元组是单词和它的上下文(即它前面的n-1个单词)组成的词组。</p>
-<p>其实，Word2vec的训练过程可以看做是通过神经网络机器学习算法来训练N-gram 语言模型，并在训练过程中求出word所对应的vector的方法。根据语言模型的不同，又可分为“CBOW”和“Skip-gram”两种模型。而根据两种降低训练复杂度的方法又可分为“Hierarchical Softmax”和“Negative Sampling”。两种模式和两种方法进行组合，所以实际上是有四种实现。(作者：mpk_no1 来源：CSDN 原文：<a href="https://blog.csdn.net/mpk_no1/article/details/72458003" target="_blank" rel="noopener">https://blog.csdn.net/mpk_no1/article/details/72458003</a>)</p>
-<h4 id="Continous-Bag-of-Words-Model-CBOW"><a href="#Continous-Bag-of-Words-Model-CBOW" class="headerlink" title="Continous Bag of Words Model(CBOW)"></a>Continous Bag of Words Model(CBOW)</h4><p>核心思想是根据上下文来预测中心词。<br>point: 进入softmax之前求平均，因为是多个1输入</p>
-<h4 id="skip-gram"><a href="#skip-gram" class="headerlink" title="skip-gram"></a>skip-gram</h4><p>skip-gram： 核心思想是根据中心词来预测周围的词。假设中心词是cat，窗口长度为2，则根据cat预测左边两个词和右边两个词。这时，cat作为神经网络的input，预测的词作为label。</p>
-<h4 id="计算中的优化"><a href="#计算中的优化" class="headerlink" title="计算中的优化"></a>计算中的优化</h4><p>N-gram模型的一个问题在于计算量过大, 计算一次条件概率就要扫描一遍语料库, 使得可以实际应用的深度(N值)一般为2或3。这个问题可以采用拟合的方法来解决即预测法。神经网络模型即计算部分概率值用于训练神经网络, 然后使用神经网络预测其它概率值。<br>词库数x向量维度参数巨大，词库数作为分类数计算量也很大（比如10000个的多分类）。计算优化方法：</p>
-<ul>
-<li>基于huffman编码的hierarchical softmax</li>
-<li>negative sample：小数据集5-20个负采样，大数据集2-5个负采样（不包括正样本）。<br>选择标准：词频。其中，$ f(\omega_i) $指的是词频，词频越大，选择几率越大。公式：<script type="math/tex; mode=display">P(\omega_i) = \frac{f(\omega_i)^{(3/4)}}{f(\sum_{j=0}^{n}\omega_j)^{(3/4)}}</script></li>
-</ul>
-<p><a href="https://blog.csdn.net/mpk_no1/article/details/72458003" target="_blank" rel="noopener">https://blog.csdn.net/mpk_no1/article/details/72458003</a><br><a href="https://blog.csdn.net/u010159842/article/details/80532507" target="_blank" rel="noopener">https://blog.csdn.net/u010159842/article/details/80532507</a><br><a href="https://www.jianshu.com/p/c4389873ba3b" target="_blank" rel="noopener">https://www.jianshu.com/p/c4389873ba3b</a><br><a href="https://blog.csdn.net/qq_16633405/article/details/80480300" target="_blank" rel="noopener">https://blog.csdn.net/qq_16633405/article/details/80480300</a><br><a href="https://www.cnblogs.com/guoyaohua/p/9240336.html" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/9240336.html</a><br><a href="https://www.jianshu.com/p/ce630c198762" target="_blank" rel="noopener">https://www.jianshu.com/p/ce630c198762</a><br><a href="https://blog.csdn.net/bitcarmanlee/article/details/82320853" target="_blank" rel="noopener">https://blog.csdn.net/bitcarmanlee/article/details/82320853</a><br><a href="https://zhuanlan.zhihu.com/p/53058456" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/53058456</a><br><a href="https://zhuanlan.zhihu.com/p/27830489" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27830489</a><br><a href="http://yangminz.coding.me/blog/post/MinkolovRNNLM/MinkolovRNNLM_thesis.html" target="_blank" rel="noopener">http://yangminz.coding.me/blog/post/MinkolovRNNLM/MinkolovRNNLM_thesis.html</a><br><a href="https://blog.csdn.net/u011734144/article/details/78668518" target="_blank" rel="noopener">https://blog.csdn.net/u011734144/article/details/78668518</a><br><a href="https://zhuanlan.zhihu.com/p/50285707" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/50285707</a><br><a href="https://zhuanlan.zhihu.com/p/26306795" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26306795</a><br><a href="https://www.jianshu.com/p/471d9bfbd72f" target="_blank" rel="noopener">https://www.jianshu.com/p/471d9bfbd72f</a></p>
-<p>待了解：spacy<br><a href="https://mp.weixin.qq.com/s/8XDXgIm-Zcb3dL-2h9eSjA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/8XDXgIm-Zcb3dL-2h9eSjA</a><br><a href="http://www.52nlp.cn/自然语言处理工具包spacy介绍" target="_blank" rel="noopener">http://www.52nlp.cn/自然语言处理工具包spacy介绍</a><br><a href="https://www.jianshu.com/p/b779f8219f74" target="_blank" rel="noopener">https://www.jianshu.com/p/b779f8219f74</a><br>写得比较清晰</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="450" src="//music.163.com/outchain/player?type=4&id=350116131&auto=1&height=430"></iframe>
           
         
       
@@ -1244,7 +889,7 @@ dtype: object
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1279,7 +924,7 @@ dtype: object
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg" alt="li zeng">
+              <img class="site-author-image" itemprop="image" src="https://s2.ax1x.com/2019/07/16/ZHjs5q.jpg" alt="li zeng">
             
               <p class="site-author-name" itemprop="name">li zeng</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -1388,6 +1033,20 @@ dtype: object
 
 
 
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
 
 
 
