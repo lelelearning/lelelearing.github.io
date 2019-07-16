@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Recording">
 <meta property="og:description" content="理论知识语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-16T09:15:54.771Z">
+<meta property="og:updated_time" content="2019-07-16T09:37:56.106Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NLP学习笔记 - 使用Gensim, jieba进行文本相似度计算">
 <meta name="twitter:description" content="理论知识语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素">
@@ -100,7 +100,7 @@
     root: '/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -341,7 +341,19 @@
               
 
               
+                <span class="post-meta-divider">|</span>
+              
 
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
               
             </div>
           
@@ -683,6 +695,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
