@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="读取csvpd.read_csv(‘http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.txt‘)存csvtitanic.to_csv(‘/Users/Apple/Desktop/Coding/NeuralNetwork/titanic.csv’) 哑编码的实现方法pandas和sklearnpandas默认只处理字符串类">
+<meta name="description" content="目的：优化权重矩阵反向传播的目的：更新参数w。因此要先算出dJ/dw。but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python - Data Cleaning">
-<meta property="og:url" content="http://lizzeng.com/2019/07/07/Python-datacleaning/index.html">
+<meta property="og:title" content="机器学习笔记-反向传播">
+<meta property="og:url" content="http://lizzeng.com/2019/06/08/机器学习笔记-反向传播/index.html">
 <meta property="og:site_name" content="space">
-<meta property="og:description" content="读取csvpd.read_csv(‘http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.txt‘)存csvtitanic.to_csv(‘/Users/Apple/Desktop/Coding/NeuralNetwork/titanic.csv’) 哑编码的实现方法pandas和sklearnpandas默认只处理字符串类">
+<meta property="og:description" content="目的：优化权重矩阵反向传播的目的：更新参数w。因此要先算出dJ/dw。but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-09T14:10:30.486Z">
+<meta property="og:updated_time" content="2019-07-16T05:22:59.028Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python - Data Cleaning">
-<meta name="twitter:description" content="读取csvpd.read_csv(‘http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.txt‘)存csvtitanic.to_csv(‘/Users/Apple/Desktop/Coding/NeuralNetwork/titanic.csv’) 哑编码的实现方法pandas和sklearnpandas默认只处理字符串类">
+<meta name="twitter:title" content="机器学习笔记-反向传播">
+<meta name="twitter:description" content="目的：优化权重矩阵反向传播的目的：更新参数w。因此要先算出dJ/dw。but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m">
 
 
 
@@ -119,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="http://lizzeng.com/2019/07/07/Python-datacleaning/">
+  <link rel="canonical" href="http://lizzeng.com/2019/06/08/机器学习笔记-反向传播/">
 
 
 
@@ -127,7 +127,7 @@
 
 
 
-  <title>Python - Data Cleaning | space</title>
+  <title>机器学习笔记-反向传播 | space</title>
   
 
 
@@ -192,8 +192,18 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-学习">
-          <a href="/book" rel="section">
+          <a href="/read/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -203,7 +213,7 @@
       
         
         <li class="menu-item menu-item-照片">
-          <a href="/photo" rel="section">
+          <a href="/photo/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -213,7 +223,7 @@
       
         
         <li class="menu-item menu-item-音乐">
-          <a href="/music" rel="section">
+          <a href="/music/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -254,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/07/Python-datacleaning/">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/06/08/机器学习笔记-反向传播/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
@@ -271,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python - Data Cleaning</h1>
+          <h1 class="post-title" itemprop="name headline">机器学习笔记-反向传播</h1>
         
 
         <div class="post-meta">
@@ -283,8 +293,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-07T20:41:31+08:00">
-                2019-07-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-08T14:22:27+08:00">
+                2019-06-08
               </time>
             
 
@@ -302,8 +312,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/07/Python-datacleaning/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/07/Python-datacleaning/" itemprop="commentCount"></span>
+                <a href="/2019/06/08/机器学习笔记-反向传播/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/08/机器学习笔记-反向传播/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -350,13 +360,9 @@
       
 
       
-        <p>读取csv<br>pd.read_csv(‘<a href="http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.txt" target="_blank" rel="noopener">http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/titanic.txt</a>‘)<br>存csv<br>titanic.to_csv(‘/Users/Apple/Desktop/Coding/NeuralNetwork/titanic.csv’)</p>
-<h3 id="哑编码的实现方法"><a href="#哑编码的实现方法" class="headerlink" title="哑编码的实现方法"></a>哑编码的实现方法</h3><p>pandas和sklearn<br>pandas默认只处理字符串类别变量<br>sklearn默认只处理数值型类别变量(需要先LabelEncoder)<br><a href="https://www.cnblogs.com/geo-will/p/9626196.html" target="_blank" rel="noopener">https://www.cnblogs.com/geo-will/p/9626196.html</a><br><a href="https://leflacon.github.io/d6da51a9/" target="_blank" rel="noopener">https://leflacon.github.io/d6da51a9/</a></p>
-<p>pd.get_dummies(prefix=)<br>pandas的get_dummies()可以直接对变量进行one-hot编码，其中prefix是为one-hot编码后的变量进行命名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.get_dummies(data[&apos;Sex&apos;])</span><br></pre></td></tr></table></figure></p>
-<p>LabelEncoder和OneHotEncoder<br>我们也可以通过sklearn的模块实现对离散变量的one-hot编码，其中LabelEncoder是将离散变量替换为数字，<br>OneHotEncoder则实现对替换为数字的离散变量进行one-hot编码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">le_sex=LabelEncoder().fit(data[&apos;Sex&apos;]) </span><br><span class="line">Sex_label=le_sex.transform(data[&apos;Sex&apos;]) </span><br><span class="line">Sex_label= LabelEncoder().fit_transform(data[&apos;Sex&apos;]) #fit_transform等价于fit和transform两个函数结合</span><br><span class="line"></span><br><span class="line">ohe_sex = OneHotEncoder(sparse=False).fit(Sex_label.reshape(-1,1)) </span><br><span class="line">Sex_ohe = ohe_sex.transform(Sex_label.reshape(-1,1)) </span><br><span class="line">Sex_ohe_3 = OneHotEncoder(sparse=False).fit_transform(Sex_label.reshape((-1,1)))</span><br></pre></td></tr></table></figure></p>
-<p>sklearn.feature_extraction import DictVectorizer<br>pandas: get_dummies<br>如果一个文档的每个单词提取这样的上下文，所得到的矩阵将非常宽（许多个独热特征），大多数的零需要花费很多的内存和时间。 为了使得到的数据结构能够适应内存，DictVectorizer类默认使用scipy.sparse矩阵，而不是numpy.ndarray。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 定义一组字典列表，用来表示多个数据样本（每个字典代表一个数据样本）。</span><br><span class="line">measurements = [&#123;&apos;city&apos;: &apos;Dubai&apos;, &apos;temperature&apos;: 33.&#125;, &#123;&apos;city&apos;: &apos;London&apos;, &apos;temperature&apos;: 12.&#125;, &#123;&apos;city&apos;: &apos;San Fransisco&apos;, &apos;temperature&apos;: 18.&#125;]</span><br><span class="line"># 从sklearn.feature_extraction 导入 DictVectorizer</span><br><span class="line">from sklearn.feature_extraction import DictVectorizer</span><br><span class="line"># 初始化DictVectorizer特征抽取器</span><br><span class="line">vec = DictVectorizer()</span><br><span class="line"># 输出转化之后的特征矩阵。</span><br><span class="line">print(vec.fit_transform(measurements).toarray())</span><br><span class="line"># 输出各个维度的特征含义。</span><br><span class="line">print (vec.get_feature_names())</span><br></pre></td></tr></table></figure></p>
-<h3 id="异常值"><a href="#异常值" class="headerlink" title="异常值"></a>异常值</h3><p>如果数据服从正态分布，在3∂原则下，异常值为一组测定值中与平均值的偏差超过3倍标准差的值。如果数据服从正态分布，距离平均值3∂之外的值出现的概率为P(|x-u| &gt; 3∂) &lt;= 0.003，属于极个别的小概率事件。如果数据不服从正态分布，也可以用远离平均值的多少倍标准差来描述。</p>
-<h3 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h3>
+        <p>目的：优化权重矩阵<br>反向传播的目的：更新参数w。因此要先算出dJ/dw。<br>but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。<br>误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。</p>
+<p>$ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}log(a^{(i)})-(1-y^{(i)})log(1-a^{(i)})) $</p>
+
       
     </div>
     
@@ -380,8 +386,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/04/NLP学习笔记-word2vec哈利波特文本分析/" rel="next" title="NLP学习笔记-word2vec哈利波特">
-                <i class="fa fa-chevron-left"></i> NLP学习笔记-word2vec哈利波特
+              <a href="/2019/06/02/My-New-Post/" rel="next" title="My New Post">
+                <i class="fa fa-chevron-left"></i> My New Post
               </a>
             
           </div>
@@ -390,8 +396,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/08/机器学习笔记-反向传播/" rel="prev" title="机器学习笔记-反向传播">
-                机器学习笔记-反向传播 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/10/机器学习笔记-NeuralNetwork/" rel="prev" title="机器学习笔记-Neural Network">
+                机器学习笔记-Neural Network <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -454,17 +460,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -481,7 +478,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -542,22 +539,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#哑编码的实现方法"><span class="nav-number">1.</span> <span class="nav-text">哑编码的实现方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常值"><span class="nav-number">2.</span> <span class="nav-text">异常值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#去重"><span class="nav-number">3.</span> <span class="nav-text">去重</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -726,9 +707,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lizzeng.com/2019/07/07/Python-datacleaning/';
-          this.page.identifier = '2019/07/07/Python-datacleaning/';
-          this.page.title = 'Python - Data Cleaning';
+          this.page.url = 'http://lizzeng.com/2019/06/08/机器学习笔记-反向传播/';
+          this.page.identifier = '2019/06/08/机器学习笔记-反向传播/';
+          this.page.title = '机器学习笔记-反向传播';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lizeng.disqus.com/embed.js';
@@ -779,6 +760,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

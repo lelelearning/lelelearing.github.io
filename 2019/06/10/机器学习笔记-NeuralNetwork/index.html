@@ -82,11 +82,11 @@
 <meta name="description" content="看coursera的machine learning，讲到神经网络时，对于用异或问题引入有点懵。这下看到了学术上的来源。两层神经网络是本文的重点，因为正是在这时候，神经网络开始了大范围的推广与使用。Minsky说过单层神经网络无法解决异或问题。但是当增加一个计算层以后，两层神经网络不仅可以解决异或问题，而且具有非常好的非线性分类效果。不过两层神经网络的计算是一个问题，没有一个较好的解法。1986年">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习笔记-Neural Network">
-<meta property="og:url" content="http://lizzeng.com/2019/06/04/机器学习笔记-NeuralNetwork/index.html">
+<meta property="og:url" content="http://lizzeng.com/2019/06/10/机器学习笔记-NeuralNetwork/index.html">
 <meta property="og:site_name" content="space">
 <meta property="og:description" content="看coursera的machine learning，讲到神经网络时，对于用异或问题引入有点懵。这下看到了学术上的来源。两层神经网络是本文的重点，因为正是在这时候，神经网络开始了大范围的推广与使用。Minsky说过单层神经网络无法解决异或问题。但是当增加一个计算层以后，两层神经网络不仅可以解决异或问题，而且具有非常好的非线性分类效果。不过两层神经网络的计算是一个问题，没有一个较好的解法。1986年">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-16T03:09:28.075Z">
+<meta property="og:updated_time" content="2019-07-16T05:22:09.011Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记-Neural Network">
 <meta name="twitter:description" content="看coursera的machine learning，讲到神经网络时，对于用异或问题引入有点懵。这下看到了学术上的来源。两层神经网络是本文的重点，因为正是在这时候，神经网络开始了大范围的推广与使用。Minsky说过单层神经网络无法解决异或问题。但是当增加一个计算层以后，两层神经网络不仅可以解决异或问题，而且具有非常好的非线性分类效果。不过两层神经网络的计算是一个问题，没有一个较好的解法。1986年">
@@ -119,7 +119,7 @@
 
 
 
-  <link rel="canonical" href="http://lizzeng.com/2019/06/04/机器学习笔记-NeuralNetwork/">
+  <link rel="canonical" href="http://lizzeng.com/2019/06/10/机器学习笔记-NeuralNetwork/">
 
 
 
@@ -192,8 +192,18 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-学习">
-          <a href="/book" rel="section">
+          <a href="/read/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -203,7 +213,7 @@
       
         
         <li class="menu-item menu-item-照片">
-          <a href="/photo" rel="section">
+          <a href="/photo/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -213,7 +223,7 @@
       
         
         <li class="menu-item menu-item-音乐">
-          <a href="/music" rel="section">
+          <a href="/music/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -254,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/06/04/机器学习笔记-NeuralNetwork/">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/06/10/机器学习笔记-NeuralNetwork/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
@@ -283,8 +293,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-04T22:41:31+08:00">
-                2019-06-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-10T22:41:31+08:00">
+                2019-06-10
               </time>
             
 
@@ -302,8 +312,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/06/04/机器学习笔记-NeuralNetwork/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/04/机器学习笔记-NeuralNetwork/" itemprop="commentCount"></span>
+                <a href="/2019/06/10/机器学习笔记-NeuralNetwork/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/10/机器学习笔记-NeuralNetwork/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -389,8 +399,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/14/NLP学习笔记-文本分类/" rel="next" title="NLP学习笔记-CNN文本分类">
-                <i class="fa fa-chevron-left"></i> NLP学习笔记-CNN文本分类
+              <a href="/2019/06/08/机器学习笔记-反向传播/" rel="next" title="机器学习笔记-反向传播">
+                <i class="fa fa-chevron-left"></i> 机器学习笔记-反向传播
               </a>
             
           </div>
@@ -399,8 +409,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/28/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/02/NLP学习笔记-WordEmbedding/" rel="prev" title="NLP学习笔记-Word Embedding">
+                NLP学习笔记-Word Embedding <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -490,7 +500,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -735,8 +745,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lizzeng.com/2019/06/04/机器学习笔记-NeuralNetwork/';
-          this.page.identifier = '2019/06/04/机器学习笔记-NeuralNetwork/';
+          this.page.url = 'http://lizzeng.com/2019/06/10/机器学习笔记-NeuralNetwork/';
+          this.page.identifier = '2019/06/10/机器学习笔记-NeuralNetwork/';
           this.page.title = '机器学习笔记-Neural Network';
         };
         var d = document, s = d.createElement('script');

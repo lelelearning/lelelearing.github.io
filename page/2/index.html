@@ -189,8 +189,18 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-学习">
-          <a href="/book" rel="section">
+          <a href="/read/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -200,7 +210,7 @@
       
         
         <li class="menu-item menu-item-照片">
-          <a href="/photo" rel="section">
+          <a href="/photo/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -210,7 +220,7 @@
       
         
         <li class="menu-item menu-item-音乐">
-          <a href="/music" rel="section">
+          <a href="/music/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -252,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/02/NLP学习笔记-WordEmbedding/">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/06/10/机器学习笔记-NeuralNetwork/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
@@ -271,7 +281,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/NLP学习笔记-WordEmbedding/" itemprop="url">NLP学习笔记-Word Embedding</a></h1>
+                <a class="post-title-link" href="/2019/06/10/机器学习笔记-NeuralNetwork/" itemprop="url">机器学习笔记-Neural Network</a></h1>
         
 
         <div class="post-meta">
@@ -283,8 +293,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T12:38:16+08:00">
-                2019-07-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-10T22:41:31+08:00">
+                2019-06-10
               </time>
             
 
@@ -302,8 +312,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/02/NLP学习笔记-WordEmbedding/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/02/NLP学习笔记-WordEmbedding/" itemprop="commentCount"></span>
+                <a href="/2019/06/10/机器学习笔记-NeuralNetwork/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/10/机器学习笔记-NeuralNetwork/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -352,37 +362,21 @@
       
         
           
-            <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>看得比较头疼，首先不清楚算法的历史发展，其次网上找的不同文章侧重点比较零散。csdn上大多都是copy的几个版本，没有看到清晰的概念发展历史梳理。<br>word embedding、word2vec、word2doc、CBOW、Skip-gram是什么，他们是怎样的层级关系？参考到一篇原创博文收获很大：<a href="http://www.scofield7419.xyz/2017/09/25/文本表示学习-词嵌入入门理解/" target="_blank" rel="noopener">http://www.scofield7419.xyz/2017/09/25/文本表示学习-词嵌入入门理解/</a> </p>
-<h3 id="词的独热表示one-hot-representation"><a href="#词的独热表示one-hot-representation" class="headerlink" title="词的独热表示one-hot representation"></a>词的独热表示one-hot representation</h3><p>NLP 中最直观，也是到目前为止最常用的词表示方法是 One-hot Representation，这种方法把每个词表示为一个很长的向量。这个向量的维度是词表大小，其中绝大多数元素为 0，只有一个维度的值为 1，这个维度就代表了当前的词。关于one-hot编码的资料很多，街货，这里简单举个栗子说明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">“话筒”表示为 [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 ...]  </span><br><span class="line">“麦克”表示为 [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 ...]</span><br></pre></td></tr></table></figure></p>
-<p>传统的独热表示（ one-hot representation）仅仅将词符号化，不包含任何语义信息。还存在以下问题：</p>
-<ul>
-<li>向量的维度会随着句子的词的数量类型增大而增大；</li>
-<li>任意两个词之间都是孤立的，根本无法表示出在语义层面上词语词之间的相关信息；</li>
-<li>one-hot表示的词向量是两两正交的，无法计算相似度；</li>
-</ul>
-<p>之前学到的向量化文本方法都是没有参考上下文意义的，词汇是孤立的，没有赋予相应的含义。可是，如何依据上下文语境赋予词汇向量呢？这里便引申出了一个概念：Word Embedding —— 词嵌入，它的意思是将word映射到一个新的空间中，以多维连续实数向量进行表示，也叫“Word Represention” 或 “Word Embedding”。</p>
-<h3 id="词的分布式表示distributed-representation"><a href="#词的分布式表示distributed-representation" class="headerlink" title="词的分布式表示distributed representation"></a>词的分布式表示distributed representation</h3><p>如何将语义融入到词表示中？Harris 在 1954 年提出的分布假说（distributional hypothesis）为这一设想提供了理论基础：上下文相似的词，其语义也相似。Firth 在 1957 年对分布假说进行了进一步阐述和明确：词的语义由其上下文决定（ a word is characterized by thecompany it keeps）。</p>
-<p>想象给有一堆“词汇”，现在需要按照这些词汇的意义、属性，放置到星空里。比如蛋糕跟奶油、烤箱比较近，而蛋糕和齿轮就会离得比较远。<br>这个坐标空间里，每颗星星拥有各自的向量（坐标）。由此，计算两颗星星意义上的相似性，或依据向量做聚类等操作便轻松多了。<br>假设: 蛋糕(1.13, 2.26, 0.8)，烤箱(1.15, 3.25, 1.2)，齿轮(2.3, -4.5, -3)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vector_cake = np.array([1.13, 2.26, 0.8])</span><br><span class="line">vector_cream = np.array([1.15, 3.25, 1.2])</span><br><span class="line">vector_gear = np.array([2.3, -4.5, -3])</span><br><span class="line"></span><br><span class="line">def cos_distance(vector1, vector2):</span><br><span class="line">	res = np.dot(vector1,vector2)/(np.linalg.norm(vector1)*(np.linalg.norm(vector2)))</span><br><span class="line">	return res</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; cos_distance(vector_cake, vector_cream)</span><br><span class="line">0.9927352512545224</span><br><span class="line">&gt;&gt;&gt; cos_distance(vector_cake, vector_gear)</span><br><span class="line">-0.6401324469580063</span><br></pre></td></tr></table></figure></p>
-<h2 id="Words-Embedding"><a href="#Words-Embedding" class="headerlink" title="Words Embedding"></a>Words Embedding</h2><p>自21世纪以来，人们逐渐从原始的词向量稀疏表示法过渡到现在的低维空间中的密集表示。用稀疏表示法在解决实际问题时经常会遇到维数灾难，并且语义信息无法表示，无法揭示word之间的潜在联系。而采用低维空间表示法，不但解决了维数灾难问题，并且挖掘了word之间的关联属性，从而提高了向量语义上的准确度。</p>
-<p>Word Embedding就是把独热编码而成的高维词向量输入到神经网络，在隐藏层变成一个只有低维词向量。该词向量的每个维度都有其意义（维度太多，人类无法解释），把上万维的词向量降维变成几十维的词向量的过程就叫做Word Embedding。<br>一般来讲word embedding和image embedding都是一个空间到另外一个空间的映射，但是他们其实有一些本质区别，image embedding往往是通过一些标签信息训练而来，比如ImageNet当中的几千个物体类别，可以理解为监督学习，而word embedding是通过没有标签信息的语料训练而成了，可以理解为非监督学习。</p>
-<p>基本概念：这是自然语言处理中的名词，是将词汇映射到实数向量的方法总称。<br>内在思想：词汇的意思，要根据上下文进行理解。<br>直观理解：在一段话中，每个单词是一个维度，而做了word embedding后，相当于降维。</p>
-<p>做word embedding的数学方法：<br>基于聚类的分布表示<br>基于神经网络的分布表示 神经网络 词嵌入（ word embedding）<br>基于矩阵的分布表示 词汇共生矩阵(word co-occurrence matrix)<br>随机模型<br>根据词汇的语境进行显示表达<br>尽管这些不同的分布表示方法使用了不同的技术手段获取词表示，但由于这些方法均基于分布假说，它们的核心思想也都由两部分组成：一、选择一种方式描述上下文；二、选择一种模型刻画某个词（下文称“目标词”）与其上下文之间的关系。</p>
-<h2 id="词的分布式表示"><a href="#词的分布式表示" class="headerlink" title="词的分布式表示"></a>词的分布式表示</h2><h4 id="基于矩阵的分布表示"><a href="#基于矩阵的分布表示" class="headerlink" title="基于矩阵的分布表示"></a>基于矩阵的分布表示</h4><p>基于矩阵的分布表示通常又称为分布语义模型，在这种表示下，矩阵中的一行，就成为了对应词的表示，这种表示描述了该词的上下文的分布。由于分布假说认为上下文相似的词，其语义也相似，因此在这种表示下，两个词的语义相似度可以直接转化为两个向量的空间距离。<br>常见到的Global Vector 模型（ GloVe模型）是一种对“词-词”矩阵进行分解从而得到词表示的方法，属于基于矩阵的分布表示。</p>
-<h4 id="基于聚类的分布表示"><a href="#基于聚类的分布表示" class="headerlink" title="基于聚类的分布表示"></a>基于聚类的分布表示</h4><p>pass</p>
-<h4 id="基于神经网络的分布表示-Words-Embedding"><a href="#基于神经网络的分布表示-Words-Embedding" class="headerlink" title="基于神经网络的分布表示(Words Embedding)"></a>基于神经网络的分布表示(Words Embedding)</h4><p>基于神经网络的分布表示一般称为词向量、词嵌入（ word embedding）或分布式表示（ distributed representation）。这正是我们的主角today。<br>神经网络词向量表示技术通过神经网络技术对上下文，以及上下文与目标词之间的关系进行建模。由于神经网络较为灵活，这类方法的最大优势在于可以表示复杂的上下文。在前面基于矩阵的分布表示方法中，最常用的上下文是词。如果使用包含词序信息的 n-gram 作为上下文，当 n 增加时， n-gram 的总数会呈指数级增长，此时会遇到维数灾难问题。而神经网络在表示 n-gram 时，可以通过一些组合方式对 n 个词进行组合，参数个数仅以线性速度增长。有了这一优势，神经网络模型可以对更复杂的上下文进行建模，在词向量中包含更丰富的语义信息。</p>
-<p>神经网络语言模型的类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a) Neural Network Language Model ，NNLM</span><br><span class="line">b) Log-Bilinear Language Model， LBL</span><br><span class="line">c) Recurrent Neural Network based Language Model，RNNLM</span><br><span class="line">d) Collobert 和 Weston 在2008 年提出的 C&amp;W 模型</span><br><span class="line">e) Mikolov 等人提出了 CBOW（ Continuous Bagof-Words）和 Skip-gram 模型</span><br></pre></td></tr></table></figure></p>
-<p>上面提到的5个神经网络语言模型，只是逻辑概念上的东西，具体得通过设计将其实现出来，而实现CBOW（ Continuous Bagof-Words）和 Skip-gram 语言模型的工具正是well-known word2vec！另外，C&amp;W 模型的实现工具是SENNA。</p>
-<h3 id="word2vec与CBOW、Skip-gram"><a href="#word2vec与CBOW、Skip-gram" class="headerlink" title="word2vec与CBOW、Skip-gram"></a>word2vec与CBOW、Skip-gram</h3><p>word2vec的详细实现，简而言之，就是一个三层的神经网络。<br>输入是One-Hot Vector，Hidden Layer没有激活函数，也就是线性的单元。Output Layer维度跟Input Layer的维度一样，用的是Softmax回归。要获取的dense vector其实就是Hidden Layer的输出单元。<a href="https://blog.csdn.net/u010159842/article/details/80532507" target="_blank" rel="noopener">https://blog.csdn.net/u010159842/article/details/80532507</a><br>Word2vec其实是语言模型训练的一个副产品，传统的统计词向量模型使用单词在特定上下文中出现的概率表征这个句子是自然语言的概率:p(sentence) = p(word|context)。上下文context是指单词前面的特定的单词。N-gram模型又称为n元组模型, 所谓n元组是单词和它的上下文(即它前面的n-1个单词)组成的词组。</p>
-<p>其实，Word2vec的训练过程可以看做是通过神经网络机器学习算法来训练N-gram 语言模型，并在训练过程中求出word所对应的vector的方法。根据语言模型的不同，又可分为“CBOW”和“Skip-gram”两种模型。而根据两种降低训练复杂度的方法又可分为“Hierarchical Softmax”和“Negative Sampling”。两种模式和两种方法进行组合，所以实际上是有四种实现。(作者：mpk_no1 来源：CSDN 原文：<a href="https://blog.csdn.net/mpk_no1/article/details/72458003" target="_blank" rel="noopener">https://blog.csdn.net/mpk_no1/article/details/72458003</a>)</p>
-<h4 id="Continous-Bag-of-Words-Model-CBOW"><a href="#Continous-Bag-of-Words-Model-CBOW" class="headerlink" title="Continous Bag of Words Model(CBOW)"></a>Continous Bag of Words Model(CBOW)</h4><p>核心思想是根据上下文来预测中心词。<br>point: 进入softmax之前求平均，因为是多个1输入</p>
-<h4 id="skip-gram"><a href="#skip-gram" class="headerlink" title="skip-gram"></a>skip-gram</h4><p>skip-gram： 核心思想是根据中心词来预测周围的词。假设中心词是cat，窗口长度为2，则根据cat预测左边两个词和右边两个词。这时，cat作为神经网络的input，预测的词作为label。</p>
-<h4 id="计算中的优化"><a href="#计算中的优化" class="headerlink" title="计算中的优化"></a>计算中的优化</h4><p>N-gram模型的一个问题在于计算量过大, 计算一次条件概率就要扫描一遍语料库, 使得可以实际应用的深度(N值)一般为2或3。这个问题可以采用拟合的方法来解决即预测法。神经网络模型即计算部分概率值用于训练神经网络, 然后使用神经网络预测其它概率值。<br>词库数x向量维度参数巨大，词库数作为分类数计算量也很大（比如10000个的多分类）。计算优化方法：</p>
-<ul>
-<li>基于huffman编码的hierarchical softmax</li>
-<li>negative sample：小数据集5-20个负采样，大数据集2-5个负采样（不包括正样本）。<br>选择标准：词频。其中，$ f(\omega_i) $指的是词频，词频越大，选择几率越大。公式：<script type="math/tex; mode=display">P(\omega_i) = \frac{f(\omega_i)^{(3/4)}}{f(\sum_{j=0}^{n}\omega_j)^{(3/4)}}</script></li>
-</ul>
-<p><a href="https://blog.csdn.net/mpk_no1/article/details/72458003" target="_blank" rel="noopener">https://blog.csdn.net/mpk_no1/article/details/72458003</a><br><a href="https://blog.csdn.net/u010159842/article/details/80532507" target="_blank" rel="noopener">https://blog.csdn.net/u010159842/article/details/80532507</a><br><a href="https://www.jianshu.com/p/c4389873ba3b" target="_blank" rel="noopener">https://www.jianshu.com/p/c4389873ba3b</a><br><a href="https://blog.csdn.net/qq_16633405/article/details/80480300" target="_blank" rel="noopener">https://blog.csdn.net/qq_16633405/article/details/80480300</a><br><a href="https://www.cnblogs.com/guoyaohua/p/9240336.html" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/9240336.html</a><br><a href="https://www.jianshu.com/p/ce630c198762" target="_blank" rel="noopener">https://www.jianshu.com/p/ce630c198762</a><br><a href="https://blog.csdn.net/bitcarmanlee/article/details/82320853" target="_blank" rel="noopener">https://blog.csdn.net/bitcarmanlee/article/details/82320853</a><br><a href="https://zhuanlan.zhihu.com/p/53058456" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/53058456</a><br><a href="https://zhuanlan.zhihu.com/p/27830489" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27830489</a><br><a href="http://yangminz.coding.me/blog/post/MinkolovRNNLM/MinkolovRNNLM_thesis.html" target="_blank" rel="noopener">http://yangminz.coding.me/blog/post/MinkolovRNNLM/MinkolovRNNLM_thesis.html</a><br><a href="https://blog.csdn.net/u011734144/article/details/78668518" target="_blank" rel="noopener">https://blog.csdn.net/u011734144/article/details/78668518</a><br><a href="https://zhuanlan.zhihu.com/p/50285707" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/50285707</a><br><a href="https://zhuanlan.zhihu.com/p/26306795" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26306795</a><br><a href="https://www.jianshu.com/p/471d9bfbd72f" target="_blank" rel="noopener">https://www.jianshu.com/p/471d9bfbd72f</a></p>
-<p>待了解：spacy<br><a href="https://mp.weixin.qq.com/s/8XDXgIm-Zcb3dL-2h9eSjA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/8XDXgIm-Zcb3dL-2h9eSjA</a><br><a href="http://www.52nlp.cn/自然语言处理工具包spacy介绍" target="_blank" rel="noopener">http://www.52nlp.cn/自然语言处理工具包spacy介绍</a><br><a href="https://www.jianshu.com/p/b779f8219f74" target="_blank" rel="noopener">https://www.jianshu.com/p/b779f8219f74</a><br>写得比较清晰</p>
+            <p>看coursera的machine learning，讲到神经网络时，对于用异或问题引入有点懵。这下看到了学术上的来源。<br>两层神经网络是本文的重点，因为正是在这时候，神经网络开始了大范围的推广与使用。<br>Minsky说过单层神经网络无法解决异或问题。但是当增加一个计算层以后，两层神经网络不仅可以解决异或问题，而且具有非常好的非线性分类效果。不过两层神经网络的计算是一个问题，没有一个较好的解法。<br>1986年，Rumelhar和Hinton等人提出了反向传播（Backpropagation，BP）算法，解决了两层神经网络所需要的复杂计算量问题，从而带动了业界使用两层神经网络研究的热潮。目前，大量的教授神经网络的教材，都是重点介绍两层（带一个隐藏层）神经网络的内容。<br>这时候的Hinton还很年轻，30年以后，正是他重新定义了神经网络，带来了神经网络复苏的又一春。</p>
+<h3 id="激活函数-响应曲线："><a href="#激活函数-响应曲线：" class="headerlink" title="激活函数, 响应曲线："></a>激活函数, 响应曲线：</h3><p><a href="https://www.jianshu.com/p/8b1ba50ddc3b" target="_blank" rel="noopener">https://www.jianshu.com/p/8b1ba50ddc3b</a></p>
+<h4 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h4><p>$ \delta $</p>
+<script type="math/tex; mode=display">g(z) = \frac{1}{1+e^{-z}}</script><script type="math/tex; mode=display">g'(z) = \frac{e^{-z}}{({1+e^{-z}})^2} = g(z)(1-g(z))</script><p>Z极大或极小时，g’(z)接近于0，即导到权重$\omega$的梯度接近于0，这时梯度更新慢，会出现梯度消失。<br>求导：<a href="https://www.jianshu.com/p/d4301dc529d9" target="_blank" rel="noopener">https://www.jianshu.com/p/d4301dc529d9</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#activation function </span><br><span class="line">def sigmoid(z, derivative=False):    </span><br><span class="line">	sigmoid = 1.0/(1.0+np.exp(-z))    </span><br><span class="line">	if (derivative==True):        </span><br><span class="line">		return sigmoid * (1-sigmoid)    </span><br><span class="line">	return sigmoid</span><br></pre></td></tr></table></figure></p>
+<h4 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h4><script type="math/tex; mode=display">g(z) = \frac{e^{-z}-e^{-z}}{e^{-z}+e^{-z}}</script><script type="math/tex; mode=display">g'(z) = \frac{4}{(e^{z}+e^{-z})^2} = 1-g(z)^2</script><p>tanh的均值为0</p>
+<h4 id="ReLu"><a href="#ReLu" class="headerlink" title="ReLu"></a>ReLu</h4><p>解决了梯度消失的问题<br>特性</p>
+<p>梯度消失的情况，就是当数值接近于正向∞，求导之后就更小的，约等于0，偏导为0<br>梯度爆炸，数值无限大</p>
+<p>对于梯度消失现象：激活函数<br>Sigmoid会发生梯度消失的情况，所以激活函数一般不用，收敛不了了。Tanh(x)，没解决梯度消失的问题。<br>ReLu Max(0,x)，比较好，代表Max门单元，解决了梯度消失的问题，而且起到了降维</p>
+<p>权重初始化，可以随机也可以一开始设置一定的图形分布，用高斯初始化。</p>
+<h3 id="输出层有哪些"><a href="#输出层有哪些" class="headerlink" title="输出层有哪些"></a>输出层有哪些</h3><h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>把x通过网络前向传播，然后把误差反向传播以决定如何更新参数让网络进行学习<br><a href="https://www.jianshu.com/p/498f7bf488a2" target="_blank" rel="noopener">https://www.jianshu.com/p/498f7bf488a2</a><br><a href="https://www.bilibili.com/video/av21187270" target="_blank" rel="noopener">https://www.bilibili.com/video/av21187270</a><br><a href="https://www.jianshu.com/p/964345dddb70" target="_blank" rel="noopener">https://www.jianshu.com/p/964345dddb70</a><br>详细推导<br><a href="https://github.com/edvardHua/Articles/blob/master/神经网络中%20BP%20算法的原理与%20Python%20实现源码解析/BP%20算法原理和详细推导流程.pdf" target="_blank" rel="noopener">https://github.com/edvardHua/Articles/blob/master/神经网络中%20BP%20算法的原理与%20Python%20实现源码解析/BP%20算法原理和详细推导流程.pdf</a></p>
+<h3 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h3><h3 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h3><p>解决了梯度消失与加速收敛(数据本身在0均值处)和internal covariate shift(内部神经元分布的改变) 数据分布不一致问题。<br>机器学习领域有个很重要的假设：IID独立同分布假设，就是假设训练数据和测试数据是满足相同分布的，这是通过训练数据获得的模型能够在测试集获得好的效果的一个基本保障。那BatchNorm的作用是什么呢？BatchNorm就是在深度神经网络训练过程中使得每一层神经网络的输入保持相同分布的。<br>统计机器学习中的一个经典假设是“源空间（source domain）和目标空间（target domain）的数据分布（distribution）是一致的”。如果不一致，那么就出现了新的机器学习问题，如，transfer learning/domain adaptation等。<br><a href="https://www.cnblogs.com/pigbreeder/p/8051442.html" target="_blank" rel="noopener">https://www.cnblogs.com/pigbreeder/p/8051442.html</a><br>训练vs测试，分布一样。 提出了Internal Covariate Shift。idea来自于图像处理的白化操作，对data分布变换到0均值、单位方差的正态分布。<br>BM对每个神经元做白化，使activation值的导数原理导数饱和区域，加速训练收敛。变换后某个神经元的激活x形成了均值为0，方差为1的正态分布，目的是把值往后续要进行的非线性变换的线性区拉动，增大导数值，增强反向传播信息流动性，加快训练收敛速度。<br>但这样会导致网络表达能力下降，所以加入scale shift操作。</p>
+<p>BN（Batch Normalization）层的作用<br>加速收敛<br>控制过拟合，可以少用或不用Dropout和正则<br>降低网络对初始化权重敏感<br>允许使用较大的学习率<br>在每一层输入的时候，加个BN预处理操作。BN应作用在非线性映射前，即对x=Wu+b做规范化。在BN中，是通过将activation规范为均值和方差一致的手段使得原本会减小的activation的scale变大。可以说是一种更有效的local response normalization方法<br>PS：<br>Batch Norm会忽略图像像素（或者特征）之间的绝对差异（因为均值归零，方差归一），而只考虑相对差异，所以在不需要绝对差异的任务中（比如分类），有锦上添花的效果。而对于图像超分辨率这种需要利用绝对差异的任务，Batch Norm只会添乱。</p>
+<h3 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h3><p>在上面全连阶层输出的基础上再加上一个dropout来增加模型的泛化能力，防止过拟合，此处选择0.8的保留率。<br>注意dropout有个缺点是训练时间是没有dropout网络的2-3倍。<br>关于dropout其实就是在内部对每个神经元进行抛硬币选择抛弃或者屏蔽，实际所谓抛硬币就是生成一个和输入相同大小的0,1矩阵，然后让矩阵每个元素分别乘以输入矩阵每个元素，固然0会让神经元屏蔽，系数为1的神经元保留，然后让保留下来的神经元的值再除以keep_prob也即给定的保留概率，让他的值给放大。此做法主要原因是为了让输出结果期望不变。<br>Dropout可以看做是一种模型平均，把来自不同模型的估计或者预测通过一定的权重平均起来，在一些文献中也称为模型组合，它一般包括组合估计和组合预测。而所谓的不同模型，是由于每批次的训练锁忽略的神经元不同，所以得到的模型也不同。</p>
+<h3 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h3><p><a href="https://blog.csdn.net/cluster1893/article/details/80983987#第二周-神经网络基础" target="_blank" rel="noopener">https://blog.csdn.net/cluster1893/article/details/80983987#第二周-神经网络基础</a><br>如果不对参数w进行随机初始化，比如全部设置为0，那么，可以证明，所有隐藏层单元都在计算相同的函数，呈对称状态，没有意义。<br>所以需要对w随机初始化。 </p>
+<p>参考网站<br>Machine Learning for Beginners: An Introduction to Neural Networks<br><a href="https://victorzhou.com/blog/intro-to-neural-networks/" target="_blank" rel="noopener">https://victorzhou.com/blog/intro-to-neural-networks/</a><br>很漂亮的可视化神经网络体验工具：<br><a href="https://playground.tensorflow.org/#activation=relu&amp;regularization=L2&amp;batchSize=10&amp;dataset=spiral&amp;regDataset=reg-plane&amp;learningRate=0.03&amp;regularizationRate=0.003&amp;noise=0&amp;networkShape=5,4,2&amp;seed=0.34008&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=true&amp;xSquared=true&amp;ySquared=true&amp;cosX=false&amp;sinX=true&amp;cosY=false&amp;sinY=true&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false&amp;percTrainData_hide=false" target="_blank" rel="noopener">https://playground.tensorflow.org/#activation=relu&amp;regularization=L2&amp;batchSize=10&amp;dataset=spiral&amp;regDataset=reg-plane&amp;learningRate=0.03&amp;regularizationRate=0.003&amp;noise=0&amp;networkShape=5,4,2&amp;seed=0.34008&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=true&amp;xSquared=true&amp;ySquared=true&amp;cosX=false&amp;sinX=true&amp;cosY=false&amp;sinY=true&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false&amp;percTrainData_hide=false</a></p>
 
           
         
@@ -433,7 +427,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/02/NLP学习笔记-Radiohead和弦走向/">
+    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/06/08/机器学习笔记-反向传播/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="li zeng">
@@ -452,7 +446,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/NLP学习笔记-Radiohead和弦走向/" itemprop="url">NLP学习笔记-Radiohead和弦走向</a></h1>
+                <a class="post-title-link" href="/2019/06/08/机器学习笔记-反向传播/" itemprop="url">机器学习笔记-反向传播</a></h1>
         
 
         <div class="post-meta">
@@ -464,8 +458,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T01:38:52+08:00">
-                2019-07-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-08T14:22:27+08:00">
+                2019-06-08
               </time>
             
 
@@ -483,8 +477,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/02/NLP学习笔记-Radiohead和弦走向/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/02/NLP学习笔记-Radiohead和弦走向/" itemprop="commentCount"></span>
+                <a href="/2019/06/08/机器学习笔记-反向传播/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/08/机器学习笔记-反向传播/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -533,191 +527,8 @@
       
         
           
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-        
-    
-        
-            
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/01/NLP学习笔记 - Gensim文本相似度计算/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="li zeng">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="space">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/01/NLP学习笔记 - Gensim文本相似度计算/" itemprop="url">NLP学习笔记 - 使用Gensim, jieba进行文本相似度计算</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-01T17:08:01+08:00">
-                2019-07-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/07/01/NLP学习笔记 - Gensim文本相似度计算/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/01/NLP学习笔记 - Gensim文本相似度计算/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28226046&auto=1&height=66"></iframe>
-
-<h2 id="理论知识"><a href="#理论知识" class="headerlink" title="理论知识"></a>理论知识</h2><p>语料（Corpus）：一组原始文本的集合，用于无监督地训练文本主题的隐层结构。语料中不需要人工标注的附加信息。在Gensim中，Corpus通常是一个可迭代的对象（比如列表）。每一次迭代返回一个可用于表达文本对象的稀疏向量。<br>向量（Vector）：由一组文本特征构成的列表。是一段文本在Gensim中的内部表达。<br>稀疏向量（SparseVector）：通常，我们可以略去向量中多余的0元素。此时，向量中的每一个元素是一个(key, value)的元组<br>模型（Model）：是一个抽象的术语。定义了两个向量空间的变换（即从文本的一种向量表达变换为另一种向量表达）。<br>相似度为数学概念。要对两篇中文文本进行似度计算，自然语言无法完成，需要把文本转化为向量。相似度计算有欧式距离、皮尔逊相关系数、余弦相似度等。</p>
-<h3 id="语料预处理"><a href="#语料预处理" class="headerlink" title="语料预处理"></a>语料预处理</h3><p>由于Gensim使用python语言开发的，为了减少安装中的繁琐，直接使用anaconda工具进行集中安装，<br>输入：pip3 install gensim<br>训练语料的预处理指的是将文档中原始的字符文本转换成Gensim模型所能理解的稀疏向量的过程。<br>通常，我们要处理的原生语料是一堆文档的集合，每一篇文档又是一些原生字符的集合。在交给Gensim的模型训练之前，我们需要将这些原生字符解析成Gensim能处理的稀疏向量的格式。由于语言和应用的多样性，我们需要先对原始的文本进行分词、去除停用词等操作，得到每一篇文档的特征列表。</p>
-<h3 id="文本向量化"><a href="#文本向量化" class="headerlink" title="文本向量化"></a>文本向量化</h3><p>向量化文本最简单的方法有<strong>词袋模型</strong>。可以把文本想象成一个袋子，袋子里的球便是词汇，这里不考虑先后顺序以及语义。例如下面两个句子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">John likes to watch movies. Mary likes too. </span><br><span class="line">John also likes to watch football games.</span><br></pre></td></tr></table></figure></p>
-<p>以这两个句子可以构建一个词典，key为文本中出现过的词，value为这个词的索引序号：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;“John”: 1, “likes”: 2,”to”: 3, “watch”: 4, “movies”: 5,”also”: 6, “football”: 7, “games”: 8,”Mary”: 9, “too”: 10&#125;</span><br></pre></td></tr></table></figure></p>
-<pre><code>两个句子用词袋模型分别表示成向量为：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 1, 1, 1, 0, 0, 0, 1, 1] </span><br><span class="line">[1, 1, 1, 1, 0, 1, 1, 1, 0, 0]</span><br></pre></td></tr></table></figure>
-<p>相对于英文，中文由于涉及到分词，会更复杂一些。准确地分词是所有中文文本分析的基础，本文使用结巴分词，完全开源而且分词准确率相对有保障。</p>
-<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><ul>
-<li>TF-IDF （这里不是减号）是一种统计方法，用以评估一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。<br>字词的重要性随着它在文件中出现的次数成正比增加，但同时会随着它在语料库中出现的频率成反比下降。TF-IDF加权的各种形式常被搜索引擎应用，作为文件与用户查询之间相关程度的度量或评级。 一个词预测主题能力越强，权重就越大，反之，权重就越小。我们在网页中看到“原子能”这个词，或多或少地能了解网页的主题。我们看到“应用”一次，对主题基本上还是一无所知。因此，“原子能“的权重就应该比应用大。 应删除词的权重应该是零。</li>
-<li>LSI</li>
-<li>LDA 一种文档主题生成模型，包含词、主题和文档三层结构。所谓生成模型，就是说，我们认为一篇文章的每个词都是通过“以一定概率选择了某个主题，并从这个主题中以一定概率选择某个词语”这样一个过程得到。文档到主题服从多项式分布，主题到词服从多项式分布。LDA是一种非监督机器学习技术，可以用来识别大规模文档集或语料库中潜藏的主题信息。它采用了词袋的方法，这种方法将每一篇文档视为一个词频向量，从而将文本信息转化为了易于建模的数字信息。但是词袋方法没有考虑词与词之间的顺序，这简化了问题的复杂性，同时也为模型的改进提供了契机。每一篇文档代表了一些主题所构成的一个概率分布，而每一个主题又代表了很多单词所构成的一个概率分布。</li>
-</ul>
-<h2 id="Python实现Demo"><a href="#Python实现Demo" class="headerlink" title="Python实现Demo"></a>Python实现Demo</h2><p>步骤:</p>
-<ul>
-<li><strong>文本预处理：Jieba进行中文分词、去停用词；</strong></li>
-<li><strong>向量化文本：词袋模型</strong></li>
-<li><strong>向量化文本：TF-IDF模型</strong></li>
-<li><strong>向量化文本：LSI模型</strong></li>
-<li><strong>进行相似度计算</strong></li>
-</ul>
-<h3 id="文本预处理"><a href="#文本预处理" class="headerlink" title="文本预处理"></a><strong>文本预处理</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#中文分词使用了结巴分词（jieba）。词袋模型、TF-IDF、LSI模型实现使用的Gensim库。</span><br><span class="line">import jieba.posseg as pseg</span><br><span class="line">import codecs</span><br><span class="line">from gensim import corpora, models, similarities</span><br><span class="line"></span><br><span class="line">#停用词可以使用中科院、哈工大整理版本</span><br><span class="line">stop_words = &apos;stop_words.txt&apos;</span><br><span class="line">stopwords = codecs.open(stop_words,&apos;r&apos;,encoding=&apos;utf8&apos;).readlines()</span><br><span class="line">stopwords = [w.strip() for w in stopwords]</span><br><span class="line"></span><br><span class="line">#结巴分词后的停用词性 [标点符号、连词、助词、副词、介词、时语素、‘的’、数词、方位词、代词]</span><br><span class="line">stop_flag = [&apos;x&apos;, &apos;c&apos;, &apos;u&apos;,&apos;d&apos;, &apos;p&apos;, &apos;t&apos;, &apos;uj&apos;, &apos;m&apos;, &apos;f&apos;, &apos;r&apos;]</span><br><span class="line"></span><br><span class="line">#def一个tokenization函数，对传入的文章进行分词、去停用词处理。</span><br><span class="line">def tokenization(filename):</span><br><span class="line">    result = []</span><br><span class="line">    with open(filename, &apos;r&apos;) as f:</span><br><span class="line">        text = f.read()</span><br><span class="line">        words = pseg.cut(text)</span><br><span class="line">    for word, flag in words:</span><br><span class="line">        if flag not in stop_flag and word not in stopwords:</span><br><span class="line">            result.append(word)</span><br><span class="line">    return result</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#这里选取三篇文章，前两篇主题为高血压相关，第三篇主题是韩国明星，注意设置txt文件路径。</span><br><span class="line">filenames = [&apos;高血压的13件小事.txt&apos;, </span><br><span class="line">             &apos;高血压患者多喝脱脂牛奶.txt&apos;,</span><br><span class="line">             &apos;ios.txt&apos;</span><br><span class="line">            ]</span><br><span class="line"></span><br><span class="line">#读取三篇文章，作为corpus语料库</span><br><span class="line">corpus = []</span><br><span class="line">for each in filenames:</span><br><span class="line">    corpus.append(tokenization(each))</span><br><span class="line">print(len(corpus))</span><br></pre></td></tr></table></figure>
-<h3 id="建立词袋模型"><a href="#建立词袋模型" class="headerlink" title="建立词袋模型"></a><strong>建立词袋模型</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dictionary = corpora.Dictionary(corpus)</span><br><span class="line">print dictionary</span><br><span class="line"></span><br><span class="line">doc_vectors = [dictionary.doc2bow(text) for text in corpus]</span><br><span class="line">print len(doc_vectors)</span><br><span class="line">print doc_vectors</span><br></pre></td></tr></table></figure>
-<h3 id="建立TF-IDF模型"><a href="#建立TF-IDF模型" class="headerlink" title="建立TF-IDF模型"></a><strong>建立TF-IDF模型</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tfidf = models.TfidfModel(doc_vectors)</span><br><span class="line">tfidf_vectors = tfidf[doc_vectors]</span><br><span class="line">print(len(tfidf_vectors))</span><br><span class="line">print(len(tfidf_vectors[0]))</span><br></pre></td></tr></table></figure>
-<p>构建一个新文本，也是高血压主题，目的是利用刚刚的词袋模型字典，将新文本映射到字典的向量空间，以进行下一步的相似度计算。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">query = tokenization(&apos;关于降压药的五个问题.txt&apos;)</span><br><span class="line">query_bow = dictionary.doc2bow(query)</span><br><span class="line">print(len(query_bow))</span><br><span class="line">print(query_bow)</span><br></pre></td></tr></table></figure></p>
-<p>构建相似度矩阵，并进行新文本向量query_bow与该矩阵的相似度计算。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">index = similarities.MatrixSimilarity(tfidf_vectors)</span><br><span class="line">sims = index[query_bow]</span><br><span class="line">print(list(enumerate(sims)))</span><br><span class="line">[(0, 0.37067956), (1, 0.28022555), (2, 0.028878568)]</span><br></pre></td></tr></table></figure></p>
-<p>TF-IDF模型计算相似度，相对于前两篇高血压主题的文本，韩国明星主题文本与query的相似度很低，可见TF-IDF模型是有效的。但在语料较少的情况下，与同是高血压主题的文本相似度也不高。</p>
-<h3 id="构建LSI模型"><a href="#构建LSI模型" class="headerlink" title="构建LSI模型"></a><strong>构建LSI模型</strong></h3><p>于是我们再次构建构建LSI模型，将主题数目设置为2（理论上这两个主题应该分别为高血压和韩星）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lsi = models.LsiModel(tfidf_vectors, id2word=dictionary, num_topics=2)</span><br><span class="line">lsi.print_topics(2)</span><br><span class="line">[(0,</span><br><span class="line">  &apos;0.306*&quot;高血压&quot; + 0.293*&quot;血压&quot; + 0.177*&quot;作用&quot; + 0.162*&quot;患者&quot; + 0.151*&quot;血压计&quot; + 0.151*&quot;建议&quot; + 0.142*&quot;低&quot; + 0.126*&quot;导致&quot; + 0.126*&quot;睡眠&quot; + 0.126*&quot;压力&quot;&apos;),</span><br><span class="line"> (1,</span><br><span class="line">  &apos;0.600*&quot;韩国&quot; + 0.360*&quot;文化&quot; + 0.288*&quot;中国&quot; + 0.252*&quot;韩流&quot; + 0.216*&quot;文化产业&quot; + 0.156*&quot;市场&quot; + 0.156*&quot;金辰&quot; + 0.156*&quot;坤&quot; + 0.144*&quot;院长&quot; + 0.108*&quot;电影&quot;&apos;)]</span><br></pre></td></tr></table></figure></p>
-<p>将前三篇文本向量在训练好的LSI向量空间里映射获得新的文本向量，LSI中所有文本向量都是二维的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lsi_vector = lsi[tfidf_vectors]</span><br><span class="line">for vec in lsi_vector:</span><br><span class="line">    print(vec)</span><br><span class="line"></span><br><span class="line">[(0, 0.7592023578111887), (1, -0.010315357144806362)]</span><br><span class="line">[(0, 0.7587740355806875), (1, -0.0351427239349397)]</span><br><span class="line">[(0, 0.03452191528395507), (1, 0.9992733498030333)]</span><br></pre></td></tr></table></figure></p>
-<p>再获得待检索query的LSI文本向量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">query = tokenization(&apos;关于降压药的五个问题.txt&apos;)</span><br><span class="line">query_bow = dictionary.doc2bow(query)</span><br><span class="line">print(query_bow)</span><br><span class="line">query_lsi = lsi[query_bow]</span><br><span class="line">print(query_lsi)</span><br><span class="line"></span><br><span class="line">[(0, 9.835032153227294), (1, 0.347993793006791)]</span><br></pre></td></tr></table></figure></p>
-<h3 id="进行相似度计算"><a href="#进行相似度计算" class="headerlink" title="进行相似度计算"></a><strong>进行相似度计算</strong></h3><p>将query的LSI向量分别与前三篇文本的LSI向量进行相似度(cosine)计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index = similarities.MatrixSimilarity(lsi_vector)</span><br><span class="line">sims = index[query_lsi]</span><br><span class="line">print(list(enumerate(sims)))</span><br><span class="line"></span><br><span class="line">[(0, 0.99971396), (1, 0.99625134), (2, 0.060286518)]</span><br></pre></td></tr></table></figure></p>
-<p>可以看到LSI的效果很好，一个高血压主题的文本与前两个训练文本的相似性很高，而与韩星主题的第三篇训练文本相似度很低.</p>
-<p>参考整理：<br><a href="https://blog.csdn.net/github_39281554/article/details/73656266" target="_blank" rel="noopener">https://blog.csdn.net/github_39281554/article/details/73656266</a><br><a href="http://www.52nlp.cn/category/推荐系统" target="_blank" rel="noopener">http://www.52nlp.cn/category/推荐系统</a><br><a href="https://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/gensim%20Quick%20Start.ipynb" target="_blank" rel="noopener">https://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/gensim%20Quick%20Start.ipynb</a></p>
+            <p>目的：优化权重矩阵<br>反向传播的目的：更新参数w。因此要先算出dJ/dw。<br>but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。<br>误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。</p>
+<p>$ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}log(a^{(i)})-(1-y^{(i)})log(1-a^{(i)})) $</p>
 
           
         
@@ -752,8 +563,6 @@
   </article>
 
 
-        
-    
         
     
         
@@ -763,7 +572,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
 
 
@@ -811,7 +620,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

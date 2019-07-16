@@ -79,17 +79,14 @@
 
 
 
-<meta name="description" content="目的：优化权重矩阵反向传播的目的：更新参数w。因此要先算出dJ/dw。but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m">
-<meta property="og:type" content="article">
-<meta property="og:title" content="机器学习笔记-反向传播">
-<meta property="og:url" content="http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="music">
+<meta property="og:url" content="http://lizzeng.com/music/index.html">
 <meta property="og:site_name" content="space">
-<meta property="og:description" content="目的：优化权重矩阵反向传播的目的：更新参数w。因此要先算出dJ/dw。but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-16T03:10:38.760Z">
+<meta property="og:updated_time" content="2019-07-16T05:06:11.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习笔记-反向传播">
-<meta name="twitter:description" content="目的：优化权重矩阵反向传播的目的：更新参数w。因此要先算出dJ/dw。but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。 $ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m">
+<meta name="twitter:title" content="music">
 
 
 
@@ -119,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/">
+  <link rel="canonical" href="http://lizzeng.com/music/">
 
 
 
@@ -127,7 +124,7 @@
 
 
 
-  <title>机器学习笔记-反向传播 | space</title>
+  <title>music | space</title>
   
 
 
@@ -192,8 +189,18 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-学习">
-          <a href="/book" rel="section">
+          <a href="/read/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -203,7 +210,7 @@
       
         
         <li class="menu-item menu-item-照片">
-          <a href="/photo" rel="section">
+          <a href="/photo/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -213,7 +220,7 @@
       
         
         <li class="menu-item menu-item-音乐">
-          <a href="/music" rel="section">
+          <a href="/music/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-caret-down"></i> <br>
             
@@ -242,172 +249,33 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="li zeng">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://s2.ax1x.com/2019/06/29/ZQhvH1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="space">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">机器学习笔记-反向传播</h1>
-        
+	<h1 class="post-title" itemprop="name headline">music</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-08T14:22:27+08:00">
-                2019-07-08
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/07/08/机器学习笔记-反向传播/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/08/机器学习笔记-反向传播/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <p>目的：优化权重矩阵<br>反向传播的目的：更新参数w。因此要先算出dJ/dw。<br>but：不能直接用梯度下降，对于多层的神经网络，输出层可以直接求出误差更新参数，但其中隐层的误差不存在。所以需要先将输出层误差反向传播到隐层，然后再梯度下降。<br>误差从末层往前传递的过程需要链式法则的帮助。可以说反向传播是梯度下降在链式法则中的实现。</p>
-<p>$ J(\omega, b) =  \frac{1}{m}\sum_{i=1}^m(-y^{(i)}log(a^{(i)})-(1-y^{(i)})log(1-a^{(i)})) $</p>
-
+      <div class="post-body">
+        
+        
+          
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/07/07/Python-datacleaning/" rel="next" title="Python - Data Cleaning">
-                <i class="fa fa-chevron-left"></i> Python - Data Cleaning
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/09/机器学习笔记-XGboost/" rel="prev" title="机器学习笔记-XGboost">
-                机器学习笔记-XGboost <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
@@ -468,7 +336,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -697,9 +565,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lizzeng.com/2019/07/08/机器学习笔记-反向传播/';
-          this.page.identifier = '2019/07/08/机器学习笔记-反向传播/';
-          this.page.title = '机器学习笔记-反向传播';
+          this.page.url = 'http://lizzeng.com/music/index.html';
+          this.page.identifier = 'music/index.html';
+          this.page.title = 'music';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lizeng.disqus.com/embed.js';
@@ -750,26 +618,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
